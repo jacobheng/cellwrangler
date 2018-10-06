@@ -17,6 +17,9 @@ Defaults to TRUE}
 
 \item{sort}{logical; if TRUE, result will be sorted by columns. Defaults to FALSE}
 }
+\value{
+A merged dataframe or matrix with the appropriate rownames
+}
 \description{
 This is a wrapper function based on the base R merge function for merging 
 two dataframes or matrices by their rownames and returing a dataframe or matrix with the appropriate rownames.

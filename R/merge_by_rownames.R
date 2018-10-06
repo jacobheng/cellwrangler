@@ -12,6 +12,7 @@
 #' @param sort logical; if TRUE, result will be sorted by columns. Defaults to FALSE
 #' @keywords merge.by.rownames
 #' @export
+#' @return A merged dataframe or matrix with the appropriate rownames
 #' @examples
 #' merge_by_rownames(data.frame1, data.frame2)
 
