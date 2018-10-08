@@ -29,19 +29,19 @@ plot_gene_exprs <- function (cds, genes, projection, color_scale=c("grey","red")
                              rescale=F, cell_size = 0.1,  group_vector= NULL, group_facet=NULL, 
                                   title = NULL) 
 {
-  gbm_trunc <- trunc_gbm_by_genes(gbm, gene_probes)
-  gene_values <- t(as.matrix(exprs(gbm_trunc)))
-  colnames(gene_values) <- gene_probes
+  cds_subset <- cds[cellwrangler::findGeneID(genes,cds),]
+  exprs_values <- t(as.matrix(exprs(cds_subset)))
+  colnames(exprs_values) <- genes
   projection_names <- colnames(projection)
   colnames(projection) <- c("Component.1", "Component.2")
   if(is.null(group_vector) == F) {
     group_vector <- as.data.frame(group_vector)
     colnames(group_vector) <- c("group")
-    proj_gene <- data.frame(cbind(projection, group_vector, gene_values))
+    proj_gene <- data.frame(cbind(projection, group_vector, exprs_values))
     proj_gene_melt <- melt(proj_gene, id.vars = c("Component.1", "Component.2","group"))
     print(head(proj_gene_melt))
   } else {
-    proj_gene <- data.frame(cbind(projection, gene_values))
+    proj_gene <- data.frame(cbind(projection, exprs_values))
     proj_gene_melt <- melt(proj_gene, id.vars = c("Component.1", "Component.2"))
     print(head(proj_gene_melt))
   }

@@ -11,7 +11,7 @@
 
 
 findGeneID<-function(gene_names, cds){
-  GeneIDs <- rownames(fData(cds))[fData(cds)$symbol %in% gene_names]
+  GeneIDs <- rownames(fData(cds))[fData(cds)$gene_short_name %in% gene_names]
   GeneIDs <- unique(GeneIDs)
   return(GeneIDs)
 }
