@@ -1,5 +1,5 @@
 # cellwrangler
-R package for analyzing single-cell data
+A supplementary toolkit for analyzing single-cell data implemented in R
 
 cellwrangler is a R package containing (hopefully) useful functions for analyzing single-cell RNAseq data.
 
