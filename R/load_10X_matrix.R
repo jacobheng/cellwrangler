@@ -27,9 +27,9 @@ load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw") {
     rownames(mtx) <- mtx_genes$id
     #Append barcodes
     mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/filtered_gene_bc_matrices_mex/", genome,"/barcodes.tsv", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-    colnames(mtx_barcodes) <- c("Barcode")
-    rownames(mtx_barcodes) <- mtx_barcodes$Barcode
-    colnames(mtx) <- mtx_barcodes$Barcode
+    colnames(mtx_barcodes) <- c("barcode")
+    rownames(mtx_barcodes) <- mtx_barcodes$barcode
+    colnames(mtx) <- mtx_barcodes$barcode
   } else { if(which_matrix=="raw") {
     #Read in raw mtx
     mtx <- Matrix::readMM(paste(cellranger_outs_path,"/raw_gene_bc_matrices_mex/", genome,"/matrix.mtx", sep=""))
@@ -40,9 +40,9 @@ load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw") {
     rownames(mtx) <- mtx_genes$id
     #Append barcodes
     mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/raw_gene_bc_matrices_mex/", genome,"/barcodes.tsv", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-    colnames(mtx_barcodes) <- c("Barcode")
-    rownames(mtx_barcodes) <- mtx_barcodes$Barcode
-    colnames(mtx) <- mtx_barcodes$Barcode
+    colnames(mtx_barcodes) <- c("barcode")
+    rownames(mtx_barcodes) <- mtx_barcodes$barcode
+    colnames(mtx) <- mtx_barcodes$barcode
   } else { message("Need to specify 'raw' or 'filtered' in which_matrix parameter") }
   } 
   return(mtx)
