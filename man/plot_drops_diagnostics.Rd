@@ -4,7 +4,7 @@
 \alias{plot_drops_diagnostics}
 \title{Plot diagnostic plot for testDrops results}
 \usage{
-plot_drops_diagnostics(testDrops_res)
+plot_drops_diagnostics(sample, testDrops_res_list)
 }
 \arguments{
 \item{testDrops_res}{a testDrops object create by a testDrops function}
