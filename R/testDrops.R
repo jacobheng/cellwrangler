@@ -30,8 +30,8 @@ testDrops <- function(raw_exprs_mtx, lower_UMI_threshold=100, upper_UMI_threshol
                                   test.ambient=test.ambient, niters=niters)
   tmp$is_cell <- tmp$FDR <= FDR
   tmp <- as.data.frame(tmp)
-  cell_barcodes <- rownames(tmp[tmp$is_cell == TRUE & tmp$Total > 0,])
-  blank_barcodes <- rownames(tmp[tmp$is_cell == FALSE & tmp$Total > 0,])
+  cell_barcodes <- rownames(tmp[tmp$is_cell == TRUE & tmp$Total > lower_UMI_threshold,])
+  blank_barcodes <- rownames(tmp[tmp$is_cell == FALSE & tmp$Total < upper_UMI_threshold,])
   res <- list(data=tmp, cell_barcodes=cell_barcodes, blank_barcodes=blank_barcodes)
   return(res)
 }
