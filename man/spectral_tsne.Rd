@@ -8,7 +8,8 @@ spectral_tsne(matrix, log_matrix = TRUE, prcomp_object = NULL,
   dims = 1:10, perplexity = 30)
 }
 \arguments{
-\item{matrix}{a matrix of values to perform dimensionality reduction on}
+\item{matrix}{a matrix of values to perform dimensionality reduction on; by default, rows are genes
+and columns are cells}
 
 \item{log_matrix}{if log10 transformation is to be performed on the matrix; defaults to TRUE}
 
@@ -18,7 +19,8 @@ principal components)}
 \item{perplexity}{numeric; perplexity parameter for tSNE; defaults to 30}
 
 \item{prcomp_obj}{a principal component analysis object produced by the prcomp or prcomp_irlba functions;
-if no object is supplied, irlba_prcomp will be run on the matrix to return 50 dimensions; defaults to NULL}
+if no object is supplied, irlba_prcomp will be run on the matrix to return 50 dimensions; defaults to NULL;
+if a prcomp object is supplied, matrix is not required}
 }
 \value{
 A matrix with two columns containing coordinates of each row for two dimensions respectively
