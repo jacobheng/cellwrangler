@@ -29,7 +29,7 @@ log_normalize_cds <- function(cds, filter_zeros = TRUE, scale_to = "median", log
     norm_exprs <- sweep(exprs(filtered_cds), 2, scale_to/cell_totals, "*")
   } else { message ("Need to specify scale factor!")}
   }
-  if(logbase == NULL) {
+  if(is.null(logbase)==T) {
     log_norm_exprs <- norm_exprs
   } else {
   log_norm_exprs <- log((norm_exprs+1), base = logbase)
