@@ -38,6 +38,6 @@ log_normalize_cds <- function(cds, filter_zeros = TRUE, scale_to = "median", log
                             phenoData=new("AnnotatedDataFrame",data=pData(filtered_cds)),
                             featureData=new("AnnotatedDataFrame",data=fData(filtered_cds)),
                             lowerDetectionLimit=1,
-                            expressionFamily=negbinomial.size())
+                            expressionFamily=VGAM::negbinomial.size())
   return(new_cds)
 }
