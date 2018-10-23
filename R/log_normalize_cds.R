@@ -18,7 +18,7 @@
 
 log_normalize_cds <- function(cds, filter_zeros = TRUE, scale_to = "median", logbase=10) {
   if(filter_zeros == T) {
-  nonzero_genes <- rownames(exprs(cds[rowSums(exprs(cds)) > 0,]))
+  nonzero_genes <- rownames(exprs(cds[Matrix::rowSums(exprs(cds)) > 0,]))
   filtered_cds <- cds[nonzero_genes,]
   } else { filtered_cds <- cds }
   cell_totals <- Matrix::colSums(exprs(filtered_cds))
