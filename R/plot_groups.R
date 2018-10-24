@@ -34,9 +34,9 @@ plot_groups <- function (group_vector, projection, colors = NULL, alpha = 1,
   print(head(proj_group_melt))
   colnames(proj_group_melt) <-  c("Component.1","Component.2", "group_vector", "group")
   p <- ggplot(proj_group_melt, aes(Component.1, Component.2)) +
-    geom_point(aes(colour = value), size = cell_size,
+    geom_point(aes(colour = group), size = cell_size,
                alpha = alpha) + guides(col = guide_legend(title = "Group",
-                                                          override.aes = list(size = 3))) + facet_wrap(~variable) +
+                                                          override.aes = list(size = 3))) + facet_wrap(~group_vector) +
     labs(x = projection_names[1], y = projection_names[2]) +
     theme_bw()
   if (!is.null(title)) {
