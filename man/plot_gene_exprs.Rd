@@ -4,8 +4,8 @@
 \alias{plot_gene_exprs}
 \title{Plot gene expression in cells}
 \usage{
-plot_gene_exprs(cds, genes, projection, color_scale = c("grey", "red"),
-  limits = c(0, 10), rescale = F, cell_size = 0.1,
+plot_gene_exprs(cds, genes, projection, color_scale = c("slategray1",
+  "red"), limits = c(0, 10), rescale = F, cell_size = 0.1,
   group_vector = NULL, group_facet = NULL, title = NULL)
 }
 \arguments{

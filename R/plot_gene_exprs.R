@@ -25,32 +25,32 @@
 #' color_scale=c("blue","red"), limits = c(0,5), rescale= TRUE, cell_size =0.1, group_vector=pData(dat)$genotype,
 #' group_facet=TRUE, title=NULL )
 
-plot_gene_exprs <- function (cds, genes, projection, color_scale=c("grey","red"), limits = c(0, 10), 
+plot_gene_exprs <- function (cds, genes, projection, color_scale=c("slategray1","red"), limits = c(0, 10), 
                              rescale=F, cell_size = 0.1,  group_vector= NULL, group_facet=NULL, 
                                   title = NULL) 
 {
   cds_subset <- cds[cellwrangler::findGeneID(genes,cds),]
   exprs_values <- t(as.matrix(exprs(cds_subset)))
-  colnames(exprs_values) <- genes
+  colnames(exprs_values) <- cellwrangler::findGeneName(colnames(exprs_values),cds)
   projection_names <- colnames(projection)
   colnames(projection) <- c("Component.1", "Component.2")
   if(is.null(group_vector) == F) {
     group_vector <- as.data.frame(group_vector)
     colnames(group_vector) <- c("group")
-    proj_gene <- data.frame(cbind(projection, group_vector, exprs_values))
-    proj_gene_melt <- melt(proj_gene, id.vars = c("Component.1", "Component.2","group"))
-    print(head(proj_gene_melt))
+    proj_exprs <- data.frame(cbind(projection, group_vector, exprs_values))
+    proj_exprs_melt <- melt(proj_exprs, id.vars = c("Component.1", "Component.2","group"))
+    print(head(proj_exprs_melt))
   } else {
-    proj_gene <- data.frame(cbind(projection, exprs_values))
-    proj_gene_melt <- melt(proj_gene, id.vars = c("Component.1", "Component.2"))
-    print(head(proj_gene_melt))
+    proj_exprs <- data.frame(cbind(projection, exprs_values))
+    proj_exprs_melt <- melt(proj_exprs, id.vars = c("Component.1", "Component.2"))
+    print(head(proj_exprs_melt))
   }
   if(!is.null(group_facet)){
-    p <- ggplot(proj_gene_melt, aes(Component.1, Component.2)) + 
+    p <- ggplot(proj_exprs_melt, aes(Component.1, Component.2)) + 
       geom_point(aes(colour = value), size = cell_size) + 
       facet_grid(group_facet)
   } else {
-    p <- ggplot(proj_gene_melt, aes(Component.1, Component.2)) + 
+    p <- ggplot(proj_exprs_melt, aes(Component.1, Component.2)) + 
       geom_point(aes(colour = value), size = cell_size) + 
       facet_wrap(~variable) }
   if (!is.null(title)) {
@@ -58,8 +58,8 @@ plot_gene_exprs <- function (cds, genes, projection, color_scale=c("grey","red")
   }
   if(rescale==T) {
     p <- p + scale_color_gradientn(name= "Expression" ,colours =  color_scale, 
-                                   values=scales::rescale(c(min(proj_gene_melt$value),
-                                                            max(proj_gene_melt$value))))
+                                   values=scales::rescale(c(min(proj_exprs_melt$value),
+                                                            max(proj_exprs_melt$value))))
   } else {
     p <- p + scale_color_gradient(name= "Expression",low=color_scale[1],high=color_scale[2],
                                   limits=limits,oob=scales::squish)

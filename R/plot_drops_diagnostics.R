@@ -12,7 +12,7 @@
 
 plot_drops_diagnostics <- function(sample, testDrops_res_list) {
   tmp <- as.data.frame(testDrops_res_list[[sample]]$data)
-  p <- ggplot(data=tmp, aes(x=Total, y=-LogProb)) + geom_point(color=ifelse(tmp$is.cell == T, "red", "black")) + xlab("Total UMI count") + ylab("-Log Probability") + ggtitle(sample)
+  p <- ggplot(data=tmp, aes(x=Total, y=`-LogProb`)) + geom_point(color=ifelse(tmp$is_cell == T, "red", "black")) + xlab("Total UMI count") + ylab("-Log Probability") + ggtitle(sample)
   p <- p + theme_classic() + scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                                            labels = scales::trans_format("log10", scales::math_format(10^.x)))
 }

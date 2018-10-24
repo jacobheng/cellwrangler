@@ -23,18 +23,19 @@ plot_groups <- function (group_vector, projection, colors = NULL, alpha = 1,
 {
   projection_names <- colnames(projection)
   colnames(projection) <- c("Component.1", "Component.2")
-  proj_clu <- data.frame(cbind(projection, group_vector))
-  proj.cols <- colnames(projection)
-  proj_clu[proj.cols] <- lapply(proj_clu[proj.cols], function(x){
+  proj_group <- data.frame(cbind(projection, group_vector))
+  proj_cols <- colnames(projection)
+  proj_group[proj_cols] <- lapply(proj_group[proj_cols], function(x){
     num.x <- as.numeric(as.character(x))
     return(num.x)
   } )
-  proj_clu_melt <- melt(proj_clu, id.vars = c("Component.1",
+  proj_group_melt <- melt(proj_group, id.vars = c("Component.1",
                                               "Component.2"))
-  print(head(proj_clu_melt))
-  p <- ggplot(proj_clu_melt, aes(Component.1, Component.2)) +
+  print(head(proj_group_melt))
+  colnames(proj_group_melt) <-  c("Component.1","Component.2", "group_vector", "group")
+  p <- ggplot(proj_group_melt, aes(Component.1, Component.2)) +
     geom_point(aes(colour = value), size = cell_size,
-               alpha = alpha) + guides(col = guide_legend(title = "ID",
+               alpha = alpha) + guides(col = guide_legend(title = "Group",
                                                           override.aes = list(size = 3))) + facet_wrap(~variable) +
     labs(x = projection_names[1], y = projection_names[2]) +
     theme_bw()
