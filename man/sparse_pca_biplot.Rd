@@ -4,7 +4,7 @@
 \alias{sparse_pca_biplot}
 \title{Plot biplot for sparse pca}
 \usage{
-sparse_pca_biplot(sparse_pca_obj, pcs, group)
+sparse_pca_biplot(sparse_pca_obj, pcs, group = NULL)
 }
 \arguments{
 \item{sparse_pca_obj}{a sparse pca object created by the cellRangerRkit sparse_pca() function}

@@ -12,7 +12,7 @@
 #' plot_sparse_pca_var(sparse_pca_obj, n_pcs = 40)
 
 
-plot_sparse_pca_var <- function(sparse_pca_obj, n_pcs) {
+plot_sparse_pca_var <- function(sparse_pca_obj, n_pcs = NULL) {
   
   tmp <- as.data.frame((sparse_pca_obj$var_pcs)*100)
   tmp$PC <- as.numeric(rownames(tmp))

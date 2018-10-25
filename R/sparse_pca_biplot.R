@@ -13,7 +13,7 @@
 #' @examples
 #' sparse_pca_biplot(sparse_pca_obj, pcs=c(1,2), group=pData(dat)$CellType)
 
-sparse_pca_biplot <- function(sparse_pca_obj, pcs, group) {
+sparse_pca_biplot <- function(sparse_pca_obj, pcs, group = NULL) {
   
   tmp <- as.data.frame(sparse_pca_obj$x[,pcs])
   colnames(tmp) <- c(paste("PC",pcs[1],sep=""), paste("PC",pcs[2],sep=""))

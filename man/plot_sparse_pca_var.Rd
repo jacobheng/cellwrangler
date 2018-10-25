@@ -4,7 +4,7 @@
 \alias{plot_sparse_pca_var}
 \title{Plot variance explained by sparse PCA}
 \usage{
-plot_sparse_pca_var(sparse_pca_obj, n_pcs)
+plot_sparse_pca_var(sparse_pca_obj, n_pcs = NULL)
 }
 \arguments{
 \item{sparse_pca_obj}{a sparse pca object created by the cellRangerRkit sparse_pca() function}
