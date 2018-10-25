@@ -26,9 +26,9 @@ spectral_tsne <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
     if(log_matrix==TRUE) {
       tmp <- log10(matrix+1)
     } else { tmp <- tmp}
-    pca_res <- irlba::prcomp_irlba(t(tmp), n=50) 
+    pca_res <- cellrangerRkit:::sparse_pca(t(tmp), n_pcs=40, center_scale = T) 
     }
-  Rtsne_obj <- Rtsne::Rtsne(pca_res$x[,dims],perplexity=perplexity)
+  Rtsne_obj <- Rtsne::Rtsne(pca_res$x[,dims],perplexity=perplexity, pca = FALSE)
   tsne_proj <- Rtsne_obj$Y
   colnames(tsne_proj) <- c("TSNE.1", "TSNE.2")
   return(tsne_proj)
