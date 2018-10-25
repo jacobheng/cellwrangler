@@ -22,7 +22,7 @@ plot_sparse_pca_var <- function(sparse_pca_obj, n_pcs = NULL) {
   } else { tmp <- tmp }
   
   p <- ggplot(tmp, aes(x=PC, y=Percent_var_explained)) + geom_line() + geom_point() 
-  p <= p + scale_x_continuous(breaks=tmp$PC) + xlab("PC") + ylab("Percentage of variance explained")
+  p <- p + scale_x_continuous(breaks=tmp$PC) + xlab("PC") + ylab("Percentage of variance explained")
   
   return(p)
   
