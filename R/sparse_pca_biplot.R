@@ -31,9 +31,9 @@ sparse_pca_biplot <- function(sparse_pca_obj, pcs, group = NULL) {
     p <- p + geom_point() 
   }
     p <- p + theme_classic()  
-    p <- p + xlab(paste("PC",pcs[1]," (", pca_var[pca_var$PC == pcs[1],]$Percent_var_explained, 
+    p <- p + xlab(paste("PC",pcs[1]," (", signif(pca_var[pca_var$PC == pcs[1],]$Percent_var_explained,3), 
                         " % of variance explained)",sep=""))
-    p <- p + ylab(paste("PC",pcs[2]," (", pca_var[pca_var$PC == pcs[2],]$Percent_var_explained, 
+    p <- p + ylab(paste("PC",pcs[2]," (", signif(pca_var[pca_var$PC == pcs[2],]$Percent_var_explained,3), 
                         " % of variance explained)",sep="")) 
     
   return(p)
