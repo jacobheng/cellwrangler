@@ -17,9 +17,6 @@
 CreateSeuratObjectList <- function(exprs_matrix, phenoData) {
   sample_numbers <- unique(str_split_fixed(colnames(exprs_matrix), 
                                            pattern = "-", n = 2)[, 2])
-  if(colnames(exprs_matrix) == rownames(phenoData)) {
-    message("colnames of expression matrix and rownames phenoData match")
-  } else {message("Error: colnames of expression matrix and rownames phenoData do not match!")}
   
   SeuratObjectList <- lapply(sample_numbers, function(x) {
     exprs_subset <- exprs_matrix[ , str_split_fixed(colnames(exprs_matrix), 
