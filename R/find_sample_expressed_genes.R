@@ -18,7 +18,7 @@
 find_sample_expressed_genes <- function(cds, UMI_threshold = 1, cell_threshold = 1) {
   sample_numbers <- unique(str_split_fixed(colnames(exprs(cds)), 
                                            pattern = "-", n = 2)[, 2])
-  expressed_genes_list <- lapply(sample_numbers, function(x, UMI_threshold, cell_thresholdl) {
+  expressed_genes_list <- lapply(sample_numbers, function(x, UMI_threshold, cell_threshold) {
     cds_subset <- cds[ , str_split_fixed(colnames(exprs(cds)), 
                                          pattern = "-", n = 2)[, 2] == x]
     expressed_genes_by_UMI <- Matrix::rowSums(exprs(cds_subset)) >= UMI_threshold
