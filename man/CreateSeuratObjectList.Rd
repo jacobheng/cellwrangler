@@ -4,7 +4,7 @@
 \alias{CreateSeuratObjectList}
 \title{Create a list of Seurat Objects}
 \usage{
-CreateSeuratObjectList(exprs_matrix, phenoData)
+CreateSeuratObjectList(exprs_matrix, phenoData, scaleData = FALSE)
 }
 \arguments{
 \item{exprs_matrix}{an expression matrix; row names must be gene names and column names must be cell barcodes}
