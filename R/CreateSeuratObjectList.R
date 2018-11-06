@@ -29,6 +29,7 @@ CreateSeuratObjectList <- function(exprs_matrix, phenoData, scaleData = FALSE) {
     SeuratObj <- FindVariableGenes(SeuratObj, do.plot = F, display.progress = F)
     if(scale == T) {
     SeuratObj <- ScaleData(SeuratObj)
+    SeuratObj@scale.data <- as(as.matrix(SeuratObj@scale.data), "sparseMatrix")
     } else { SeuratObj <- SeuratObj }
     return(SeuratObj)
   }, scale = scaleData)

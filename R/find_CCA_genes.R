@@ -21,7 +21,7 @@ find_CCA_genes <- function(SeuratObjectList, num_hvg_genes=1000, num_samples_var
   }
   CCA_genes <- names(which(table(CCA_genes) >= num_samples_variable))
   for (i in 1:length(ob.list)) {
-    CCA_genes <- CCA_genes[CCA_genes %in% rownames(ob.list[[i]]@scale.data)]
+    CCA_genes <- CCA_genes[CCA_genes %in% rownames(ob.list[[i]]@raw.data)]
   }
   return(CCA_genes)
 }
