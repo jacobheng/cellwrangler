@@ -21,7 +21,7 @@
 #' clustering_distance_rows.
 #' @param clustering_method_cols clustering method used for columns. Accepts the same values as 
 #' clustering_method_rows.
-#' @param square_tiles logical; if tiles should be made squrare
+#' @param square_tiles logical; if tiles should be made square
 #' @keywords plot_matrix_heatmap
 #' @export
 #' @return a ggplot2 object

@@ -44,7 +44,7 @@ clustering_distance_rows.}
 \item{clustering_method_cols}{clustering method used for columns. Accepts the same values as 
 clustering_method_rows.}
 
-\item{square_tiles}{logical; if tiles should be made squrare}
+\item{square_tiles}{logical; if tiles should be made square}
 }
 \value{
 a ggplot2 object
