@@ -50,7 +50,7 @@ plot_pattern_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduct
     xlab(dim_reduction_names[1]) + ylab(dim_reduction_names[2]) + 
     guides(fill=guide_legend(title=paste("Pattern ",pattern_num,sep=""))) + theme_classic()
   
-  if(is_null(facet_wrap_by) == F) {
+  if(is.null(facet_wrap_by) == F) {
     p <- p + facet_wrap(facet_wrap_by)
   } else { p <- p }
   
