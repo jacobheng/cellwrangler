@@ -5,7 +5,7 @@
 \title{Plot pattern correlation heatmap}
 \usage{
 plot_pattern_cor_heatmap(CoGAPS_res_set = NULL, Pattern_set,
-  pattern_subset = NULL, annotation, compute_groups_by, group_vector,
+  pattern_subset = NULL, annotation, group_column = NULL, group_vector,
   cluster_groups = F, order_subgroups = F,
   cluster_groups_distance = "correlation",
   cluster_groups_method = "complete", cluster_patterns = F,
@@ -26,6 +26,9 @@ Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied
 \item{annotation}{an annotation dataframe. If group_column is set to NULL, must contain logical columns with 
 column names corresponding to values in group_vector. Each logical column (1 or 0) should indicate whether an
 annotation row is of the value (column name).}
+
+\item{group_column}{column name of column in annotation object with values corresponding to those 
+in group_vector to use for computing logical columns. Defaults to NULL}
 
 \item{group_vector}{a vector of with pre-specified values corresponding to those in group_column in
 the annotation object.}
@@ -56,9 +59,6 @@ same as cluster_groups_method().}
 \item{limits}{limits of the color scale for the heatmap.}
 
 \item{square_tiles}{logical; if tiles should be made square}
-
-\item{group_column}{column name of column in annotation object with values corresponding to those 
-in group_vector to use for computing logical columns. Defaults to NULL}
 }
 \value{
 a ggplot object

@@ -49,7 +49,7 @@ set with a grouping variable
 }
 \examples{
 plot_pattern_cor_heatmap(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
-group_variable="genotype", group_vector=genotype_vector, order_subgroups=T, cluster= "groups",
+group_column=NULL, group_vector=genotype_vector, order_subgroups=T, cluster= "groups",
 clustering_distance = "correlation", clustering_method = "complete")
 }
 \keyword{plot_pattern_cor_dendro}

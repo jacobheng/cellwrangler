@@ -45,7 +45,7 @@
 
 
 #plot_pattern_cor_heatmap
-plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, compute_groups_by, 
+plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, group_column=NULL, 
                                      group_vector, cluster_groups=F, order_subgroups=F ,cluster_groups_distance="correlation", 
                                      cluster_groups_method="complete", cluster_patterns=F, 
                                      cluster_patterns_vector=NULL, cluster_patterns_distance="correlation", 
