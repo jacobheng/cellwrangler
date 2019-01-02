@@ -4,11 +4,14 @@
 \alias{find_highbcv_genes}
 \title{Find genes with high biological coefficent of variation}
 \usage{
-find_highbcv_genes(cds, cell_threshold = 10, exprs_threshold = 0.001,
-  resid_threshold = 0.2)
+find_highbcv_genes(cds, annotated_fData = NULL, cell_threshold = 10,
+  exprs_threshold = 0.001, resid_threshold = 0.2)
 }
 \arguments{
 \item{cds}{a monocle CellDataSet object}
+
+\item{annotated_fData}{annotated fData object produced by the cellwrangler annotate_bcv() function; if NULL,
+parameters of bcv will be calcuated from cds provided.}
 
 \item{cell_threshold}{threshold for expression in number of cells}
 

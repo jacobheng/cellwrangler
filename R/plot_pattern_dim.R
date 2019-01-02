@@ -25,7 +25,7 @@
 
 #plot_pattern_dim function
 plot_pattern_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduction, pattern_num, 
-                              facet_wrap_by=NULL) {
+                             color_scale=c("slategray1","red"), facet_wrap_by=NULL) {
   if(is.null(CoGAPS_res_set)==F) {
     Pmeans <- CoGAPS_res_set[[Pattern_set]]@sampleFactors } else { Pmeans <- Pattern_set }
   
@@ -44,9 +44,7 @@ plot_pattern_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduct
   
   p <- ggplot(Pmeans_annot, aes(x=Dimension1,y=Dimension2)) + 
         geom_point(color=Pmeans_annot[,pattern_to_plot]) +
-        scale_colour_gradientn(colours =c("grey90","darkred"),
-                           values=scales::rescale(c(min(Pmeans_annot[,pattern_to_plot]),
-                                                    max(Pmeans_annot[,pattern_to_plot])))) +
+        scale_colour_gradientn(colours = color_scale, values=scales::rescale(c(min(Pmeans_annot[,pattern_to_plot]), max(Pmeans_annot[,pattern_to_plot])))) +
     xlab(dim_reduction_names[1]) + ylab(dim_reduction_names[2]) + 
     guides(fill=guide_legend(title=paste("Pattern ",pattern_num,sep=""))) + theme_classic()
   

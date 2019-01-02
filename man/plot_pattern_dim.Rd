@@ -5,7 +5,8 @@
 \title{Plot pattern on a dimensionality reduction plot}
 \usage{
 plot_pattern_dim(CoGAPS_res_set, Pattern_set, annotation, dim_reduction,
-  pattern_num, facet_wrap_by = NULL)
+  pattern_num, color_scale = c("slategray1", "red"),
+  facet_wrap_by = NULL)
 }
 \arguments{
 \item{CoGAPS_res_set}{a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
