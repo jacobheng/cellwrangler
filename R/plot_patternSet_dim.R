@@ -17,7 +17,7 @@
 #' @export
 #' @return a list of ggplot objects
 #' @examples
-#' plot_pattern_dim(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
+#' plot_patternSet_dim(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
 #' dim_reduction = UMAP_proj)
 
 
@@ -25,7 +25,7 @@
 
 
 #plot_patterns_dim function
-plot_patternSet_dim <- function(Pattern_set, CoGAPS_res, annotation, dim_reduction, facet_wrap_by=NULL) {
+plot_patternSet_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduction, facet_wrap_by=NULL) {
   if(is.null(CoGAPS_res_set)==F) {
     Pmeans <- CoGAPS_res_set[[Pattern_set]]@sampleFactors } else { Pmeans <- Pattern_set }
   

@@ -4,10 +4,13 @@
 \alias{plot_patternSet_dim}
 \title{Plot a set of patterns on a dimensionality reduction plot}
 \usage{
-plot_patternSet_dim(Pattern_set, CoGAPS_res, annotation, dim_reduction,
+plot_patternSet_dim(CoGAPS_res_set, Pattern_set, annotation, dim_reduction,
   facet_wrap_by = NULL)
 }
 \arguments{
+\item{CoGAPS_res_set}{a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
+for the Pattern_set parameter.}
+
 \item{Pattern_set}{a string specifying the name of a pattern set (e.g. "nP20") in a CoGAPS_res_set. 
 Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied directly.}
 
@@ -19,9 +22,6 @@ t-SNE, UMAP etc.). Each column should specify one dimension. Rownames should cor
 of the annotation object. Colnames will be used as axis labels.}
 
 \item{facet_wrap_by}{a string specifying variable for facet_wrap; defaults to NULL.}
-
-\item{CoGAPS_res_set}{a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
-for the Pattern_set parameter.}
 }
 \value{
 a list of ggplot objects
@@ -30,7 +30,7 @@ a list of ggplot objects
 plot_patternSet_dim() plots Pmeans of a CoGAPS pattern set on a dimensonality reduction plots.
 }
 \examples{
-plot_pattern_dim(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
+plot_patternSet_dim(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
 dim_reduction = UMAP_proj)
 }
 \keyword{plot_pattern_dim}

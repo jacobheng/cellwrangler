@@ -4,10 +4,13 @@
 \alias{plot_pattern_dim}
 \title{Plot pattern on a dimensionality reduction plot}
 \usage{
-plot_pattern_dim(CoGAPS_res, Pattern_set, annotation, dim_reduction,
+plot_pattern_dim(CoGAPS_res_set, Pattern_set, annotation, dim_reduction,
   pattern_num, facet_wrap_by = NULL)
 }
 \arguments{
+\item{CoGAPS_res_set}{a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
+for the Pattern_set parameter.}
+
 \item{Pattern_set}{a string specifying the name of a pattern set (e.g. "nP20") in a CoGAPS_res_set. 
 Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied directly.}
 
@@ -21,9 +24,6 @@ of the annotation object. Colnames will be used as axis labels.}
 \item{pattern_num}{numeric; which pattern to plot.}
 
 \item{facet_wrap_by}{a string specifying variable for facet_wrap; defaults to NULL.}
-
-\item{CoGAPS_res_set}{a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
-for the Pattern_set parameter.}
 }
 \value{
 a ggplot object

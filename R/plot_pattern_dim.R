@@ -24,7 +24,7 @@
 
 
 #plot_pattern_dim function
-plot_pattern_dim <- function(CoGAPS_res, Pattern_set, annotation, dim_reduction, pattern_num, 
+plot_pattern_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduction, pattern_num, 
                               facet_wrap_by=NULL) {
   if(is.null(CoGAPS_res_set)==F) {
     Pmeans <- CoGAPS_res_set[[Pattern_set]]@sampleFactors } else { Pmeans <- Pattern_set }
