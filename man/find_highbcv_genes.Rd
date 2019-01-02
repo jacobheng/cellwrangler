@@ -11,7 +11,7 @@ find_highbcv_genes(cds, annotated_fData = NULL, cell_threshold = 10,
 \item{cds}{a monocle CellDataSet object}
 
 \item{annotated_fData}{annotated fData object produced by the cellwrangler annotate_bcv() function; if NULL,
-parameters of bcv will be calcuated from cds provided.}
+parameters of bcv will be calculated from cds provided.}
 
 \item{cell_threshold}{threshold for expression in number of cells}
 

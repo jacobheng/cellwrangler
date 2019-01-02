@@ -5,7 +5,7 @@
 #' levels and residuals.
 #' @param cds a monocle CellDataSet object
 #' @param annotated_fData annotated fData object produced by the cellwrangler annotate_bcv() function; if NULL,
-#' parameters of bcv will be calcuated from cds provided.
+#' parameters of bcv will be calculated from cds provided.
 #' @param cell_threshold threshold for expression in number of cells
 #' @param exprs_threshold threshold for expression levels
 #' @param resid_threshold threshold for residuals
