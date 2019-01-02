@@ -105,9 +105,9 @@ plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_s
       ref_table <- ref_table[with(ref_table, order(ref_table[,i])),]
     }
     group_vector_ordered <- ref_table$group_vector
-    tmp_melt$group_vector <-factor(tmp_melt$group_vector,levels=(group_vector_ordered)) 
+    tmp_melt$group_vector <-factor(tmp_melt$group_vector,levels=rev(group_vector_ordered)) 
     } else {
-    tmp_melt$group_vector <-factor(tmp_melt$group_vector,levels=(ref_table$group_vector[group.order]))
+    tmp_melt$group_vector <-factor(tmp_melt$group_vector,levels=rev(ref_table$group_vector[group.order]))
     }
   } else { tmp_melt <- tmp_melt }
   
