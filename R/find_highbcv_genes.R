@@ -22,7 +22,7 @@ find_highbcv_genes <- function(cds, annotated_fData = NULL, cell_threshold=10, e
   col_sums<-Matrix::colSums(exprs(cds))
   scaled_mtx <- t(t(exprs(cds))/col_sums)*10000
   fData(cds)$mean_exprs < -Matrix::rowMeans(scaled_mtx)
-  cds_subsets<- lapply(seq(1,ceiling(nrow(dat0)/10000),1), function(x){
+  cds_subsets<- lapply(seq(1,ceiling(nrow(cds)/10000),1), function(x){
     tmp <- scaled_mtx[((x-1)*10000+1):min(c((x)*10000, max(nrow(cds)))),] 
     return(tmp) })
   subset_sd <- lapply(cds_subsets, function(x){
