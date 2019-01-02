@@ -9,10 +9,12 @@
 #' @param Pattern_set a string specifying the name of a pattern set (e.g. "nP20") in a CoGAPS_res_set. 
 #' Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied directly.
 #' @param pattern_subset a vector specifying a subset of the pattern set to be plotted. Defaults to NULL.
-#' @param annotation an annotation dataframe. Must contain columns with column names corresponding to values
-#' in the group_vector. 
-#' @param group_vector a vector of the grouping variable with values corresponding to column names in the
-#' annotation object.
+#' @param annotation an annotation dataframe. Must contain a group_variable column with values corresponding to 
+#' those in group_vector.
+#' @param group_variable column name of column in annotation object with values corresponding to those 
+#' in group_vector.
+#' @param group_vector a vector of with pre-specified values corresponding to those in the group_variable in
+#' the annotation object.
 #' @param cluster_groups logical; if groups should be clustered.
 #' @param order_subgroups logical; if subgroups should be ordered according to clustering of first subgroup. 
 #' Subgroups can be specified in a string with separation by " - ".
@@ -36,13 +38,13 @@
 #' @return a ggplot object
 #' @examples
 #' plot_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 
-#' group_vector=group_vector, cluster_groups=T, order_subgroups=T, 
+#' group_variable="genotype", group_vector=genotype_vector, cluster_groups=T, order_subgroups=T, 
 #' cluster_groups_distance = "correlation", cluster_groups_method = "complete", cluster_patterns= T, 
 #' cluster_patterns_distance = "correlation", cluster_patterns_method = "complete")
 
 
 #plot_pattern_cor_heatmap
-plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, 
+plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, group_variable, 
                                      group_vector, cluster_groups=F, order_subgroups=F ,cluster_groups_distance="correlation", 
                                      cluster_groups_method="complete", cluster_patterns=F, 
                                      cluster_patterns_vector=NULL, cluster_patterns_distance="correlation", 
@@ -53,6 +55,12 @@ plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_s
     Pmeans <- Pmeans[,pattern_subset]
   } else { Pmeans <- Pmeans }
   Pmeans <- Pmeans[unique(rownames(Pmeans)),]
+  #Create columns in annotation according to group_vector
+  lapply(group_vector, function(x){
+    tmp <- annotation[group_variable] == x
+    annotation[[x]] <<- as.numeric(tmp)
+  })
+  #Merge Pmeans and annotation
   Pmeans_annot <- merge_by_rownames(annotation, Pmeans, all.x = F, all.y=T)
   for(i in c( (ncol(annotation)+1):(ncol(Pmeans)+ncol(annotation)) )){
     Pmeans_annot[,i]<-as.numeric(Pmeans_annot[,i])

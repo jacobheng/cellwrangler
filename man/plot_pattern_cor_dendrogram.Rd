@@ -5,9 +5,9 @@
 \title{Plot pattern correlation dendrogram}
 \usage{
 plot_pattern_cor_dendrogram(CoGAPS_res_set = NULL, Pattern_set,
-  pattern_subset = NULL, annotation, group_vector, order_subgroups = F,
-  cluster = "patterns", clustering_distance = "correlation",
-  clustering_method = "complete")
+  pattern_subset = NULL, annotation, group_variable, group_vector,
+  order_subgroups = F, cluster = "patterns",
+  clustering_distance = "correlation", clustering_method = "complete")
 }
 \arguments{
 \item{CoGAPS_res_set}{a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
@@ -18,11 +18,14 @@ Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied
 
 \item{pattern_subset}{a vector specifying a subset of the pattern set to be plotted. Defaults to NULL.}
 
-\item{annotation}{an annotation dataframe. Must contain columns with column names corresponding to values
-in the group_vector.}
+\item{annotation}{an annotation dataframe. Must contain a group_variable column with values corresponding to 
+those in group_vector.}
 
-\item{group_vector}{a vector of the grouping variable with values corresponding to column names in the
-annotation object. Only required if cluster is set to "groups".}
+\item{group_variable}{column name of column in annotation object with values corresponding to those 
+in group_vector.}
+
+\item{group_vector}{a vector of with pre-specified values corresponding to those in the group_variable in
+the annotation object.}
 
 \item{order_subgroups}{logical; if subgroups should be ordered according to clustering of first subgroup. 
 Subgroups can be specified in a string with separation by " - ". Only valid if cluster is set to "groups".}
@@ -45,7 +48,7 @@ set with a grouping variable
 }
 \examples{
 plot_pattern_cor_heatmap(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
-group_vector=group_vector, order_subgroups=T, cluster= "groups",
+group_variable="genotype", group_vector=genotype_vector, order_subgroups=T, cluster= "groups",
 clustering_distance = "correlation", clustering_method = "complete")
 }
 \keyword{plot_pattern_cor_dendro}

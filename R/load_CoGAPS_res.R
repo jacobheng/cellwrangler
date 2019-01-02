@@ -15,6 +15,7 @@
 #' nFactor_range = c(25,60,5))
 
 load_CoGAPS_res <- function(res_dir, res_name, nFactor_range) {
+  
   nFactor_range <- nFactor_range
   nPatterns <- lapply(nFactor_range,function(x){
     paste("nP",x,sep="")

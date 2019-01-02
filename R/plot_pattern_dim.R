@@ -40,7 +40,7 @@ plot_pattern_dim <- function(CoGAPS_res, Pattern_set, annotation, dim_reduction,
     Pmeans_annot[,i]<-as.numeric(Pmeans_annot[,i])
   }
   
-  pattern_to_plot <- ncol(annotation)+ pattern_num
+  pattern_to_plot <- ncol(annotation) + pattern_num
   
   p <- ggplot(Pmeans_annot, aes(x=Dimension1,y=Dimension2)) + 
         geom_point(color=Pmeans_annot[,pattern_to_plot]) +

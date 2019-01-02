@@ -5,8 +5,9 @@
 \title{Plot pattern correlation heatmap}
 \usage{
 plot_pattern_cor_heatmap(CoGAPS_res_set = NULL, Pattern_set,
-  pattern_subset = NULL, annotation, group_vector, cluster_groups = F,
-  order_subgroups = F, cluster_groups_distance = "correlation",
+  pattern_subset = NULL, annotation, group_variable, group_vector,
+  cluster_groups = F, order_subgroups = F,
+  cluster_groups_distance = "correlation",
   cluster_groups_method = "complete", cluster_patterns = F,
   cluster_patterns_vector = NULL,
   cluster_patterns_distance = "correlation",
@@ -22,11 +23,14 @@ Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied
 
 \item{pattern_subset}{a vector specifying a subset of the pattern set to be plotted. Defaults to NULL.}
 
-\item{annotation}{an annotation dataframe. Must contain columns with column names corresponding to values
-in the group_vector.}
+\item{annotation}{an annotation dataframe. Must contain a group_variable column with values corresponding to 
+those in group_vector.}
 
-\item{group_vector}{a vector of the grouping variable with values corresponding to column names in the
-annotation object.}
+\item{group_variable}{column name of column in annotation object with values corresponding to those 
+in group_vector.}
+
+\item{group_vector}{a vector of with pre-specified values corresponding to those in the group_variable in
+the annotation object.}
 
 \item{cluster_groups}{logical; if groups should be clustered.}
 
@@ -64,7 +68,7 @@ variable
 }
 \examples{
 plot_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 
-group_vector=group_vector, cluster_groups=T, order_subgroups=T, 
+group_variable="genotype", group_vector=genotype_vector, cluster_groups=T, order_subgroups=T, 
 cluster_groups_distance = "correlation", cluster_groups_method = "complete", cluster_patterns= T, 
 cluster_patterns_distance = "correlation", cluster_patterns_method = "complete")
 }

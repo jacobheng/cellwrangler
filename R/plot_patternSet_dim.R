@@ -40,7 +40,6 @@ plot_patternSet_dim <- function(Pattern_set, CoGAPS_res, annotation, dim_reducti
     Pmeans_annot[,i]<-as.numeric(Pmeans_annot[,i])
   }
   
-
   #Plot by dim_reduction
   Pmeans_plots <- lapply(c(1:ncol(Pmeans)), function(x){
     pattern_to_plot <- ncol(annotation) + x
