@@ -20,7 +20,7 @@ row direction or the column direction or none.}
 
 \item{limits}{minimum and maximum values to define the range of the color scale}
 
-\item{color_scale_type}{"diverge", "seq" or "rescale"}
+\item{color_scale_type}{"diverge", "seq" or "rescale".}
 
 \item{color_scale}{vector of colors to use for color scale; different options for color_scale_type requires
 different number of colors - "diverge" (3 colors), "seq" (2 colors), "rescale" (3 colors)}

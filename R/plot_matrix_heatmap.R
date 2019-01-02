@@ -6,7 +6,7 @@
 #' @param scale "rows" or "cols" or "none"; indicates whether values should be centered and scaled in the 
 #' row direction or the column direction or none.
 #' @param limits minimum and maximum values to define the range of the color scale
-#' @param color_scale_type "diverge", "seq" or "rescale"
+#' @param color_scale_type "diverge", "seq" or "rescale".
 #' @param color_scale vector of colors to use for color scale; different options for color_scale_type requires
 #' different number of colors - "diverge" (3 colors), "seq" (2 colors), "rescale" (3 colors)
 #' @param scale_midpoint numeric; value of midpoint for "diverge" and "rescale" color scales

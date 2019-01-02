@@ -8,11 +8,12 @@
 #' @param Pattern_set a string specifying the name of a pattern set (e.g. "nP20") in a CoGAPS_res_set. 
 #' Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied directly.
 #' @param pattern_subset a vector specifying a subset of the pattern set to be plotted. Defaults to NULL.
-#' @param annotation an annotation dataframe. Must contain a group_variable column with values corresponding to 
-#' those in group_vector.
-#' @param group_variable column name of column in annotation object with values corresponding to those 
-#' in group_vector.
-#' @param group_vector a vector of with pre-specified values corresponding to those in the group_variable in
+#' @param annotation an annotation dataframe. If group_column is set to NULL, must contain logical columns with 
+#' column names corresponding to values in group_vector. Each logical column (1 or 0) should indicate whether an
+#' annotation row is of the value (column name).
+#' @param group_column column name of column in annotation object with values corresponding to those 
+#' in group_vector to use for computing logical columns. Defaults to NULL
+#' @param group_vector a vector of with pre-specified values corresponding to those in group_column in
 #' the annotation object.
 #' @param order_subgroups logical; if subgroups should be ordered according to clustering of first subgroup. 
 #' Subgroups can be specified in a string with separation by " - ". Only valid if cluster is set to "groups".
@@ -34,7 +35,7 @@
 
 #plot_pattern_cor_dendro
 plot_pattern_cor_dendrogram <-  function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, 
-                                         group_variable, group_vector, order_subgroups=F, cluster="patterns", 
+                                         group_column=NULL, group_vector, order_subgroups=F, cluster="patterns", 
                                          clustering_distance="correlation", clustering_method="complete") {
   
   if(is.null(CoGAPS_res_set)==F) {
@@ -44,10 +45,11 @@ plot_pattern_cor_dendrogram <-  function(CoGAPS_res_set=NULL, Pattern_set, patte
   } else { Pmeans <- Pmeans }
   Pmeans <- Pmeans[unique(rownames(Pmeans)),]
   #Create columns in annotation according to group_vector
-  lapply(group_vector, function(x){
-    tmp <- annotation[group_variable] == x
-    annotation[[x]] <<- as.numeric(tmp)
-  })
+  if(is.null(group_column) == F) {
+    lapply(group_vector, function(x){
+      tmp <- annotation[group_column] == x
+      annotation[[x]] <<- as.numeric(tmp)
+    }) } else {annotation <- annotation}
   #Merge Pmeans and annotation
   Pmeans_annot <- merge_by_rownames(annotation, Pmeans, all.x = F, all.y=T)
   for(i in c( (ncol(annotation)+1):(ncol(Pmeans)+ncol(annotation)) )){

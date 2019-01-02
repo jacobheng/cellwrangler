@@ -5,7 +5,7 @@
 \title{Plot pattern correlation dendrogram}
 \usage{
 plot_pattern_cor_dendrogram(CoGAPS_res_set = NULL, Pattern_set,
-  pattern_subset = NULL, annotation, group_variable, group_vector,
+  pattern_subset = NULL, annotation, group_column = NULL, group_vector,
   order_subgroups = F, cluster = "patterns",
   clustering_distance = "correlation", clustering_method = "complete")
 }
@@ -18,13 +18,14 @@ Alternatively, if CoGAPS_res_set is set to NULL, a Pmeans matrix may be supplied
 
 \item{pattern_subset}{a vector specifying a subset of the pattern set to be plotted. Defaults to NULL.}
 
-\item{annotation}{an annotation dataframe. Must contain a group_variable column with values corresponding to 
-those in group_vector.}
+\item{annotation}{an annotation dataframe. If group_column is set to NULL, must contain logical columns with 
+column names corresponding to values in group_vector. Each logical column (1 or 0) should indicate whether an
+annotation row is of the value (column name).}
 
-\item{group_variable}{column name of column in annotation object with values corresponding to those 
-in group_vector.}
+\item{group_column}{column name of column in annotation object with values corresponding to those 
+in group_vector to use for computing logical columns. Defaults to NULL}
 
-\item{group_vector}{a vector of with pre-specified values corresponding to those in the group_variable in
+\item{group_vector}{a vector of with pre-specified values corresponding to those in group_column in
 the annotation object.}
 
 \item{order_subgroups}{logical; if subgroups should be ordered according to clustering of first subgroup. 
