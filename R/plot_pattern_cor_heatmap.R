@@ -101,7 +101,7 @@ plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_s
                                                                                   n=n_subgroups)[,i])
     }
     #order by subgroup1,2 ..
-    for(i in n_subgroups:2) {
+    for(i in (n_subgroups+1):2) {
       ref_table <- ref_table[with(ref_table, order(ref_table[,i])),]
     }
     group_vector_ordered <- ref_table$group_vector
