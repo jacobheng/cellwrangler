@@ -27,7 +27,7 @@
 #plot_patterns_dim function
 plot_patternSet_dim <- function(Pattern_set, CoGAPS_res, annotation, dim_reduction, facet_wrap_by=NULL) {
   if(is.null(CoGAPS_res_set)==F) {
-    Pmeans <- (t(CoGAPS_res_set[[Pattern_set]]@sampleFactors))} else { Pmeans <- Pattern_set }
+    Pmeans <- CoGAPS_res_set[[Pattern_set]]@sampleFactors } else { Pmeans <- Pattern_set }
   
   Pmeans <- Pmeans[unique(rownames(Pmeans)),]
   Pmeans_annot <- merge_by_rownames(annotation, Pmeans, all.x = F, all.y=T)
