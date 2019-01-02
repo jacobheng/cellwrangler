@@ -8,7 +8,7 @@ load_CoGAPS_res(res_dir, res_name, nFactor_range)
 }
 \arguments{
 \item{res_dir}{name of directory containing CoGAPS results. Each CoGAPS result should be contained in
-a folder with the name "run_x" in numerical order baesed on the length of nFactor_range.}
+a folder with the name "run_x" in numerical order based on the length of nFactor_range.}
 
 \item{res_name}{name of .RData result files.}
 

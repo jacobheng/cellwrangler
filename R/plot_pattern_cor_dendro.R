@@ -38,7 +38,7 @@ plot_pattern_cor_dendrogram <-  function(CoGAPS_res_set=NULL, Pattern_set, patte
                                          clustering_distance="correlation", clustering_method="complete") {
   
   if(is.null(CoGAPS_res_set)==F) {
-    Pmeans <- (t(CoGAPS_res_set[[Pattern_set]]$Pmean))} else { Pmeans <- Pattern_set }
+    Pmeans <- (t(CoGAPS_res_set[[Pattern_set]]@sampleFactors))} else { Pmeans <- Pattern_set }
   if(is.null(pattern_subset) == F) {
     Pmeans <- Pmeans[,pattern_subset]
   } else { Pmeans <- Pmeans }

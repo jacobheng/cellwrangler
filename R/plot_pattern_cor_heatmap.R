@@ -50,7 +50,7 @@ plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_s
                                      cluster_patterns_vector=NULL, cluster_patterns_distance="correlation", 
                                      cluster_patterns_method="complete",limits=NULL, square_tiles=T) {
   if(is.null(CoGAPS_res_set)==F) {
-    Pmeans <- (t(CoGAPS_res_set[[Pattern_set]]$Pmean))} else { Pmeans <- Pattern_set }
+    Pmeans <- (t(CoGAPS_res_set[[Pattern_set]]@sampleFactors))} else { Pmeans <- Pattern_set }
   if(is.null(pattern_subset) == F) {
     Pmeans <- Pmeans[,pattern_subset]
   } else { Pmeans <- Pmeans }
