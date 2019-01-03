@@ -4,10 +4,13 @@
 \alias{annotate_bcv}
 \title{Calculate and annotate biological coefficent of variation}
 \usage{
-annotate_bcv(cds)
+annotate_bcv(cds, scaled_matrix = NULL)
 }
 \arguments{
 \item{cds}{a monocle CellDataSet object}
+
+\item{scaled_matrix}{a scaled expression matrix derived from cds provided. Exprs(cds) should be divided by 
+the colsums and multiplied by 10,000.}
 }
 \value{
 an annotated fData dataframe
