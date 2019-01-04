@@ -14,11 +14,10 @@
 #' gene_barplot("Actb", dat)
 
 gene_barplot <- function(gene_to_plot, cds, group = "genotype", color = "genotype", 
-                         color_scale = c("Black", "Red")){
+                         color_scale = c("Red", "Black")){
   tmp <- merge_by_rownames((exprs(cds)[rownames(fData(cds)[fData(cds)$gene_short_name %in% gene_to_plot,]),]), 
                pData(cds))
   colnames(tmp) <- c("exprs", colnames(pData(cds)))
-  print(head(tmp))
   #plot
   p <- ggplot(tmp, aes_string(x = group, y = "exprs")) +
     stat_summary(fun.y = mean, geom = "bar", aes_string(fill=color))  +

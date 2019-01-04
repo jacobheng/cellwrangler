@@ -11,10 +11,10 @@
 #' @examples
 #' find_cds_vglm(dat)
 
-fit.cds.vglm <- function(cds, modelFormulaStr, test_genes=c("Actb")){
+fit_cds_vglm <- function(cds, modelFormulaStr, test_genes=c("Actb")){
   #Test function
   test.VGAM <- monocle::fitModel(cds[findGeneID(test_genes, cds),], modelFormulaStr = modelFormulaStr)
-  test.VGAM.summary <- summaryvglm(test.VGAM[[1]])
+  test.VGAM.summary <- VGAM::summaryvglm(test.VGAM[[1]])
   #Error trapping
   robust_summaryvglm <- function(x) {tryCatch(summaryvglm(x),warning = function(w) {print(paste(w))},  
                                               error = function(e) {print(paste(e))}) }

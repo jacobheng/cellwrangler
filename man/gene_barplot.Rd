@@ -5,7 +5,7 @@
 \title{Plot mean gene expression as bar plot}
 \usage{
 gene_barplot(gene_to_plot, cds, group = "genotype", color = "genotype",
-  color_scale = c("Black", "Red"))
+  color_scale = c("Red", "Black"))
 }
 \arguments{
 \item{gene_to_plot}{official gene symbol of a gene to plot e.g. "Actb"}
