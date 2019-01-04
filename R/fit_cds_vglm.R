@@ -47,6 +47,6 @@ fit_cds_vglm <- function(cds, modelFormulaStr, test_genes=c("Actb")){
     num.x <- as.numeric(as.character(x))
     return(num.x)
   })
-  cds.vglm.merged <- as.data.frame(merge.by.rownames(cds.vglm_coef.df,fData(cds)))
+  cds.vglm.merged <- as.data.frame(merge_by_rownames(cds.vglm_coef.df,fData(cds)))
   return(cds.vglm.merged)
 }
