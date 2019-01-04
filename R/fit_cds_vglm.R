@@ -16,7 +16,7 @@ fit_cds_vglm <- function(cds, modelFormulaStr, test_genes=c("Actb")){
   test.VGAM <- monocle::fitModel(cds[findGeneID(test_genes, cds),], modelFormulaStr = modelFormulaStr)
   test.VGAM.summary <- VGAM::summaryvglm(test.VGAM[[1]])
   #Error trapping
-  robust_summaryvglm <- function(x) {tryCatch(summaryvglm(x),warning = function(w) {print(paste(w))},  
+  robust_summaryvglm <- function(x) {tryCatch(VGAM::summaryvglm(x),warning = function(w) {print(paste(w))},  
                                               error = function(e) {print(paste(e))}) }
   
   robust_coef <- function(x) {tryCatch(coef(x), error = function(e) { 

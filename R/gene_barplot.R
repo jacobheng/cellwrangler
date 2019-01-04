@@ -14,7 +14,7 @@
 #' gene_barplot("Actb", dat)
 
 gene_barplot <- function(gene_to_plot, cds, group = "genotype", color = "genotype", 
-                         color_scale = c("Red", "Black")){
+                         color_scale = c("Red", "Black"), plot_trend = F){
   tmp <- merge_by_rownames((exprs(cds)[rownames(fData(cds)[fData(cds)$gene_short_name %in% gene_to_plot,]),]), 
                pData(cds))
   colnames(tmp) <- c("exprs", colnames(pData(cds)))
@@ -25,6 +25,14 @@ gene_barplot <- function(gene_to_plot, cds, group = "genotype", color = "genotyp
     ylab("Mean UMIs per cell") + scale_fill_manual(values = color_scale) + 
     scale_color_manual(values = color_scale) +
     ggtitle(gene_to_plot)
+  
+  if(plot_trend==T) {
+    p <- p + stat_summary(aes_string(color = color), fun.data = "mean", 
+                          size = 0.35)
+    p <- p + stat_summary(aes_string(x = group, y = "exprs", 
+                                     color = color, group = color), fun.data = "mean", 
+                          size = 0.35, geom = "line")
+  } else { p <- p }
   
   return(p)
 }
