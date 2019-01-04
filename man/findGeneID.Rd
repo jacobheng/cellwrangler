@@ -4,12 +4,14 @@
 \alias{findGeneID}
 \title{Find Ensembl gene IDs given gene names}
 \usage{
-findGeneID(gene_names, cds)
+findGeneID(gene_names, cds, unique = T)
 }
 \arguments{
 \item{gene_names}{a vector of official gene names e.g. "Acta2"}
 
 \item{cds}{a CellDataSet object e.g. used in the monocle package}
+
+\item{unique}{logical; whether to return only unique gene ids}
 }
 \description{
 Using gene names as input, findGeneID() returns the corresponding Ensembl gene IDs in the fData

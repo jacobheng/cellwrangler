@@ -4,12 +4,17 @@
 \alias{findGeneName}
 \title{Find gene names given Ensembl gene IDs}
 \usage{
-findGeneName(gene_IDs, cds)
+findGeneName(gene_IDs, cds, unique = T)
 }
 \arguments{
 \item{gene_IDs}{a vector of Ensembl gene IDs e.g ENSMUSG00000035783}
 
 \item{cds}{a CellDataSet object e.g. used in the monocle package}
+
+\item{unique}{logical; whether to return only unique gene names}
+}
+\value{
+string(s)
 }
 \description{
 Using Ensembl gene IDs as input, findGeneName() returns the corresponding gene names in the fData
