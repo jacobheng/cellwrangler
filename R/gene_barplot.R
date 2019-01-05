@@ -27,10 +27,10 @@ gene_barplot <- function(gene_to_plot, cds, group = "genotype", color = "genotyp
     ggtitle(gene_to_plot)
   
   if(plot_trend==T) {
-    p <- p + stat_summary(aes_string(color = color), fun.data = "mean", 
+    p <- p + stat_summary(aes_string(color = color), fun.data = "mean_cl_boot", 
                           size = 0.35)
     p <- p + stat_summary(aes_string(x = group, y = "exprs", 
-                                     color = color, group = color), fun.data = "mean", 
+                                     color = color, group = color), fun.data = "mean_cl_boot", 
                           size = 0.35, geom = "line")
   } else { p <- p }
   

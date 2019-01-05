@@ -5,15 +5,21 @@
 #' p-value for each coefficient specified in the model formula string.
 #' @param cds a monocle CellDataSet object
 #' @param modelFormulaStr model formula string specifying the model to fit for the genes
-#' @param test_genes genes to test the model on; test_genes must be expressed in cds object.
+#' @param test_cds a monocle CellDataSet object to be used for error trapping; if NULL, cds will be
+#' used as test_cds.
+#' @param test_genes genes to test the model on, for error trapping; test_genes must be expressed in 
+#' test_cds object.
 #' @keywords fit_cds_vglm()
 #' @export
 #' @examples
 #' find_cds_vglm(dat)
 
-fit_cds_vglm <- function(cds, modelFormulaStr, test_genes=c("Actb")){
+fit_cds_vglm <- function(cds, modelFormulaStr, test_cds=NULL, test_genes=c("Actb")){
+  if(is.null(test_cds) == T) {
+    test_cds <- cds
+  } else { test_cds <- test_cds }
   #Test function
-  test.VGAM <- monocle::fitModel(cds[findGeneID(test_genes, cds),], modelFormulaStr = modelFormulaStr)
+  test.VGAM <- monocle::fitModel(cds[findGeneID(test_genes, test_cds),], modelFormulaStr = modelFormulaStr)
   test.VGAM.summary <- VGAM::summaryvglm(test.VGAM[[1]])
   #Error trapping
   robust_summaryvglm <- function(x) {tryCatch(VGAM::summaryvglm(x),warning = function(w) {print(paste(w))},  

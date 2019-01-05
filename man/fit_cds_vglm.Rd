@@ -4,14 +4,19 @@
 \alias{fit_cds_vglm}
 \title{Fit vector generalized linear model to a CellDataSet object}
 \usage{
-fit_cds_vglm(cds, modelFormulaStr, test_genes = c("Actb"))
+fit_cds_vglm(cds, modelFormulaStr, test_cds = NULL,
+  test_genes = c("Actb"))
 }
 \arguments{
 \item{cds}{a monocle CellDataSet object}
 
 \item{modelFormulaStr}{model formula string specifying the model to fit for the genes}
 
-\item{test_genes}{genes to test the model on; test_genes must be expressed in cds object.}
+\item{test_cds}{a monocle CellDataSet object to be used for error trapping; if NULL, cds will be
+used as test_cds.}
+
+\item{test_genes}{genes to test the model on, for error trapping; test_genes must be expressed in 
+test_cds object.}
 }
 \description{
 fit_cds_vglm() is a wrapper function around the monocle::fitModel() function that fits a vglm for each 
