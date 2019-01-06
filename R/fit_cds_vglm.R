@@ -25,10 +25,10 @@ fit_cds_vglm <- function(cds, modelFormulaStr, test_cds=NULL, test_genes=c("Actb
   robust_summaryvglm <- function(x) {tryCatch(VGAM::summaryvglm(x),warning = function(w) {print(paste(w))},  
                                               error = function(e) {print(paste(e))}) }
   
-  robust_coef <- function(x) {tryCatch(coef(x), error = function(e) { 
-    tmp <- matrix(0,nrow=nrow(coef(test.VGAM.summary)),ncol=ncol(coef(test.VGAM.summary)))
-    colnames(tmp) <- colnames(coef(test.VGAM.summary))
-    rownames(tmp) <- rownames(coef(test.VGAM.summary))
+  robust_coef <- function(x) {tryCatch(VGAM::coef(x), error = function(e) { 
+    tmp <- matrix(0,nrow=nrow(VGAM::coef(test.VGAM.summary)),ncol=ncol(VGAM::coef(test.VGAM.summary)))
+    colnames(tmp) <- colnames(VGAM::coef(test.VGAM.summary))
+    rownames(tmp) <- rownames(VGAM::coef(test.VGAM.summary))
     return(tmp)
   }) }
   #Fit vglm
