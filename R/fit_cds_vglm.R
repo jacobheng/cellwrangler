@@ -43,7 +43,7 @@ fit_cds_vglm <- function(cds, modelFormulaStr, test_cds=NULL, test_genes=c("Actb
     rownames(tmp2) <- x
     return(tmp2)
   })
-  ncol_coef <- (length(unlist(str_split(modelFormulaStr,pattern="\\+")))+1)*4
+  ncol_coef <- nrow(VGAM::coef(test.VGAM.summary))*ncol(VGAM::coef(test.VGAM.summary))
   cds.vglm_coef <- cds.vglm_coef[unlist(lapply(cds.vglm_coef, function(x){ 
     ncol(x) == ncol_coef
   }))]
