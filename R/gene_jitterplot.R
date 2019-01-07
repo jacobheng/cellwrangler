@@ -95,6 +95,6 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
     p <- p + expand_limits(y = c(min_expr, 1))
   }
   p <- p + ylab("Expression") + xlab(group)
-  p <- p + monocle_theme_opts()
+  p <- p + monocle:::monocle_theme_opts()
   p
 }
