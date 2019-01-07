@@ -15,7 +15,7 @@
 #' @examples
 #' gene_barplot(c("Actb", "Aldoa"), dat)
 
-gene.barplot <- function (genes, cds, group = "genotype", color = "genotype", facet_wrap = NULL, 
+gene_barplot <- function (genes, cds, group = "genotype", color = "genotype", facet_wrap = NULL, 
                           plot_trend = F, color_trend = "orange") 
 {
   cds_subset <- cds[cellwrangler::findGeneID(genes, cds), ]
