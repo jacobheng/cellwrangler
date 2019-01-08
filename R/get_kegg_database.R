@@ -18,9 +18,10 @@ get_kegg_database <- function(database, organism) {
   species <- organism_ref[organism_ref$organism == organism,]$species
   kegg_database <- keggList(database, organism)
   kegg_database <- as.data.frame(cbind(kegg_database))
-  kegg_database$id <- str_split_fixed(rownames(kegg_database), ":", n =2)[,2]
+  kegg_database$id <- stringr::str_split_fixed(rownames(kegg_database), ":", n =2)[,2]
   kegg_database$species <- species
-  kegg_database[database] <- str_split_fixed(kegg_database[,1], paste(" - ", species, sep=""), n = 2)[,1]
+  species_tag <- stringr::str_split_fixed(species, " ", n=2)[,1]
+  kegg_database[database] <- stringr::str_split_fixed(kegg_database[,1], paste(" - ", species_tag, sep=""), n = 2)[,1]
   return(kegg_database)
   
 }
