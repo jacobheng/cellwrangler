@@ -13,7 +13,6 @@
 
 
 get_kegg_database <- function(database, organism) {
-  library(KEGGREST)
   organism_ref <- as.data.frame((keggList("organism")))
   species <- organism_ref[organism_ref$organism == organism,]$species
   kegg_database <- KEGGREST::keggList(database, organism)
