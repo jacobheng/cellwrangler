@@ -12,7 +12,7 @@
 #' pathway_genes <- get_kegg_pathway_genes("Pentose phosphate pathway", mouse_kegg_pathways)
 
 get_kegg_pathway_genes <- function(pathway_name, kegg_pathway_df){
-  kegg_path_genes <- keggGet(kegg_pathway_df[kegg_pathway_df$pathway %in% pathway_name,]$id)[[1]]$GENE
+  kegg_path_genes <- KEGGREST::keggGet(kegg_pathway_df[kegg_pathway_df$pathway %in% pathway_name,]$id)[[1]]$GENE
   kegg_path_genes <- cbind(kegg_path_genes)
   kegg_path_genes <- str_split_fixed(kegg_path_genes[grep(";", kegg_path_genes),], ";", n=2)[,1]
   kegg_path_genes <- as.vector(kegg_path_genes)
