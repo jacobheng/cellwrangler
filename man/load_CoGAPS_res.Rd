@@ -4,7 +4,7 @@
 \alias{load_CoGAPS_res}
 \title{Load a set of CoGAPS results}
 \usage{
-load_CoGAPS_res(res_dir, res_name, nFactor_range)
+load_CoGAPS_res(res_dir, res_name, nFactor_range, name_output = T)
 }
 \arguments{
 \item{res_dir}{name of directory containing CoGAPS results. Each CoGAPS result should be contained in
@@ -13,6 +13,9 @@ a folder with the name "run_x" in numerical order based on the length of nFactor
 \item{res_name}{name of .RData result files.}
 
 \item{nFactor_range}{range of nFactor used in the set of CoGAPS results.}
+
+\item{name_output}{logical; whether to name output according to nFactor_range. Each CoGAPS_res will be 
+named "nPXX", "nPXY" etc.}
 }
 \value{
 a list of CoGAPS objects

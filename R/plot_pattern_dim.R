@@ -29,7 +29,7 @@ plot_pattern_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduct
   if(is.null(CoGAPS_res_set)==F) {
     Pmeans <- CoGAPS_res_set[[Pattern_set]]@sampleFactors } else { Pmeans <- Pattern_set }
   
-  Pmeans <- Pmeans[unique(rownames(Pmeans)),]
+  Pmeans <- Pmeans[unique( as.character(rownames(Pmeans)) ),]
   Pmeans_annot <- merge_by_rownames(annotation, Pmeans, all.x = F, all.y=T)
   #Get dim_reduction names
   dim_reduction_names <- colnames(dim_reduction)
