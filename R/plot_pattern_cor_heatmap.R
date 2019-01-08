@@ -55,7 +55,7 @@ plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_s
   if(is.null(pattern_subset) == F) {
     Pmeans <- Pmeans[,pattern_subset]
   } else { Pmeans <- Pmeans }
-  Pmeans <- Pmeans[unique(rownames(Pmeans)),]
+  Pmeans <- Pmeans[unique( as.character(rownames(Pmeans)) ),]
   #Create columns in annotation according to group_vector
   if(is.null(group_column) == F) {
   lapply(group_vector, function(x){
