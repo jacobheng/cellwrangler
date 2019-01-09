@@ -84,8 +84,7 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = T, cluster_group
     tmp_melt <- melt(tmp_scale)
     colnames(tmp_melt) <- c("gene", "group", "Mean exprs per cell")
   }
-  tmp_melt$gene_id <- fData(cds)$id[match(tmp_melt$gene, 
-                                          fData(cds)$gene_short_name)]
+
   tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(genes))
   
   
