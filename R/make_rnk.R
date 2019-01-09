@@ -22,7 +22,7 @@
 make_rnk <- function(celltype, rank_df, gene_name, rank_stat, decreasing = T, 
                      write_rnk=F, output_dir=NULL, output_name=NULL) {
   tmp <-  rank_df[rank_df$myCellType == celltype, c(gene_name,rank_stat)]
-  print( c(gene_name,rank_stat))
+  paste("Ranking", celltype, gene_name, "by", rank_stat, sep = " ")
   tmp <- tmp[order(tmp[,rank_stat], decreasing = decreasing),]
   tmp <- tmp[!tmp[,gene_name] == "#N/A",]
   tmp <- tmp[!duplicated(tmp[,gene_name]),]

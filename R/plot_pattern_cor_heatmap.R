@@ -90,7 +90,8 @@ plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_s
   if(cluster_groups == T) {
     ref_table <- as.data.frame(group_vector)
     colnames(ref_table) <- c("group_vector")
-    group.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp), distance=cluster_groups_distance,method=cluster_groups_method)))
+    group.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp), distance=cluster_groups_distance,
+                                                                       method=cluster_groups_method)))
     ref_table$group_vector <- factor(ref_table$group_vector, levels=ref_table$group_vector[group.order])
     #order_subgroups
     if(order_subgroups == T) {

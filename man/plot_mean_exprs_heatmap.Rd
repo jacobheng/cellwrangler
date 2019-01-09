@@ -38,18 +38,18 @@ Subgroups can be specified in a string with separation by " - ".}
 \item{cluster_genes_vector}{a vector specifying the order of genes. If NULL, genes will be clustered
 according to distance and method specified below.}
 
+\item{cluster_genes_distance}{distance measure used in clustering genes. Possible values are the
+same as cluster_groups_distance().}
+
+\item{cluster_genes_method}{clustering method used for genes. Possible values are the
+same as cluster_groups_method().}
+
 \item{color_scale}{color scale vector for heatmap of length 3 for low, high, and na values respectively;
 if null, limits of color scale will be determined by the squish() function}
 
 \item{limits}{limits of the color scale for the heatmap.}
 
 \item{square_tiles}{logical; if tiles should be made square}
-
-\item{cluster_patterns_distance}{distance measure used in clustering genes. Possible values are the
-same as cluster_groups_distance().}
-
-\item{cluster_patterns_method}{clustering method used for genes. Possible values are the
-same as cluster_groups_method().}
 }
 \value{
 a ggplot object

@@ -18,9 +18,9 @@
 #' @param cluster_genes logical; if genes should be clustered.
 #' @param cluster_genes_vector a vector specifying the order of genes. If NULL, genes will be clustered
 #' according to distance and method specified below.
-#' @param cluster_patterns_distance distance measure used in clustering genes. Possible values are the
+#' @param cluster_genes_distance distance measure used in clustering genes. Possible values are the
 #' same as cluster_groups_distance().
-#' @param cluster_patterns_method clustering method used for genes. Possible values are the
+#' @param cluster_genes_method clustering method used for genes. Possible values are the
 #' same as cluster_groups_method().
 #' @param limits limits of the color scale for the heatmap.
 #' @param color_scale color scale vector for heatmap of length 3 for low, high, and na values respectively;
@@ -43,7 +43,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
   #Subset cds
   cds_subset <- cds[rownames(fData(cds)[fData(cds)$gene_short_name %in% genes,]), ]
   #Create group_vector
-  group_vector <- unique(pData(cds_subset)[,group])
+  group_vector <- as.character(unique(pData(cds_subset)[,group]))
   
   #Further subset cds by group_vector
   if(length(genes) == 1) {
@@ -81,7 +81,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
     } else {
       gene.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat((tmp_scale), distance=cluster_genes_distance,
                                                                         method=cluster_genes_method)))
-      tmp_melt$gene = factor(tmp_melt$gene, levels=unique(tmp_melt$pattern)[gene.order])
+      tmp_melt$gene = factor(tmp_melt$gene, levels=unique(tmp_melt$gene)[gene.order])
     }
   } else { tmp_melt$gene= factor(tmp_melt$gene, levels=rev(unique(tmp_melt$gene)[order(tmp_melt$gene,decreasing=T)])) }
   
@@ -93,6 +93,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
     group.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp_scale), distance=cluster_groups_distance,
                                                                        method=cluster_groups_method)))
     ref_table$group_vector <- factor(ref_table$group_vector, levels=ref_table$group_vector[group.order])
+    
     #order_subgroups
     if(order_subgroups == T) {
       n_subgroups <- length(stringr::str_split(group_vector, pattern = " - ")[[1]])
