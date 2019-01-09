@@ -59,9 +59,6 @@ plot_mean_exprs_heatmap() plots a heatmap showing the mean expression of a gene 
 CellDataSet object.
 }
 \examples{
-plot_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 
-group_column=NULL, group_vector=genotype_vector, cluster_groups=T, order_subgroups=T, 
-cluster_groups_distance = "correlation", cluster_groups_method = "complete", cluster_patterns= T, 
-cluster_patterns_distance = "correlation", cluster_patterns_method = "complete")
+plot_mean_exprs_heatmap(c("Actb","Aldoa"), cds=dat)
 }
 \keyword{plot_pattern_cor_heatmap}

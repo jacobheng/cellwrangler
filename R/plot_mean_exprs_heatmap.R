@@ -31,10 +31,7 @@
 #' @export
 #' @return a ggplot object
 #' @examples
-#' plot_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 
-#' group_column=NULL, group_vector=genotype_vector, cluster_groups=T, order_subgroups=T, 
-#' cluster_groups_distance = "correlation", cluster_groups_method = "complete", cluster_patterns= T, 
-#' cluster_patterns_distance = "correlation", cluster_patterns_method = "complete")
+#' plot_mean_exprs_heatmap(c("Actb","Aldoa"), cds=dat)
 
 
 plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F, order_subgroups=F,
@@ -92,7 +89,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
   #cluster groups
   if(cluster_groups == T) {
     ref_table <- as.data.frame(group_vector)
-    colnames(ref_table) <- ("group_vector")
+    colnames(ref_table) <- c("group_vector")
     group.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp_scale), distance=cluster_groups_distance,
                                                                        method=cluster_groups_method)))
     ref_table$group_vector <- factor(ref_table$group_vector, levels=ref_table$group_vector[group.order])
