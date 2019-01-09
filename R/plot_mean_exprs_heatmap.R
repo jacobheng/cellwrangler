@@ -33,97 +33,119 @@
 #' @examples
 #' plot_mean_exprs_heatmap(c("Actb","Aldoa"), cds=dat)
 
-
-plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F, order_subgroups=F,
-                                    cluster_groups_distance="correlation", cluster_groups_method="complete",
-                                    cluster_genes=F, cluster_genes_vector = NULL, 
-                                    cluster_genes_distance="correlation", cluster_genes_method="complete",
-                                    color_scale=c("midnightblue","gold","grey50"), limits=NULL, 
-                                    square_tiles=T) {
-  #Subset cds
-  cds_subset <- cds[rownames(fData(cds)[fData(cds)$gene_short_name %in% genes,]), ]
+plot_mean_exprs_heatmap <- function (genes, cds, group, scale = T, cluster_groups = F, order_subgroups = F, 
+                                     cluster_groups_distance = "euclidean", cluster_groups_method = "complete", 
+                                     cluster_genes = F, cluster_genes_vector = NULL, 
+                                     cluster_genes_distance = "correlation", 
+                                     cluster_genes_method = "complete", 
+                                     color_scale = c("midnightblue", "gold", "grey50"), 
+                                     limits = NULL, square_tiles = T) 
+{
+  cds_subset <- cds[rownames(fData(cds)[fData(cds)$gene_short_name %in% 
+                                          genes, ]), ]
   #Create group_vector
-  group_vector <- as.character(unique(pData(cds_subset)[,group]))
+  group_vector <- as.character(unique(pData(cds_subset)[, group]))
   
-  #Further subset cds by group_vector
-  if(length(genes) == 1) {
+  if (length(genes) == 1) {
     tmp <- lapply(group_vector, function(x) {
-      celltype_means <- Matrix::rowMeans(exprs(cds_subset[ , pData(cds_subset)[,group] %in% x ]))
+      celltype_means <- Matrix::rowMeans(exprs(cds_subset[, 
+                                                          pData(cds_subset)[, group] %in% x]))
       return(celltype_means)
     })
-    tmp <- as.data.frame( matrix(unlist(tmp), nrow=1 ))
+    tmp <- as.data.frame(matrix(unlist(tmp), nrow = 1))
+    #Change rownames
     rownames(tmp) <- findGeneName(rownames(tmp), cds)
-    if(scale==T){
-      tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))} else { tmp_scale <- tmp }
+    if (scale == T) {
+      tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))
+    }
+    else {
+      tmp_scale <- tmp
+    }
     colnames(tmp_scale) <- group_vector
     tmp_melt <- melt(tmp_scale)
-    colnames(tmp_melt) <- c("group","Mean exprs per cell")
+    colnames(tmp_melt) <- c("group", "Mean exprs per cell")
     tmp_melt$gene_id <- rownames(fData(cds_subset))
-  } else {
+  }
+  else {
     tmp <- sapply(group_vector, function(x) {
-      celltype_means <- Matrix::rowMeans(exprs(cds_subset[, pData(cds_subset)[,group] %in% x]))
+      celltype_means <- Matrix::rowMeans(exprs(cds_subset[, 
+                                                          pData(cds_subset)[, group] %in% x]))
       return(celltype_means)
     })
+    #Change rownames
     rownames(tmp) <- findGeneName(rownames(tmp), cds)
-    if(scale==T){
-      tmp_scale <- t(apply(tmp,1,scale))
-      colnames(tmp_scale) <- group_vector} else { tmp_scale <- tmp }
+    if (scale == T) {
+      tmp_scale <- t(apply(tmp, 1, scale))
+      colnames(tmp_scale) <- group_vector
+    }
+    else {
+      tmp_scale <- tmp
+    }
     tmp_melt <- melt(tmp_scale)
-    colnames(tmp_melt) <- c("gene_id", "group","Mean exprs per cell")
+    colnames(tmp_melt) <- c("gene", "group", "Mean exprs per cell")
   }
-  
-  #Set gene name order and append gene id
+  tmp_melt$gene_id <- fData(cds)$id[match(tmp_melt$gene, 
+                                          fData(cds)$gene_short_name)]
   tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(genes))
   
-  #cluster genes
-  if(cluster_genes== T) {
-    if(is.null(cluster_genes_vector)==F){
-      tmp_melt$gene = factor(tmp_melt$gene,levels=unique(tmp_melt$gene)[cluster_genes_vector])
-    } else {
-      gene.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat((tmp_scale), distance=cluster_genes_distance,
-                                                                        method=cluster_genes_method)))
-      tmp_melt$gene = factor(tmp_melt$gene, levels=unique(tmp_melt$gene)[gene.order])
+  
+  if (cluster_genes == T) {
+    if (is.null(cluster_genes_vector) == F) {
+      tmp_melt$gene = factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[cluster_genes_vector])
     }
-  } else { tmp_melt$gene= factor(tmp_melt$gene, levels=rev(unique(tmp_melt$gene)[order(tmp_melt$gene,decreasing=T)])) }
-  
-  
-  #cluster groups
-  if(cluster_groups == T) {
+    else {
+      gene.order <- order.dendrogram(as.dendrogram(pheatmap:::cluster_mat((tmp_scale), 
+                                                                          distance = cluster_genes_distance, method = cluster_genes_method)))
+      tmp_melt$gene = factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[gene.order])
+    }
+  }
+  else {
+    tmp_melt$gene = factor(tmp_melt$gene, levels = rev(unique(tmp_melt$gene)[order(tmp_melt$gene, 
+                                                                                   decreasing = T)]))
+  }
+  if (cluster_groups == T) {
     ref_table <- as.data.frame(group_vector)
     colnames(ref_table) <- c("group_vector")
-    group.order<-order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp_scale), distance=cluster_groups_distance,
-                                                                       method=cluster_groups_method)))
-    ref_table$group_vector <- factor(ref_table$group_vector, levels=ref_table$group_vector[group.order])
     
-    #order_subgroups
-    if(order_subgroups == T) {
-      n_subgroups <- length(stringr::str_split(group_vector, pattern = " - ")[[1]])
-      for(i in 1:n_subgroups) {
-        ref_table[paste("subgroup",i,sep="")] <- as.factor(stringr::str_split_fixed(group_vector, pattern=" - ",
-                                                                                    n=n_subgroups)[,i])
+    group.order <- order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp_scale), distance = cluster_groups_distance, 
+                                                                         method = cluster_groups_method)))
+
+    ref_table$group_vector <- factor( ref_table$group_vector, 
+                                      levels = ref_table$group_vector[group.order] )
+    
+    if (order_subgroups == T) {
+      n_subgroups <- length(stringr::str_split(group_vector, 
+                                               pattern = " - ")[[1]])
+      for (i in 1:n_subgroups) {
+        ref_table[paste("subgroup", i, sep = "")] <- as.factor(stringr::str_split_fixed(group_vector, 
+                                                                                        pattern = " - ", n = n_subgroups)[, i])
       }
-      #order by subgroup1,2 ..
-      for(i in (n_subgroups+1):2) {
-        ref_table <- ref_table[with(ref_table, order(ref_table[,i])),]
+      for (i in (n_subgroups + 1):2) {
+        ref_table <- ref_table[with(ref_table, order(ref_table[,i])), ]
       }
       group_vector_ordered <- ref_table$group_vector
-      tmp_melt$group <-factor(tmp_melt$group,levels=rev(group_vector_ordered)) 
-    } else {
-      tmp_melt$group <-factor(tmp_melt$group,levels=rev(ref_table$group_vector[group.order]))
+      tmp_melt$group <- factor(tmp_melt$group, 
+                               levels = rev(group_vector_ordered))
     }
-  } else { tmp_melt <- tmp_melt }
-
-  
-  #Plot heatmap
-  p<-ggplot(tmp_melt,aes(x=group,y=gene,fill=`Mean exprs per cell`))
-  p <- p + geom_tile(size=0.25) + theme_classic() + 
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.5)) + 
-    scale_fill_gradient(name="Expression" ,low=color_scale[1], high=color_scale[2],na.value = color_scale[3],
-                        limits=limits, oob=scales::squish)
-  if(square_tiles == T) {
+    else {
+      
+      tmp_melt$group<- factor(tmp_melt$group, 
+                              levels = rev(ref_table$group_vector[group.order]))
+    }
+  }
+  else {
+    tmp_melt <- tmp_melt
+  }
+  p <- ggplot(tmp_melt, aes(x = group, y = gene, fill = `Mean exprs per cell`))
+  p <- p + geom_tile(size = 0.25) + theme_classic() + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + 
+    scale_fill_gradient(name = "Expression", low = color_scale[1], high = color_scale[2], 
+                        na.value = color_scale[3], limits = limits, oob = scales::squish)
+  if (square_tiles == T) {
     p <- p + coord_equal()
-  } else { p <- p }
-  
+  }
+  else {
+    p <- p
+  }
   return(p)
-  
 }

@@ -6,7 +6,7 @@
 \usage{
 plot_mean_exprs_heatmap(genes, cds, group, scale = T,
   cluster_groups = F, order_subgroups = F,
-  cluster_groups_distance = "correlation",
+  cluster_groups_distance = "euclidean",
   cluster_groups_method = "complete", cluster_genes = F,
   cluster_genes_vector = NULL, cluster_genes_distance = "correlation",
   cluster_genes_method = "complete", color_scale = c("midnightblue",
