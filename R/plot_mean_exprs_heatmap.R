@@ -41,7 +41,8 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
                                     cluster_groups_distance="correlation", cluster_groups_method="complete",
                                     cluster_genes=F, cluster_genes_vector = NULL, 
                                     cluster_genes_distance="correlation", cluster_genes_method="complete",
-                                    color_scale=c("midnightblue","gold","grey50"), limits=NULL) {
+                                    color_scale=c("midnightblue","gold","grey50"), limits=NULL, 
+                                    square_tiles=T) {
   #Subset cds
   cds_subset <- cds[rownames(fData(cds)[fData(cds)$gene_short_name %in% genes,]), ]
   #Create group_vector

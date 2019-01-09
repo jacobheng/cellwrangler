@@ -10,7 +10,7 @@ plot_mean_exprs_heatmap(genes, cds, group, scale = T,
   cluster_groups_method = "complete", cluster_genes = F,
   cluster_genes_vector = NULL, cluster_genes_distance = "correlation",
   cluster_genes_method = "complete", color_scale = c("midnightblue",
-  "gold", "grey50"), limits = NULL)
+  "gold", "grey50"), limits = NULL, square_tiles = T)
 }
 \arguments{
 \item{genes}{a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")}
@@ -43,13 +43,13 @@ if null, limits of color scale will be determined by the squish() function}
 
 \item{limits}{limits of the color scale for the heatmap.}
 
+\item{square_tiles}{logical; if tiles should be made square}
+
 \item{cluster_patterns_distance}{distance measure used in clustering genes. Possible values are the
 same as cluster_groups_distance().}
 
 \item{cluster_patterns_method}{clustering method used for genes. Possible values are the
 same as cluster_groups_method().}
-
-\item{square_tiles}{logical; if tiles should be made square}
 }
 \value{
 a ggplot object
