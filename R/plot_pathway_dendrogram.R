@@ -20,7 +20,7 @@
 
 
 
-plot.pathway.dendrogram <-  function(path_res_df, cluster="col",clustering_distance="euclidean", clustering_method="complete") {
+plot_pathway_dendrogram <-  function(path_res_df, cluster="col",clustering_distance="euclidean", clustering_method="complete") {
   path_table <- dcast(path_res_df[,c("pathway","NES","CellType")], pathway~CellType, value.var = "NES")
   rownames(path_table) <- path_table$pathway
   path_table <- path_table[,-1]

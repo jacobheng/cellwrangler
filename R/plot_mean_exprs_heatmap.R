@@ -45,12 +45,12 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
   #Subset cds
   cds_subset <- cds[rownames(fData(cds)[fData(cds)$gene_short_name %in% genes,]), ]
   #Create group_vector
-  group_vector <- unique(pData(cds_subset)[group])
+  group_vector <- unique(pData(cds_subset)[,group])
   
   #Further subset cds by group_vector
   if(length(genes) == 1) {
     tmp <- lapply(group_vector, function(x) {
-      celltype_means <- Matrix::rowMeans(exprs(cds_subset[, pData(cds_subset)[group] == x]))
+      celltype_means <- Matrix::rowMeans(exprs(cds_subset[ , pData(cds_subset)[,group] %in% x ]))
       return(celltype_means)
     })
     tmp <- as.data.frame( matrix(unlist(tmp), nrow=1 ))
@@ -62,7 +62,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
     tmp_melt$gene_id <- rownames(fData(cds_subset))
   } else {
     tmp <- sapply(group_vector, function(x) {
-      celltype_means <- Matrix::rowMeans(exprs(cds_subset[, pData(cds_subset)[group] == x]))
+      celltype_means <- Matrix::rowMeans(exprs(cds_subset[, pData(cds_subset)[,group] %in% x]))
       return(celltype_means)
     })
     if(scale==T){
