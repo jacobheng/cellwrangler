@@ -9,7 +9,7 @@ get_kegg_pathway_genes(pathway_name, kegg_pathway_df)
 \arguments{
 \item{pathway_name}{a KEGG pathway name}
 
-\item{kegg_pathway_df}{a kegg pathway database that is produced using the cellwrangler::get_kegg_database()
+\item{kegg_pathway_df}{a kegg pathway database that is produced using the cellwrangler get_kegg_database()
 function using "pathway" as an option.}
 }
 \value{

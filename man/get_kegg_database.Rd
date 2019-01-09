@@ -7,7 +7,7 @@
 get_kegg_database(database, organism)
 }
 \arguments{
-\item{database}{a KEGG database; one of options available via KEGGREST::listDatabases()}
+\item{database}{a KEGG database; one of options available via KEGGREST listDatabases()}
 
 \item{organism}{KEGG organism code e.g. "mmu" for "Mus musculus"}
 }

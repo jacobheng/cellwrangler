@@ -4,7 +4,7 @@
 \alias{plot.pathway.dendrogram}
 \title{Plot pathway dendrogram}
 \usage{
-\method{plot}{pathway.dendrogram}(path_res_df, cluster = "col",
+plot.pathway.dendrogram(path_res_df, cluster = "col",
   clustering_distance = "euclidean", clustering_method = "complete")
 }
 \arguments{
