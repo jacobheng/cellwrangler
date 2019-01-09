@@ -52,6 +52,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
       return(celltype_means)
     })
     tmp <- as.data.frame( matrix(unlist(tmp), nrow=1 ))
+    rownames(tmp) <- findGeneName(rownames(tmp), cds)
     if(scale==T){
       tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))} else { tmp_scale <- tmp }
     colnames(tmp_scale) <- group_vector
@@ -63,6 +64,7 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
       celltype_means <- Matrix::rowMeans(exprs(cds_subset[, pData(cds_subset)[,group] %in% x]))
       return(celltype_means)
     })
+    rownames(tmp) <- findGeneName(rownames(tmp), cds)
     if(scale==T){
       tmp_scale <- t(apply(tmp,1,scale))
       colnames(tmp_scale) <- group_vector} else { tmp_scale <- tmp }
@@ -70,9 +72,8 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
     colnames(tmp_melt) <- c("gene_id", "group","Mean exprs per cell")
   }
   
-  #Append gene
-  tmp_melt$gene <- fData(cds)$gene_short_name[match(tmp_melt$gene_id, fData(cds)$id)]
-  tmp_melt$gene <- factor(tmp_melt$gene, levels=rev(genes))
+  #Set gene name order and append gene id
+  tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(genes))
   
   #cluster genes
   if(cluster_genes== T) {
@@ -106,9 +107,9 @@ plot_mean_exprs_heatmap <- function(genes, cds, group, scale=T, cluster_groups=F
         ref_table <- ref_table[with(ref_table, order(ref_table[,i])),]
       }
       group_vector_ordered <- ref_table$group_vector
-      tmp_melt$group_vector <-factor(tmp_melt$group_vector,levels=rev(group_vector_ordered)) 
+      tmp_melt$group <-factor(tmp_melt$group,levels=rev(group_vector_ordered)) 
     } else {
-      tmp_melt$group_vector <-factor(tmp_melt$group_vector,levels=rev(ref_table$group_vector[group.order]))
+      tmp_melt$group <-factor(tmp_melt$group,levels=rev(ref_table$group_vector[group.order]))
     }
   } else { tmp_melt <- tmp_melt }
 
