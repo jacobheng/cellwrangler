@@ -6,7 +6,8 @@
 #' @param genes a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")
 #' @param cds a monocle CellDataSet object
 #' @param group column name in pData(cds) to group the bar plots by on the horizontal axis.
-#' @param scale logical; if data should be scaled as z-scores
+#' @param scale scaling to be done for each gene; possible values are "z-score" and "rescale"; "z-score"
+#' scales the values to the z-scores; "rescale" scales the values to have a minimum of 0 and maximum of 1.
 #' @param cluster_groups logical; if groups should be clustered.
 #' @param order_subgroups logical; if subgroups should be ordered according to clustering of first subgroup. 
 #' Subgroups can be specified in a string with separation by " - ".
@@ -33,7 +34,7 @@
 #' @examples
 #' plot_mean_exprs_heatmap(c("Actb","Aldoa"), cds=dat)
 
-plot_mean_exprs_heatmap <- function (genes, cds, group, scale = T, cluster_groups = F, order_subgroups = F, 
+plot_mean_exprs_heatmap <- function (genes, cds, group, scale = NULL, cluster_groups = F, order_subgroups = F, 
                                      cluster_groups_distance = "euclidean", cluster_groups_method = "complete", 
                                      cluster_genes = F, cluster_genes_vector = NULL, 
                                      cluster_genes_distance = "correlation", 
@@ -41,8 +42,14 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = T, cluster_group
                                      color_scale = c("midnightblue", "gold", "grey50"), 
                                      limits = NULL, square_tiles = T) 
 {
-  cds_subset <- cds[rownames(fData(cds)[fData(cds)$gene_short_name %in% 
-                                          genes, ]), ]
+  #Create gene ref
+  gene_ref <- as.data.frame(findGeneID(genes, cds))
+  colnames(gene_ref) <- c("gene_id")
+  gene_ref$gene_short_name <- findGeneName(gene_ref$gene_id, unique = F)
+  gene_ref$gene_short_name <- make.names(gene_ref$gene_short_name, unique = T)
+  
+  #subset cds
+  cds_subset <- cds[findGeneID(genes, cds), ]
   #Create group_vector
   group_vector <- as.character(unique(pData(cds_subset)[, group]))
   
@@ -54,12 +61,12 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = T, cluster_group
     })
     tmp <- as.data.frame(matrix(unlist(tmp), nrow = 1))
     #Change rownames
-    rownames(tmp) <- findGeneName(rownames(tmp), cds)
-    if (scale == T) {
+    rownames(tmp) <- gene_ref$gene_short_name[match(rownames(tmp), gene_ref$gene_id)]
+    if (scale == "z-score") {
       tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))
-    }
-    else {
-      tmp_scale <- tmp
+    } else { if(scale == "rescale"){
+      tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
+    } else { tmp_scale <- tmp }
     }
     colnames(tmp_scale) <- group_vector
     tmp_melt <- melt(tmp_scale)
@@ -73,34 +80,34 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = T, cluster_group
       return(celltype_means)
     })
     #Change rownames
-    rownames(tmp) <- findGeneName(rownames(tmp), cds)
-    if (scale == T) {
+    rownames(tmp) <- gene_ref$gene_short_name[match(rownames(tmp), gene_ref$gene_id)]
+    if (scale == "z-score") {
       tmp_scale <- t(apply(tmp, 1, scale))
       colnames(tmp_scale) <- group_vector
     }
-    else {
-      tmp_scale <- tmp
+    else { if(scale == "rescale"){
+      tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
+    } else { tmp_scale <- tmp }
     }
     tmp_melt <- melt(tmp_scale)
     colnames(tmp_melt) <- c("gene", "group", "Mean exprs per cell")
   }
 
-  tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(genes))
+  tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(gene_ref$gene_short_name))
   
   
   if (cluster_genes == T) {
     if (is.null(cluster_genes_vector) == F) {
-      tmp_melt$gene = factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[cluster_genes_vector])
+      tmp_melt$gene <- factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[cluster_genes_vector])
     }
     else {
       gene.order <- order.dendrogram(as.dendrogram(pheatmap:::cluster_mat((tmp_scale), 
                                                                           distance = cluster_genes_distance, method = cluster_genes_method)))
-      tmp_melt$gene = factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[gene.order])
+      tmp_melt$gene <- factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[gene.order])
     }
   }
   else {
-    tmp_melt$gene = factor(tmp_melt$gene, levels = rev(unique(tmp_melt$gene)[order(tmp_melt$gene, 
-                                                                                   decreasing = T)]))
+    tmp_melt$gene <- tmp_melt$gene
   }
   if (cluster_groups == T) {
     ref_table <- as.data.frame(group_vector)

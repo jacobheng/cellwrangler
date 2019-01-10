@@ -4,7 +4,7 @@
 \alias{plot_mean_exprs_heatmap}
 \title{Plot mean expression heatmap}
 \usage{
-plot_mean_exprs_heatmap(genes, cds, group, scale = T,
+plot_mean_exprs_heatmap(genes, cds, group, scale = NULL,
   cluster_groups = F, order_subgroups = F,
   cluster_groups_distance = "euclidean",
   cluster_groups_method = "complete", cluster_genes = F,
@@ -19,7 +19,8 @@ plot_mean_exprs_heatmap(genes, cds, group, scale = T,
 
 \item{group}{column name in pData(cds) to group the bar plots by on the horizontal axis.}
 
-\item{scale}{logical; if data should be scaled as z-scores}
+\item{scale}{scaling to be done for each gene; possible values are "z-score" and "rescale"; "z-score"
+scales the values to the z-scores; "rescale" scales the values to have a minimum of 0 and maximum of 1.}
 
 \item{cluster_groups}{logical; if groups should be clustered.}
 
