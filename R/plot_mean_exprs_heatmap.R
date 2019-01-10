@@ -45,7 +45,7 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = NULL, cluster_gr
   #Create gene ref
   gene_ref <- as.data.frame(findGeneID(genes, cds))
   colnames(gene_ref) <- c("gene_id")
-  gene_ref$gene_short_name <- findGeneName(gene_ref$gene_id, unique = F)
+  gene_ref$gene_short_name <- findGeneName(gene_ref$gene_id, cds, unique = F)
   gene_ref$gene_short_name <- make.names(gene_ref$gene_short_name, unique = T)
   
   #subset cds
