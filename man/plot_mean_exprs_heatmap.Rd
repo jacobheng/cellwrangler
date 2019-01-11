@@ -4,7 +4,7 @@
 \alias{plot_mean_exprs_heatmap}
 \title{Plot mean expression heatmap}
 \usage{
-plot_mean_exprs_heatmap(genes, cds, group, scale_data = NULL,
+plot_mean_exprs_heatmap(genes, cds, group, scale_method = NULL,
   cluster_groups = F, order_subgroups = F,
   cluster_groups_distance = "euclidean",
   cluster_groups_method = "complete", cluster_genes = F,
@@ -18,6 +18,9 @@ plot_mean_exprs_heatmap(genes, cds, group, scale_data = NULL,
 \item{cds}{a monocle CellDataSet object}
 
 \item{group}{column name in pData(cds) to group the bar plots by on the horizontal axis.}
+
+\item{scale_method}{scaling to be done for each gene; possible values are "z-score" and "rescale"; "z-score"
+scales the values to the z-scores; "rescale" scales the values to have a minimum of 0 and maximum of 1.}
 
 \item{cluster_groups}{logical; if groups should be clustered.}
 
@@ -48,9 +51,6 @@ if null, limits of color scale will be determined by the squish() function}
 \item{limits}{limits of the color scale for the heatmap.}
 
 \item{square_tiles}{logical; if tiles should be made square}
-
-\item{scale}{scaling to be done for each gene; possible values are "z-score" and "rescale"; "z-score"
-scales the values to the z-scores; "rescale" scales the values to have a minimum of 0 and maximum of 1.}
 }
 \value{
 a ggplot object

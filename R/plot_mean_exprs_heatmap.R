@@ -6,7 +6,7 @@
 #' @param genes a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")
 #' @param cds a monocle CellDataSet object
 #' @param group column name in pData(cds) to group the bar plots by on the horizontal axis.
-#' @param scale scaling to be done for each gene; possible values are "z-score" and "rescale"; "z-score"
+#' @param scale_method scaling to be done for each gene; possible values are "z-score" and "rescale"; "z-score"
 #' scales the values to the z-scores; "rescale" scales the values to have a minimum of 0 and maximum of 1.
 #' @param cluster_groups logical; if groups should be clustered.
 #' @param order_subgroups logical; if subgroups should be ordered according to clustering of first subgroup. 
@@ -34,7 +34,7 @@
 #' @examples
 #' plot_mean_exprs_heatmap(c("Actb","Aldoa"), cds=dat)
 
-plot_mean_exprs_heatmap <- function (genes, cds, group, scale_data = NULL, cluster_groups = F, order_subgroups = F, 
+plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, cluster_groups = F, order_subgroups = F, 
                                      cluster_groups_distance = "euclidean", cluster_groups_method = "complete", 
                                      cluster_genes = F, cluster_genes_vector = NULL, 
                                      cluster_genes_distance = "correlation", 
@@ -63,12 +63,14 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_data = NULL, clust
     #Change rownames
     rownames(tmp) <- gene_ref$gene_short_name[match(rownames(tmp), gene_ref$gene_id)]
     #Scale data
-    if (scale_data == "z-score") {
+    if(is.null(scale_method) == F) {
+    if (scale_method == "z-score") {
       tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))
-    } else { if(scale_data == "rescale"){
+    } else { if(scale_method == "rescale"){
       tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
-    } else { tmp_scale <- tmp }
-    }
+    } else { print("scale_method can only be z-score or rescale") }
+    } } else { tmp_scale <- tmp }
+    
     colnames(tmp_scale) <- group_vector
     tmp_melt <- melt(tmp_scale)
     colnames(tmp_melt) <- c("group", "Mean exprs per cell")
@@ -83,14 +85,16 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_data = NULL, clust
     #Change rownames
     rownames(tmp) <- gene_ref$gene_short_name[match(rownames(tmp), gene_ref$gene_id)]
     #Scale data
-    if (scale_data == "z-score") {
+    if(is.null(scale_method) == F) {
+    if(scale_method == "z-score") {
       tmp_scale <- t(apply(tmp, 1, scale))
       colnames(tmp_scale) <- group_vector
     }
-    else { if(scale_data == "rescale"){
+    else { if(scale_method == "rescale"){
       tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
-    } else { tmp_scale <- tmp }
-    }
+    } else { print("scale_method can only be z-score or rescale") }
+    } } else { tmp_scale <- tmp }
+    
     tmp_melt <- melt(tmp_scale)
     colnames(tmp_melt) <- c("gene", "group", "Mean exprs per cell")
   }
