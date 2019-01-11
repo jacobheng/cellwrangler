@@ -16,7 +16,7 @@
 #' @param cluster_groups_method clustering method used for groups. Accepts the same values as hclust: "ward.D", 
 #' "ward.D2", "single", "complete", "average" (=UPGMA), "mcquitty" (=WPGMA), "median" (=WPGMC) or 
 #' "centroid" (=UPGMC).
-#' @param cluster_genes logical; if genes should be clustered.
+#' @param cluster_genes logical; if genes should be clustered. If TRUE, genes with zero sd will be removed.
 #' @param cluster_genes_vector a vector specifying the order of genes. If NULL, genes will be clustered
 #' according to distance and method specified below.
 #' @param cluster_genes_distance distance measure used in clustering genes. Possible values are the

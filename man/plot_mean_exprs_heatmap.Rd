@@ -34,7 +34,7 @@ Subgroups can be specified in a string with separation by " - ".}
 "ward.D2", "single", "complete", "average" (=UPGMA), "mcquitty" (=WPGMA), "median" (=WPGMC) or 
 "centroid" (=UPGMC).}
 
-\item{cluster_genes}{logical; if genes should be clustered.}
+\item{cluster_genes}{logical; if genes should be clustered. If TRUE, genes with zero sd will be removed.}
 
 \item{cluster_genes_vector}{a vector specifying the order of genes. If NULL, genes will be clustered
 according to distance and method specified below.}
