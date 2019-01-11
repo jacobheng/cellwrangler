@@ -102,11 +102,14 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
   
   
   if (cluster_genes == T) {
-    
+   
     if (is.null(cluster_genes_vector) == F) {
       tmp_melt$gene <- factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[cluster_genes_vector])
     }
     else {
+      #Remove NAs and genes with zero sd
+      tmp_scale <- tmp_scale[apply(tmp_scale, 1, sd, na.rm=TRUE) > 0,]
+      #Cluster genes
       gene.order <- order.dendrogram(as.dendrogram(pheatmap:::cluster_mat((tmp_scale), 
                                                                           distance = cluster_genes_distance, method = cluster_genes_method)))
       tmp_melt$gene <- factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[gene.order])
@@ -121,7 +124,7 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
     #Create ref_table
     ref_table <- as.data.frame(group_vector)
     colnames(ref_table) <- c("group_vector")
-    
+    #Cluster groups
     group.order <- order.dendrogram(as.dendrogram(pheatmap:::cluster_mat(t(tmp_scale), distance = cluster_groups_distance, 
                                                                          method = cluster_groups_method)))
 
