@@ -34,7 +34,7 @@
 #' @examples
 #' plot_mean_exprs_heatmap(c("Actb","Aldoa"), cds=dat)
 
-plot_mean_exprs_heatmap <- function (genes, cds, group, scale = NULL, cluster_groups = F, order_subgroups = F, 
+plot_mean_exprs_heatmap <- function (genes, cds, group, scale_data = NULL, cluster_groups = F, order_subgroups = F, 
                                      cluster_groups_distance = "euclidean", cluster_groups_method = "complete", 
                                      cluster_genes = F, cluster_genes_vector = NULL, 
                                      cluster_genes_distance = "correlation", 
@@ -62,9 +62,10 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = NULL, cluster_gr
     tmp <- as.data.frame(matrix(unlist(tmp), nrow = 1))
     #Change rownames
     rownames(tmp) <- gene_ref$gene_short_name[match(rownames(tmp), gene_ref$gene_id)]
-    if (scale == "z-score") {
+    #Scale data
+    if (scale_data == "z-score") {
       tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))
-    } else { if(scale == "rescale"){
+    } else { if(scale_data == "rescale"){
       tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
     } else { tmp_scale <- tmp }
     }
@@ -81,11 +82,12 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale = NULL, cluster_gr
     })
     #Change rownames
     rownames(tmp) <- gene_ref$gene_short_name[match(rownames(tmp), gene_ref$gene_id)]
-    if (scale == "z-score") {
+    #Scale data
+    if (scale_data == "z-score") {
       tmp_scale <- t(apply(tmp, 1, scale))
       colnames(tmp_scale) <- group_vector
     }
-    else { if(scale == "rescale"){
+    else { if(scale_data == "rescale"){
       tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
     } else { tmp_scale <- tmp }
     }
