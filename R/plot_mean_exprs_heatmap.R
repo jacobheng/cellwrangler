@@ -102,8 +102,6 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
   
   
   if (cluster_genes == T) {
-    #Remove NAs
-    tmp_scale <- tmp_scale[!is.na(tmp_scale)]
     
     if (is.null(cluster_genes_vector) == F) {
       tmp_melt$gene <- factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[cluster_genes_vector])
@@ -119,8 +117,7 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
   }
   
   if (cluster_groups == T) {
-    #Remove NAs
-    tmp_scale <- tmp_scale[!is.na(tmp_scale)]
+  
     #Create ref_table
     ref_table <- as.data.frame(group_vector)
     colnames(ref_table) <- c("group_vector")
