@@ -68,15 +68,14 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
       tmp_scale <- as.data.frame(t(scale(t(tmp))[1:length(group_vector)]))
     } else { if(scale_method == "rescale"){
       tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
-    } else { print("scale_method can only be z-score or rescale") }
+    } else { stop("scale_method can only be z-score or rescale") }
     } } else { tmp_scale <- tmp }
     
     colnames(tmp_scale) <- group_vector
     tmp_melt <- melt(tmp_scale)
     colnames(tmp_melt) <- c("group", "Mean exprs per cell")
     tmp_melt$gene_id <- rownames(fData(cds_subset))
-  }
-  else {
+  } else {
     tmp <- sapply(group_vector, function(x) {
       celltype_means <- Matrix::rowMeans(exprs(cds_subset[, 
                                                           pData(cds_subset)[, group] %in% x]))
@@ -92,7 +91,7 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
     }
     else { if(scale_method == "rescale"){
       tmp_scale <- t(apply(tmp,1,FUN=rescale, to=c(0,1)))
-    } else { print("scale_method can only be z-score or rescale") }
+    } else { stop("scale_method can only be z-score or rescale") }
     } } else { tmp_scale <- tmp }
     
     tmp_melt <- melt(tmp_scale)
@@ -103,6 +102,9 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
   
   
   if (cluster_genes == T) {
+    #Remove NAs
+    tmp_scale <- tmp_scale[!is.na(tmp_scale)]
+    
     if (is.null(cluster_genes_vector) == F) {
       tmp_melt$gene <- factor(tmp_melt$gene, levels = unique(tmp_melt$gene)[cluster_genes_vector])
     }
@@ -115,7 +117,11 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
   else {
     tmp_melt$gene <- tmp_melt$gene
   }
+  
   if (cluster_groups == T) {
+    #Remove NAs
+    tmp_scale <- tmp_scale[!is.na(tmp_scale)]
+    #Create ref_table
     ref_table <- as.data.frame(group_vector)
     colnames(ref_table) <- c("group_vector")
     
