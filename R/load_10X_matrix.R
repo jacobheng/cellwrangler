@@ -15,7 +15,39 @@
 #' raw_mtx <- load_10X_matrix("/mycellranger_library/outs", which_matrix="raw")
 
 
-load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw") {
+load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw", cellranger_v3 = T) {
+  if(cellranger_v3 == T) {
+    if(which_matrix == "filtered"){
+      #Read in filtered mtx
+      mtx <- Matrix::readMM(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/matrix.mtx.gz", sep=""))
+      #Filtered mtx genes
+      mtx_features <- read.delim(paste(cellranger_outs_path, "/filtered_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+      colnames(mtx_features) <- c("id","gene_short_name")
+      rownames(mtx_features) <- mtx_features$id
+      rownames(mtx) <- mtx_features$id
+      #Append barcodes
+      mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+      colnames(mtx_barcodes) <- c("barcode")
+      rownames(mtx_barcodes) <- mtx_barcodes$barcode
+      colnames(mtx) <- mtx_barcodes$barcode
+    } else { if(which_matrix=="raw") {
+      #Read in raw mtx
+      mtx <- Matrix::readMM(paste(cellranger_outs_path,"/raw_feature_bc_matrix/matrix.mtx.gz", sep=""))
+      #Raw mtx genes
+      mtx_features <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+      colnames(mtx_features) <- c("id","gene_short_name")
+      rownames(mtx_features) <- mtx_features$id
+      rownames(mtx) <- mtx_features$id
+      #Append barcodes
+      mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+      colnames(mtx_barcodes) <- c("barcode")
+      rownames(mtx_barcodes) <- mtx_barcodes$barcode
+      colnames(mtx) <- mtx_barcodes$barcode
+    } else { message("Need to specify 'raw' or 'filtered' in which_matrix parameter") }
+    } 
+    
+  } else {
+  
   genome <- list.files(file.path(cellranger_outs_path, "raw_gene_bc_matrices_mex"))
   if(which_matrix == "filtered"){
     #Read in filtered mtx
@@ -45,5 +77,6 @@ load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw") {
     colnames(mtx) <- mtx_barcodes$barcode
   } else { message("Need to specify 'raw' or 'filtered' in which_matrix parameter") }
   } 
+  }
   return(mtx)
 }

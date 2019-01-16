@@ -4,7 +4,8 @@
 \alias{load_10X_matrix}
 \title{Load an expression matrix from a directory of cellranger-aligned 10X Genomics scRNAseq data}
 \usage{
-load_10X_matrix(cellranger_outs_path, which_matrix = "raw")
+load_10X_matrix(cellranger_outs_path, which_matrix = "raw",
+  cellranger_v3 = T)
 }
 \arguments{
 \item{cellranger_outs_path}{the path to the "outs" directory in the cellranger library folder e.g.
