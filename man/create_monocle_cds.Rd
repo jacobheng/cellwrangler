@@ -4,16 +4,18 @@
 \alias{create_monocle_cds}
 \title{Create a monocle CellDataSet object from a directory of cellranger-aligned 10X Genomics scRNAseq data}
 \usage{
-create_monocle_cds(cellranger_outs_path, cellranger_filter = F,
-  UMI_cutoff = NULL, testDrops = F, lower_UMI_threshold = 100,
-  upper_UMI_threshold = 500, FDR = 0.01, cell_barcodes = NULL)
+create_monocle_cds(cellranger_outs_path, cellranger_v3 = T,
+  which_matrix = "raw", UMI_cutoff = NULL, testDrops = F,
+  lower_UMI_threshold = 100, upper_UMI_threshold = 500, FDR = 0.01,
+  cell_barcodes = NULL)
 }
 \arguments{
 \item{cellranger_outs_path}{the path to the "outs" directory in the cellranger library folder e.g.
 "/mycellranger_library/outs"}
 
-\item{cellranger_filter}{whether to use the filtered matrices from the cellranger pipeline as the 
-expression matrix (i.e. as cells)}
+\item{cellranger_v3}{logical; if cellranger version 3 and above was used to produced matrices.}
+
+\item{which_matrix}{must be "raw" or "filtered" to specify the raw or filtered matrix to load respectively.}
 
 \item{UMI_cutoff}{numeric; a single cutoff of total UMI counts per cell to use for determining cells (i.e. 
 all barcodes with total UMI counts above this cutoff will be included in the expression matrix); defaults 

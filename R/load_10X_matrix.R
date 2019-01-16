@@ -17,15 +17,17 @@
 
 
 load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw", cellranger_v3 = T) {
+  
   if(cellranger_v3 == T) {
     if(which_matrix == "filtered"){
       #Read in filtered mtx
       mtx <- Matrix::readMM(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/matrix.mtx.gz", sep=""))
       #Filtered mtx genes
       mtx_features <- read.delim(paste(cellranger_outs_path, "/filtered_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_features) <- c("id","gene_short_name")
+      if(unique(mtx_features[,3]) == "Gene Expression") {
+      colnames(mtx_features) <- c("id","gene_short_name", "feature_type")
       rownames(mtx_features) <- mtx_features$id
-      rownames(mtx) <- mtx_features$id
+      rownames(mtx) <- mtx_features$id } else { stop("Only gene expression data are supported by cellwrangler") }
       #Append barcodes
       mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
       colnames(mtx_barcodes) <- c("barcode")
@@ -36,9 +38,10 @@ load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw", cellranger
       mtx <- Matrix::readMM(paste(cellranger_outs_path,"/raw_feature_bc_matrix/matrix.mtx.gz", sep=""))
       #Raw mtx genes
       mtx_features <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_features) <- c("id","gene_short_name")
-      rownames(mtx_features) <- mtx_features$id
-      rownames(mtx) <- mtx_features$id
+      if(unique(mtx_features[,3]) == "Gene Expression") {
+        colnames(mtx_features) <- c("id","gene_short_name", "feature_type")
+        rownames(mtx_features) <- mtx_features$id
+        rownames(mtx) <- mtx_features$id } else { stop("Only gene expression data are supported by cellwrangler") }
       #Append barcodes
       mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
       colnames(mtx_barcodes) <- c("barcode")
