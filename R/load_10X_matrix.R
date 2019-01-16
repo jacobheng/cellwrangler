@@ -8,6 +8,7 @@
 #' @param cellranger_filter whether to use the filtered matrices from the cellranger pipeline as the 
 #' expression matrix (i.e. as cells)
 #' @param which_matrix must be "raw" or "filtered" to specify the raw or filtered matrix to load respectively.
+#' @param cellranger_v3 logical; if cellranger version 3 and above was used to produced matrices.
 #' @keywords load_10X_matrix
 #' @export
 #' @return a dgTMatrix 

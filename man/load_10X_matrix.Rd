@@ -13,6 +13,8 @@ load_10X_matrix(cellranger_outs_path, which_matrix = "raw",
 
 \item{which_matrix}{must be "raw" or "filtered" to specify the raw or filtered matrix to load respectively.}
 
+\item{cellranger_v3}{logical; if cellranger version 3 and above was used to produced matrices.}
+
 \item{cellranger_filter}{whether to use the filtered matrices from the cellranger pipeline as the 
 expression matrix (i.e. as cells)}
 }
