@@ -36,11 +36,11 @@ create_monocle_cds <- function(cellranger_outs_path, cellranger_v3 = T,  which_m
       #Read in filtered mtx
       mtx <- Matrix::readMM(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/matrix.mtx.gz", sep=""))
       #Filtered mtx genes
-      mtx_features <- read.delim(paste(cellranger_outs_path, "/filtered_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      if(unique(mtx_features[,3]) == "Gene Expression") {
-        colnames(mtx_features) <- c("id","gene_short_name", "feature_type")
-        rownames(mtx_features) <- mtx_features$id
-        rownames(mtx) <- mtx_features$id } else { stop("Only gene expression data are supported by cellwrangler") }
+      mtx_genes <- read.delim(paste(cellranger_outs_path, "/filtered_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+      if(unique(mtx_genes[,3]) == "Gene Expression") {
+        colnames(mtx_genes) <- c("id","gene_short_name", "feature_type")
+        rownames(mtx_genes) <- mtx_genes$id
+        rownames(mtx) <- mtx_genes$id } else { stop("Only gene expression data are supported by cellwrangler") }
       #Append barcodes
       mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
       colnames(mtx_barcodes) <- c("barcode")
@@ -50,11 +50,11 @@ create_monocle_cds <- function(cellranger_outs_path, cellranger_v3 = T,  which_m
       #Read in raw mtx
       mtx <- Matrix::readMM(paste(cellranger_outs_path,"/raw_feature_bc_matrix/matrix.mtx.gz", sep=""))
       #Raw mtx genes
-      mtx_features <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      if(unique(mtx_features[,3]) == "Gene Expression") {
-        colnames(mtx_features) <- c("id","gene_short_name", "feature_type")
-        rownames(mtx_features) <- mtx_features$id
-        rownames(mtx) <- mtx_features$id } else { stop("Only gene expression data are supported by cellwrangler") }
+      mtx_genes <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+      if(unique(mtx_genes[,3]) == "Gene Expression") {
+        colnames(mtx_genes) <- c("id","gene_short_name", "feature_type")
+        rownames(mtx_genes) <- mtx_genes$id
+        rownames(mtx) <- mtx_genes$id } else { stop("Only gene expression data are supported by cellwrangler") }
       #Append barcodes
       mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
       colnames(mtx_barcodes) <- c("barcode")
