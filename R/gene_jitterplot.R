@@ -10,6 +10,7 @@
 #' @param min_expr the minimum (untransformed) expression level to use in plotted the genes.
 #' @param nrow the number of rows used when laying out the panels for each gene's expression
 #' @param ncol the number of columns used when laying out the panels for each gene's expression
+#' @param panel_order the order in which genes should be layed out (left-to-right, top-to-bottom)
 #' @param plot_trend logical;whether to plot a trend line across groups in plot(s).
 #' @param color_trend color to use for trend line.
 #' @param label_by_short_name logical;label figure panels by gene_short_name (TRUE) or feature id (FALSE)
@@ -24,7 +25,7 @@
 
 gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_size = 0.75, min_expr = NULL,
                              nrow = NULL, ncol = 1, panel_order = NULL, plot_trend = FALSE, 
-                             color_trend = "orange", label_by_short_name = TRUE, relative_expr = TRUE) 
+                             color_trend = "orange", label_by_short_name = TRUE, relative_expr = FALSE) 
 
 {
   cds_subset <- cds[cellwrangler::findGeneID(genes, cds), ]

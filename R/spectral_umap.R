@@ -46,7 +46,7 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
     if(log_matrix==TRUE) {
       tmp <- log10(matrix+1)
     } else { tmp <- tmp}
-    pca_res <- cellrangerRkit:::sparse_pca(t(tmp), n_pcs=40, center_scale = T) 
+    pca_res <- cellrangerRkit:::sparse_pca(Matrix::t(tmp), n_pcs=40, center_scale = T) 
     }
   umap_proj <- monocle::UMAP(pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
