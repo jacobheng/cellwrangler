@@ -4,7 +4,7 @@
 \alias{plot_gene_exprs}
 \title{Plot gene expression in cells}
 \usage{
-plot_gene_exprs(cds, genes, projection, color_scale = c("slategray1",
+plot_gene_exprs(cds, genes, dim_reduction, color_scale = c("slategray1",
   "red"), limits = c(0, 10), rescale = F, cell_size = 0.1,
   group_vector = NULL, group_facet = NULL, title = NULL)
 }
@@ -13,8 +13,8 @@ plot_gene_exprs(cds, genes, projection, color_scale = c("slategray1",
 
 \item{genes}{a vector of gene name(s) to plot}
 
-\item{projection}{a dataframe or matrix containing x and y coordinates for each cell in two columns
-(e.g. derived from t-SNE or UMAP)}
+\item{dim_reduction}{a dataframe specifying the coordinates of a dimensionality reduction output (e.g. 
+t-SNE, UMAP etc.). Each column should specify one dimension.}
 
 \item{color_scale}{a vector of two colors for color gradient}
 
@@ -38,11 +38,11 @@ A ggplot2 object
 }
 \description{
 plot_gene_exprs() plots levels of expression of a specified gene or genes as a color gradient. A 
-two-dimensional projection object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
+two-dimensional dimensionality reduction object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
 reduction) is required.
 }
 \examples{
-plot_gene_exprs(myCDS, genes=c("Acta2","Myl9"), projection=tsne_proj[,c("TSNE.1", "TSNE.2")],
+plot_gene_exprs(myCDS, genes=c("Acta2","Myl9"), dim_reduction=tsne_proj[,c("TSNE.1", "TSNE.2")],
 color_scale=c("blue","red"), limits = c(0,5), rescale= TRUE, cell_size =0.1, group_vector=pData(dat)$genotype,
 group_facet=TRUE, title=NULL )
 }

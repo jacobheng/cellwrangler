@@ -7,7 +7,7 @@
 gene_jitterplot(genes, cds, group = "genotype", color = NULL,
   cell_size = 0.75, min_expr = NULL, nrow = NULL, ncol = 1,
   panel_order = NULL, plot_trend = FALSE, color_trend = "orange",
-  label_by_short_name = TRUE, relative_expr = TRUE)
+  label_by_short_name = TRUE, relative_expr = FALSE)
 }
 \arguments{
 \item{genes}{a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")}
@@ -25,6 +25,8 @@ gene_jitterplot(genes, cds, group = "genotype", color = NULL,
 \item{nrow}{the number of rows used when laying out the panels for each gene's expression}
 
 \item{ncol}{the number of columns used when laying out the panels for each gene's expression}
+
+\item{panel_order}{the order in which genes should be layed out (left-to-right, top-to-bottom)}
 
 \item{plot_trend}{logical;whether to plot a trend line across groups in plot(s).}
 

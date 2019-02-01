@@ -15,7 +15,7 @@ dim_coord_barcode(dim_proj, x1, x2, y1, y2)
 
 \item{y2}{higher limit of y-coordinates}
 
-\item{dim_reduction}{a dataframe specifying the coordinates of a dimensionality reduction method (e.g. 
+\item{dim_reduction}{a dataframe specifying the coordinates of a dimensionality reduction output (e.g. 
 t-SNE, UMAP etc.). Each column should specify one dimension. Rownames should correspond to some of identifier
 for cells (e.g. barcode).}
 }

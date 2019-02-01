@@ -21,8 +21,6 @@
 #' @examples
 #' gene_jitterplot(c("Actb", "Aldoa"), cds)
 
-
-
 gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_size = 0.75, min_expr = NULL,
                              nrow = NULL, ncol = 1, panel_order = NULL, plot_trend = FALSE, 
                              color_trend = "orange", label_by_short_name = TRUE, relative_expr = FALSE) 

@@ -4,14 +4,14 @@
 \alias{plot_groups}
 \title{Plot cell groups}
 \usage{
-plot_groups(group_vector, projection, colors = NULL, alpha = 1,
+plot_groups(group_vector, dim_reduction, colors = NULL, alpha = 1,
   cell_size = 0.1, title = NULL)
 }
 \arguments{
 \item{group_vector}{a vector assigning each cell to a group}
 
-\item{projection}{a dataframe or matrix containing x and y coordinates for each cell in two columns
-(e.g. derived from t-SNE or UMAP)}
+\item{dim_reduction}{a dataframe specifying the coordinates of a dimensionality reduction output (e.g. 
+t-SNE, UMAP etc.). Each column should specify one dimension.}
 
 \item{colors}{a vector of colors to use for coloring cells. Number of colors must equal to the number 
 of clusters specified in cluster_vector}
@@ -26,10 +26,10 @@ A ggplot2 object
 }
 \description{
 plot_groups() colors cells differently according to a grouping variable (e.g. cell clusters) on 
-a two-dimensional plot. A two-dimensional projection object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
+a two-dimensional plot. A two-dimensional dimensionality reduction object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
 reduction) is required.
 }
 \examples{
-plot_groups(group_vector=kmeans_clusters_res, projection=tsne_proj[,c("TSNE.1", "TSNE.2")])
+plot_groups(group_vector=kmeans_clusters_res, dim_reduction=tsne_proj[,c("TSNE.1", "TSNE.2")])
 }
 \keyword{plot_groups}
