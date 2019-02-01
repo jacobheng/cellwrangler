@@ -15,7 +15,7 @@
 summarize_cds_exprs <- function(cds, group) {
   
   if(length(group) == 1) {
-    pData(cds)$group_variable <- group
+    pData(cds)$group_variable <- pData(cds)[,group]
     
   } else {
     pData(cds)$group_variable <- interaction(pData(cds)[,group[[1]]], pData(cds)[,group[[2]]], sep= " - ")
