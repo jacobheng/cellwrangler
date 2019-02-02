@@ -53,7 +53,7 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
     cds_exprs <- exprs(cds_subset)
     cds_exprs <- reshape2::melt(as.matrix(cds_exprs))
   }
-  if (is.null(min_expr)) {
+  if (is.null(min_expr) == T) {
     min_expr <- 0
   } else { min_expr <- min_expr }
   colnames(cds_exprs) <- c("f_id", "Cell", "expression")
