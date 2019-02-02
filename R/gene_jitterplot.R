@@ -7,7 +7,8 @@
 #' @param group column name in pData(cds) to group cells by on the horizontal axis.
 #' @param color column name in pData(cds) to color cells with.
 #' @param cell_size the size (in points) of each cell used in the plot
-#' @param min_expr the minimum (untransformed) expression level to use in plotted the genes.
+#' @param min_expr the minimum (untransformed) expression level to use in plotting the genes; expression 
+#' values less than this threshold will be converted to 0
 #' @param nrow the number of rows used when laying out the panels for each gene's expression
 #' @param ncol the number of columns used when laying out the panels for each gene's expression
 #' @param panel_order the order in which genes should be layed out (left-to-right, top-to-bottom)
@@ -22,7 +23,7 @@
 #' @examples
 #' gene_jitterplot(c("Actb", "Aldoa"), cds)
 
-gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_size = 0.75, min_expr = NULL,
+gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_size = 0.75, min_expr = 0,
                              nrow = NULL, ncol = 1, panel_order = NULL, plot_trend = FALSE, 
                              color_trend = "orange", label_by_short_name = TRUE, 
                              log_expr= TRUE,relative_expr = FALSE) 
@@ -56,7 +57,7 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
     min_expr <- 0
   } else { min_expr <- min_expr }
   colnames(cds_exprs) <- c("f_id", "Cell", "expression")
-  cds_exprs$expression[cds_exprs$expression < min_expr] <- min_expr
+  cds_exprs$expression[cds_exprs$expression < min_expr] <- 0
   cds_pData <- pData(cds_subset)
   cds_fData <- fData(cds_subset)
   cds_exprs <- merge(cds_exprs, cds_fData, by.x = "f_id", by.y = "row.names")
