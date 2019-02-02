@@ -34,6 +34,8 @@ gene_jitterplot(genes, cds, group = "genotype", color = NULL,
 
 \item{label_by_short_name}{logical;label figure panels by gene_short_name (TRUE) or feature id (FALSE)}
 
+\item{log_expr}{logical; whether to log-transform expression into log10(expression + 1)}
+
 \item{relative_expr}{logical;Whether to transform expression into counts per 10,000}
 }
 \value{

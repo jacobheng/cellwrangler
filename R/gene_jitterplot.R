@@ -14,6 +14,7 @@
 #' @param plot_trend logical;whether to plot a trend line across groups in plot(s).
 #' @param color_trend color to use for trend line.
 #' @param label_by_short_name logical;label figure panels by gene_short_name (TRUE) or feature id (FALSE)
+#' @param log_expr logical; whether to log-transform expression into log10(expression + 1)
 #' @param relative_expr logical;Whether to transform expression into counts per 10,000
 #' @keywords gene_jitterplot
 #' @export
@@ -79,9 +80,9 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
   }
   if(log_expr == T) {
     cds_exprs$log10_expression <- log10(cds_exprs$expression+1)
-    p <- ggplot(aes_string(x = group, y = "log10_expression"), data = cds_exprs)
+    p <- ggplot(aes_string(x = group, y = "log10_expression"), data = cds_exprs) + ylab( "Log10(Expression + 1) ")
   } else {
-    p <- ggplot(aes_string(x = group, y = "expression"), data = cds_exprs)
+    p <- ggplot(aes_string(x = group, y = "expression"), data = cds_exprs) + ylab("Expression")
   }
  
   if (is.null(color) == FALSE) {
@@ -93,15 +94,20 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
   if (plot_trend == TRUE) {
     p <- p + stat_summary(color=color_trend, fun.data = "mean_cl_boot", 
                           size = 0.35)
-    p <- p + stat_summary(aes_string(x = group, y = "expression", group = 1), color= color_trend, 
-                          fun.data = "mean_cl_boot", size = 0.35, geom = "line")
+    
+    if(log_expr == T) { 
+      p <- p + stat_summary(aes_string(x = group, y = "log10_expression", group = 1), color= color_trend, 
+                            fun.data = "mean_cl_boot", size = 0.35, geom = "line") 
+      } else {
+      p <- p + stat_summary(aes_string(x = group, y = "expression", group = 1), color= color_trend, 
+                          fun.data = "mean_cl_boot", size = 0.35, geom = "line") 
+      }
   }
-  p <- p + facet_wrap(~feature_label, nrow = nrow, 
-                      ncol = ncol, scales = "free_y")
+  p <- p + facet_wrap(~feature_label, nrow = nrow, ncol = ncol, scales = "free_y")
   if (min_expr < 1) {
     p <- p + expand_limits(y = c(min_expr, 1))
   }
-  p <- p + ylab("Expression") + xlab(group)
+  p <- p + xlab(group)
   p <- p + monocle:::monocle_theme_opts()
   p
 }

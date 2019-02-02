@@ -33,4 +33,7 @@ a list
 \description{
 make_rnk() makes rank lists for pre-ranked geneset enrichment analysis.
 }
+\examples{
+make_rnk(Rods, rank_df, "Gene_symbol", "Rank stat", decreasing =T, write_rnk=F)
+}
 \keyword{make_rnk}

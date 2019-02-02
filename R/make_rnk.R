@@ -16,7 +16,7 @@
 #' @export
 #' @return a list
 #' @examples
-#' make_rnk(Rods, rank_df, "Gene_symbol", "Rank stat, decreasing =T, write_rnk=F)
+#' make_rnk(Rods, rank_df, "Gene_symbol", "Rank stat", decreasing =T, write_rnk=F)
 
 
 make_rnk <- function(celltype, rank_df, gene_name, rank_stat, decreasing = T, 
