@@ -5,7 +5,7 @@
 \title{Plot expression of cells as jitter plot}
 \usage{
 gene_jitterplot(genes, cds, group = "genotype", color = NULL,
-  cell_size = 0.75, min_expr = 0, nrow = NULL, ncol = 1,
+  cell_size = 0.75, exprs_threshold = 0, nrow = NULL, ncol = 1,
   panel_order = NULL, plot_trend = FALSE, color_trend = "orange",
   label_by_short_name = TRUE, log_expr = TRUE, relative_expr = FALSE)
 }
@@ -20,8 +20,8 @@ gene_jitterplot(genes, cds, group = "genotype", color = NULL,
 
 \item{cell_size}{the size (in points) of each cell used in the plot}
 
-\item{min_expr}{the minimum (untransformed) expression level to use in plotting the genes; expression 
-values less than this threshold will be converted to 0}
+\item{exprs_threshold}{the (untransformed) expression threshold to use in plotting genes; expression 
+values less than or equal to this threshold will be converted to 0}
 
 \item{nrow}{the number of rows used when laying out the panels for each gene's expression}
 
