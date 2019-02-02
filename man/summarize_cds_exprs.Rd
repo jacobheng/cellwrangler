@@ -9,7 +9,7 @@ summarize_cds_exprs(cds, group)
 \arguments{
 \item{cds}{a CellDataSet object}
 
-\item{group}{one or two column(s) specifying groups to obtain summary statistics for e.g. CellType}
+\item{group}{one or more column(s) specifying groups to obtain summary statistics for e.g. CellType}
 }
 \value{
 a dataframe

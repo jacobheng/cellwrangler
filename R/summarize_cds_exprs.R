@@ -4,7 +4,7 @@
 #' for specified groups in the dataset. 
 #'
 #' @param cds a CellDataSet object 
-#' @param group one or two column(s) specifying groups to obtain summary statistics for e.g. CellType
+#' @param group one or more column(s) specifying groups to obtain summary statistics for e.g. CellType
 #' 
 #' @keywords summarize_cds_exprs()
 #' @export
@@ -18,7 +18,7 @@ summarize_cds_exprs <- function(cds, group) {
     pData(cds)$group_variable <- pData(cds)[,group]
     
   } else {
-    pData(cds)$group_variable <- interaction(pData(cds)[,group[[1]]], pData(cds)[,group[[2]]], sep= " - ")
+    pData(cds)$group_variable <- interaction(pData(cds)[,group], sep= " - ")
   }
   group_vector <- as.character(unique(pData(cds)$group_variable))
   
@@ -57,8 +57,11 @@ summarize_cds_exprs <- function(cds, group) {
     colnames(stats_summary) <- c("gene_id", group, "mean", "std_dev", "std_error")
   } else {
     colnames(stats_summary) <- c("gene_id", "group_variable", "mean", "std_dev", "std_error")
-    stats_summary[, group[[1]]] <- stringr::str_split_fixed(stats_summary$group_variable, pattern = " - ", n=2)[,1]
-    stats_summary[, group[[2]]] <- stringr::str_split_fixed(stats_summary$group_variable, pattern = " - ", n=2)[,2]
+    n_groups <- length(group)
+    for(i in n_groups) {
+      stats_summary[, group[[i]]] <- stringr::str_split_fixed(stats_summary$group_variable, pattern = " - ", 
+                                                              n = n_groups )[,i]
+    }
   }
   
   stats_summary$gene_short_name <- findGeneName(stats_summary$gene_id, cds)

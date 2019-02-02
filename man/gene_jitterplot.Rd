@@ -7,7 +7,7 @@
 gene_jitterplot(genes, cds, group = "genotype", color = NULL,
   cell_size = 0.75, min_expr = NULL, nrow = NULL, ncol = 1,
   panel_order = NULL, plot_trend = FALSE, color_trend = "orange",
-  label_by_short_name = TRUE, relative_expr = FALSE)
+  label_by_short_name = TRUE, log_expr = TRUE, relative_expr = FALSE)
 }
 \arguments{
 \item{genes}{a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")}
@@ -34,7 +34,7 @@ gene_jitterplot(genes, cds, group = "genotype", color = NULL,
 
 \item{label_by_short_name}{logical;label figure panels by gene_short_name (TRUE) or feature id (FALSE)}
 
-\item{relative_expr}{logical;Whether to transform expression into relative values}
+\item{relative_expr}{logical;Whether to transform expression into counts per 10,000}
 }
 \value{
 A ggplot2 object
