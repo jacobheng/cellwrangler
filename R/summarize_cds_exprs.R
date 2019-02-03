@@ -59,7 +59,7 @@ summarize_cds_exprs <- function(cds, group, gene_short_name = T) {
   } else {
     colnames(stats_summary) <- c("gene_id", "group_variable", "mean", "std_dev", "std_error")
     n_groups <- length(group)
-    for(i in n_groups) {
+    for(i in 1:n_groups) {
       stats_summary[, group[[i]]] <- stringr::str_split_fixed(stats_summary$group_variable, pattern = " - ", 
                                                               n = n_groups )[,i]
     }
