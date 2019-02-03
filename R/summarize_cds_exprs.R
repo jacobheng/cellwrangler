@@ -5,6 +5,7 @@
 #'
 #' @param cds a CellDataSet object 
 #' @param group one or more column(s) specifying groups to obtain summary statistics for e.g. CellType
+#' @param gene_short_name logical; whether to attach gene_short_name as a column to output dataframe
 #' 
 #' @keywords summarize_cds_exprs()
 #' @export
@@ -12,7 +13,7 @@
 #' @examples
 #' dat_summary <- summarize_cds_exprs(dat, c("CellType"))
 
-summarize_cds_exprs <- function(cds, group) {
+summarize_cds_exprs <- function(cds, group, gene_short_name = T) {
   
   if(length(group) == 1) {
     pData(cds)$group_variable <- pData(cds)[,group]
@@ -63,8 +64,9 @@ summarize_cds_exprs <- function(cds, group) {
                                                               n = n_groups )[,i]
     }
   }
-  
-  stats_summary$gene_short_name <- findGeneName(stats_summary$gene_id, cds)
+  if(gene_short_name == T) {
+  stats_summary$gene_short_name <- findGeneName(stats_summary$gene_id, cds, unique = F) 
+  } else { stats_summary <- stats_summary}
   
   return(stats_summary)
 }

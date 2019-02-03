@@ -4,12 +4,14 @@
 \alias{summarize_cds_exprs}
 \title{Get gene-level summary statistics for CellDataSet object}
 \usage{
-summarize_cds_exprs(cds, group)
+summarize_cds_exprs(cds, group, gene_short_name = T)
 }
 \arguments{
 \item{cds}{a CellDataSet object}
 
 \item{group}{one or more column(s) specifying groups to obtain summary statistics for e.g. CellType}
+
+\item{gene_short_name}{logical; whether to attach gene_short_name as a column to output dataframe}
 }
 \value{
 a dataframe
