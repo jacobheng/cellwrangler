@@ -19,7 +19,7 @@ If FALSE, will return only absolute number of transcripts per cell.}
 A vector or a dataframe
 }
 \description{
-calculate_mt_RNAs() calculates the expression of mitochondrial genes for a monocle CellDataSet
+calculate_mt_exprs() calculates the expression of mitochondrial genes for a monocle CellDataSet
 object.
 }
 \examples{
