@@ -3,6 +3,7 @@
 export(CellType_genes_jitter)
 export(CreateSeuratObjectList)
 export(annotate_bcv)
+export(calculate_mt_exprs)
 export(createMultiSoupChannel)
 export(createSoupChannel)
 export(create_monocle_cds)

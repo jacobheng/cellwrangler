@@ -31,8 +31,8 @@ plot_groups <- function (group_vector, dim_reduction, colors = NULL, alpha = 1,
   } )
   proj_group_melt <- melt(proj_group, id.vars = c("Component.1",
                                               "Component.2"))
-  print(head(proj_group_melt))
   colnames(proj_group_melt) <-  c("Component.1","Component.2", "group_vector", "group")
+  print(head(proj_group_melt))
   p <- ggplot(proj_group_melt, aes(Component.1, Component.2)) +
     geom_point(aes(colour = group), size = cell_size,
                alpha = alpha) + guides(col = guide_legend(title = "Group",
