@@ -4,7 +4,7 @@
 \alias{calculate_mt_exprs}
 \title{Calculate mitochondrial gene expression}
 \usage{
-calculate_mt_exprs(cds, genome = "mouse", return_prop = F)
+calculate_mt_exprs(cds, genome = "mouse", return_prop = T)
 }
 \arguments{
 \item{cds}{monocle CellDataSet object}
@@ -12,11 +12,12 @@ calculate_mt_exprs(cds, genome = "mouse", return_prop = F)
 \item{genome}{genome to which transcripts are aligned to. Accepts either "mouse" or "human".}
 
 \item{return_prop}{logical; whether to return the value of mitochondrial transcripts as 
-a proportion of total transcripts for each cell; resulting output will be a dataframe. 
+a proportion of total transcripts for each cell; resulting output will be the input CDS with
+the values of mt_RNAs and mt_prop attached to the corresponding pData. 
 If FALSE, will return only absolute number of transcripts per cell.}
 }
 \value{
-A vector or a dataframe
+A vector or a cds (see above)
 }
 \description{
 calculate_mt_exprs() calculates the expression of mitochondrial genes for a monocle CellDataSet
