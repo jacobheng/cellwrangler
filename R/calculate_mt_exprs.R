@@ -6,8 +6,8 @@
 #' @param genome genome to which transcripts are aligned to. Accepts either "mouse" or "human".
 #' @param return_prop logical; whether to return the value of mitochondrial transcripts as 
 #' a proportion of total transcripts for each cell; resulting output will be the input CDS with
-#' the values of mt_RNAs and mt_prop attached to the corresponding pData. 
-#' If FALSE, will return only absolute number of transcripts per cell.
+#' the values of mt_RNAs and mt_prop attached to the corresponding pData. If FALSE, will only
+#' return the absolute number of transcripts per cell as a vector. Defaults to TRUE.
 #' @keywords mt_genes, mt_RNAs
 #' @export
 #' @return A vector or a cds (see above)

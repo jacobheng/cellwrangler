@@ -13,8 +13,8 @@ calculate_mt_exprs(cds, genome = "mouse", return_prop = T)
 
 \item{return_prop}{logical; whether to return the value of mitochondrial transcripts as 
 a proportion of total transcripts for each cell; resulting output will be the input CDS with
-the values of mt_RNAs and mt_prop attached to the corresponding pData. 
-If FALSE, will return only absolute number of transcripts per cell.}
+the values of mt_RNAs and mt_prop attached to the corresponding pData. If FALSE, will only
+return the absolute number of transcripts per cell as a vector. Defaults to TRUE.}
 }
 \value{
 A vector or a cds (see above)
