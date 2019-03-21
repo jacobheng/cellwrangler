@@ -10,3 +10,5 @@ cellwranger was built in R version 3.5.1.
 To install cellwrangler:
 
 devtools::install_github("jacobheng/cellwrangler")
+
+Please cite: Heng JS, Rattner A, Vernon HJ, Winer B, Stein-O’Brien G, Jones BW, Marc RE, Goff LA, Nathans J. Hypoxia tolerance in the Norrin-deficient retina and the chronically hypoxic brain studied at single-cell resolution. PNAS, in press
