@@ -28,8 +28,7 @@ the maximum value of expression for specified gene; defaults to FALSE}
 
 \item{group_vector}{a vector classifying cells e.g. genotype or condition}
 
-\item{group_facet}{logical; whether to facet expression plots by cell groups specified in the group
-parameter. Defaults to FALSE. If TRUE, a group vector must be supplied}
+\item{group_facet}{input for facet_grid() argument. A group vector must be supplied}
 
 \item{title}{title of plot}
 }
@@ -44,6 +43,6 @@ reduction) is required.
 \examples{
 plot_gene_exprs(myCDS, genes=c("Acta2","Myl9"), dim_reduction=tsne_proj[,c("TSNE.1", "TSNE.2")],
 color_scale=c("blue","red"), limits = c(0,5), rescale= TRUE, cell_size =0.1, group_vector=pData(dat)$genotype,
-group_facet=TRUE, title=NULL )
+group_facet="group~variable", title=NULL )
 }
 \keyword{plot_gene_exprs}

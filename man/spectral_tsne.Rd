@@ -19,7 +19,7 @@ principal components)}
 \item{perplexity}{numeric; perplexity parameter for tSNE; defaults to 30}
 
 \item{prcomp_obj}{a principal component analysis object produced by the prcomp or prcomp_irlba functions;
-if no object is supplied, irlba_prcomp will be run on the matrix to return 50 dimensions; defaults to NULL;
+if no object is supplied, sparse_pca will be run on the matrix to return 50 dimensions; defaults to NULL;
 if a prcomp object is supplied, matrix is not required}
 }
 \value{
@@ -28,7 +28,7 @@ A matrix with two columns containing coordinates of each row for two dimensions 
 \description{
 spectral_tsne() performs dimensionality reduction using the package Rtsne's wrapper for the 
 C++ implementation of Barnes-Hut t-Distributed Stochastic Neighbor Embedding. If no prcomp_object 
-is supplied, principal component analysis will be performed using the irlba package.
+is supplied, principal component analysis will be performed using an irlba algorithm for sparse data.
 }
 \examples{
 spectral_tsne(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10, perplexity=30)

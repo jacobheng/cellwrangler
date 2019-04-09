@@ -41,7 +41,7 @@ be set relative to the “spread“ value, which determines the scale at which e
 “min_dist“ this determines how clustered/clumped the embedded points are.}
 
 \item{prcomp_obj}{a principal component analysis object produced by the prcomp or prcomp_irlba functions;
-if no object is supplied, irlba_prcomp will be run on the matrix to return 50 dimensions; defaults to NULL; 
+if no object is supplied, sparse_pca will be run on the matrix to return 50 dimensions; defaults to NULL; 
 if a prcomp object is supplied, matrix is not required}
 }
 \value{
@@ -50,7 +50,7 @@ A matrix with two columns containing coordinates of each row for two dimensions 
 \description{
 spectral_umap() performs dimensionality reduction using the package monocle wrapper function around
 the python implementation of UMAP (Uniform Manifold Approximation and Projection). If no prcomp_object 
-is supplied, principal component analysis will be performed using the irlba package.
+is supplied, principal component analysis will be performed using an irlba algorithm for sparse data.
 }
 \examples{
 spectral_umap(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10)
