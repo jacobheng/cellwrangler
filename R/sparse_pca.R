@@ -7,6 +7,15 @@
 #' @param mu column means
 #' @param s column standard deviations
 #' @param center_scale perform centering and scaling
+#' @export
+#' @return A list containing
+#' "x" - The rotated data matrix where rows are barcodes and columns are PCs
+#' "sdev" - the standard deviations of the principal components (i.e., sqrt of eigvals of the covariance matrix)
+#' "rotation" - The loadings (eigenvectors) where each column is a PC
+#' "tot_var" - The total variation in the scaled and centered matrix (this is also the effective rank of the matrix)
+#' "var_pcs" - The proportion of variance explained by each principle comoponent
+#' @examples
+#' sparse_pca(mtx, n_pcs=10)
 
 sparse_pca <- function (matrix, n_pcs, mu = NULL, s = NULL, center_scale = TRUE) 
 {

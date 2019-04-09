@@ -18,6 +18,17 @@ and columns are cells}
 
 \item{center_scale}{perform centering and scaling}
 }
+\value{
+A list containing
+"x" - The rotated data matrix where rows are barcodes and columns are PCs
+"sdev" - the standard deviations of the principal components (i.e., sqrt of eigvals of the covariance matrix)
+"rotation" - The loadings (eigenvectors) where each column is a PC
+"tot_var" - The total variation in the scaled and centered matrix (this is also the effective rank of the matrix)
+"var_pcs" - The proportion of variance explained by each principle comoponent
+}
 \description{
 sparse_pca() performs a fast pca on a matrix while maintaing sparsity.
+}
+\examples{
+sparse_pca(mtx, n_pcs=10)
 }
