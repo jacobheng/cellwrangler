@@ -37,8 +37,8 @@
 #' @examples
 #' spectral_umap(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10)
 
-spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10, n_neighbors = 30L, 
-                          metric= "correlation", min_dist = 0.1, spread = 1) {
+spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10, implementation="default",
+                          n_neighbors = 30L, metric= "correlation", min_dist = 0.1, spread = 1) {
   if(is.null(prcomp_object) == FALSE) {
     pca_res <- prcomp_object
   } else {
@@ -47,118 +47,138 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
       tmp <- log10(matrix+1)
     } else { tmp <- tmp}
     pca_res <- cellwrangler:::sparse_pca(Matrix::t(tmp), n_pcs=40, center_scale = T) 
+  }
+  
+  
+  UMAP <- function(X, python_home = system('which python', intern = TRUE), 
+                   log = TRUE, 
+                   n_neighbors = 15L, 
+                   n_component = 2L, 
+                   metric = "correlation", 
+                   n_epochs = NULL, 
+                   negative_sample_rate = 5L,
+                   learning_rate = 1.0,
+                   init = 'spectral',
+                   min_dist = 0.1, 
+                   spread = 1.0,
+                   set_op_mix_ratio = 1.0,
+                   local_connectivity = 1L,
+                   # bandwidth = 1.0, 
+                   repulsion_strength = 1.0,
+                   a = NULL,
+                   b = NULL, 
+                   random_state = 0L,
+                   metric_kwds = reticulate::dict(), 
+                   angular_rp_forest = FALSE,
+                   target_n_neighbors = -1L, 
+                   target_metric = 'categorical', 
+                   target_metric_kwds = reticulate::dict(), 
+                   target_weight = 0.5, 
+                   transform_seed = 42L, 
+                   verbose = FALSE,
+                   return_all = FALSE) {
+    
+    reticulate::use_python(python_home)
+    
+    tryCatch({
+      reticulate::import("umap")
+    }, warning = function(w) {
+    }, error = function(e) {
+      print (e)
+      stop('please pass the python home directory where umap is installed with python_home argument!')
+    }, finally = {
+    })
+    
+    reticulate::source_python(paste(system.file(package="cellwrangler"), "umap.py", sep="/"))
+    # X <- Matrix::t(X)
+    if(length(grep('Matrix', class(X))) == 0){
+      X <- as(as.matrix(X), 'TsparseMatrix')
+    } else {
+      X <- as(X, 'TsparseMatrix')
     }
+    
+    i <- as.integer(X@i)
+    j <- as.integer(X@j)
+    
+    if(log) {
+      val <- log(X@x + 1)
+    } else {
+      val <- X@x
+    }
+    dim <- as.integer(X@Dim)
+    
+    if(is.null(n_epochs) == F) {
+      n_epochs <- as.integer(n_epochs)
+    }
+    if(is.null(a) == F) {
+      a <- as.numeric(a)
+    }
+    if(is.null(b) == F) {
+      n_epochs <- as.numeric(b)
+    }
+    if(is.list(metric_kwds) == F) {
+      metric_kwds <- reticulate::dict()
+    } else {
+      metric_kwds <- reticulate::dict(metric_kwds)
+    }
+    if(is.list(target_metric_kwds) == F) {
+      target_metric_kwds <- reticulate::dict()
+    } else {
+      target_metric_kwds <- reticulate::dict(target_metric_kwds)
+    }
+    umap_res <- umap(i, j, val, dim, 
+                     as.integer(n_neighbors), 
+                     as.integer(n_component), 
+                     as.character(metric), 
+                     n_epochs,
+                     as.integer(negative_sample_rate),
+                     as.numeric(learning_rate),
+                     as.character(init),
+                     as.numeric(min_dist), 
+                     as.numeric(spread),
+                     as.numeric(set_op_mix_ratio),
+                     as.integer(local_connectivity),
+                     # as.numeric(bandwidth),
+                     as.numeric(repulsion_strength),
+                     a,
+                     b,
+                     as.integer(random_state),
+                     metric_kwds,
+                     as.logical(angular_rp_forest),
+                     as.integer(target_n_neighbors),
+                     as.character(target_metric),
+                     target_metric_kwds,
+                     as.numeric(target_weight),
+                     as.integer(transform_seed), 
+                     as.logical(verbose))
+    
+    if(return_all) {
+      return(umap_res)
+    } else {
+      umap_res$embedding_
+    }
+  }
+  
+  if(implementation=="default") {
   umap_proj <- UMAP(pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
   colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
+  rownames(umap_proj) <- rownames(matrix)
+  } else {
+    if(implementation=="monocle") {
+      umap_proj <- monocle::UMAP(pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
+                        min_dist = min_dist, spread = spread)
+      colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
+      rownames(umap_proj) <- rownames(matrix)
+    } else {
+      if(implementation=="uwot") {
+        umap_proj <- monocle::UMAP(pca_res$x[,dims], log=F, n_neighbors = n_neighbors,
+                                   min_dist = min_dist)
+        colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
+        rownames(umap_proj) <- rownames(matrix)
+      } else { print("Must specify implementation as default, monocle or uwot!")}
+    }
+  }
   return(umap_proj)
 } 
 
-UMAP <- function(X, python_home = system('which python', intern = TRUE), 
-                 log = TRUE, 
-                 n_neighbors = 15L, 
-                 n_component = 2L, 
-                 metric = "correlation", 
-                 n_epochs = NULL, 
-                 negative_sample_rate = 5L,
-                 learning_rate = 1.0,
-                 init = 'spectral',
-                 min_dist = 0.1, 
-                 spread = 1.0,
-                 set_op_mix_ratio = 1.0,
-                 local_connectivity = 1L,
-                 # bandwidth = 1.0, 
-                 repulsion_strength = 1.0,
-                 a = NULL,
-                 b = NULL, 
-                 random_state = 0L,
-                 metric_kwds = reticulate::dict(), 
-                 angular_rp_forest = FALSE,
-                 target_n_neighbors = -1L, 
-                 target_metric = 'categorical', 
-                 target_metric_kwds = reticulate::dict(), 
-                 target_weight = 0.5, 
-                 transform_seed = 42L, 
-                 verbose = FALSE,
-                 return_all = FALSE) {
-  
-  reticulate::use_python(python_home)
-  
-  tryCatch({
-    reticulate::import("umap")
-  }, warning = function(w) {
-  }, error = function(e) {
-    print (e)
-    stop('please pass the python home directory where umap is installed with python_home argument!')
-  }, finally = {
-  })
-  
-  reticulate::source_python(paste(system.file(package="cellwrangler"), "umap.py", sep="/"))
-  # X <- Matrix::t(X)
-  if(length(grep('Matrix', class(X))) == 0){
-    X <- as(as.matrix(X), 'TsparseMatrix')
-  } else {
-    X <- as(X, 'TsparseMatrix')
-  }
-  
-  i <- as.integer(X@i)
-  j <- as.integer(X@j)
-  
-  if(log) {
-    val <- log(X@x + 1)
-  } else {
-    val <- X@x
-  }
-  dim <- as.integer(X@Dim)
-  
-  if(is.null(n_epochs) == F) {
-    n_epochs <- as.integer(n_epochs)
-  }
-  if(is.null(a) == F) {
-    a <- as.numeric(a)
-  }
-  if(is.null(b) == F) {
-    n_epochs <- as.numeric(b)
-  }
-  if(is.list(metric_kwds) == F) {
-    metric_kwds <- reticulate::dict()
-  } else {
-    metric_kwds <- reticulate::dict(metric_kwds)
-  }
-  if(is.list(target_metric_kwds) == F) {
-    target_metric_kwds <- reticulate::dict()
-  } else {
-    target_metric_kwds <- reticulate::dict(target_metric_kwds)
-  }
-  umap_res <- umap(i, j, val, dim, 
-                   as.integer(n_neighbors), 
-                   as.integer(n_component), 
-                   as.character(metric), 
-                   n_epochs,
-                   as.integer(negative_sample_rate),
-                   as.numeric(learning_rate),
-                   as.character(init),
-                   as.numeric(min_dist), 
-                   as.numeric(spread),
-                   as.numeric(set_op_mix_ratio),
-                   as.integer(local_connectivity),
-                   # as.numeric(bandwidth),
-                   as.numeric(repulsion_strength),
-                   a,
-                   b,
-                   as.integer(random_state),
-                   metric_kwds,
-                   as.logical(angular_rp_forest),
-                   as.integer(target_n_neighbors),
-                   as.character(target_metric),
-                   target_metric_kwds,
-                   as.numeric(target_weight),
-                   as.integer(transform_seed), 
-                   as.logical(verbose))
-  
-  if(return_all) {
-    return(umap_res)
-  } else {
-    umap_res$embedding_
-  }
-}

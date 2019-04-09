@@ -5,8 +5,8 @@
 \title{Reduce dimensions of a matrix with pca and UMAP}
 \usage{
 spectral_umap(matrix, log_matrix = TRUE, prcomp_object = NULL,
-  dims = 1:10, n_neighbors = 30L, metric = "correlation",
-  min_dist = 0.1, spread = 1)
+  dims = 1:10, implementation = "default", n_neighbors = 30L,
+  metric = "correlation", min_dist = 0.1, spread = 1)
 }
 \arguments{
 \item{matrix}{a matrix of values to perform dimensionality reduction on; by default, rows are genes
