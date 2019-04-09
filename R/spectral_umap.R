@@ -160,13 +160,13 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
   }
   
   if(implementation=="default") {
-  umap_proj <- UMAP(pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
+  umap_proj <- UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
   colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
   rownames(umap_proj) <- rownames(matrix)
   } else {
     if(implementation=="monocle") {
-      umap_proj <- monocle::UMAP(pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
+      umap_proj <- monocle::UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                         min_dist = min_dist, spread = spread)
       colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
       rownames(umap_proj) <- rownames(matrix)
