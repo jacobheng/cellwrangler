@@ -7,6 +7,7 @@
 #' @param mu column means
 #' @param s column standard deviations
 #' @param center_scale perform centering and scaling
+#' @keywords sparse_pca
 #' @export
 #' @return A list containing
 #' "x" - The rotated data matrix where rows are barcodes and columns are PCs
