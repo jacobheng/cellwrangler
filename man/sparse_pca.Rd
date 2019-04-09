@@ -32,3 +32,4 @@ sparse_pca() performs a fast pca on a matrix while maintaing sparsity.
 \examples{
 sparse_pca(mtx, n_pcs=10)
 }
+\keyword{sparse_pca}

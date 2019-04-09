@@ -26,7 +26,7 @@ spectral_tsne <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
     if(log_matrix==TRUE) {
       tmp <- log10(matrix+1)
     } else { tmp <- tmp}
-    pca_res <- cellwrangler::sparse_pca(Matrix::t(tmp), n_pcs=40, center_scale = T) 
+    pca_res <- cellwrangler:::sparse_pca(Matrix::t(tmp), n_pcs=40, center_scale = T) 
     }
   Rtsne_obj <- Rtsne::Rtsne(pca_res$x[,dims],perplexity=perplexity, pca = FALSE)
   tsne_proj <- Rtsne_obj$Y
