@@ -12,6 +12,8 @@
 #' if a prcomp object is supplied, matrix is not required
 #' @param dims dimensions from the prinicpal component analysis to use; defaults to 1:10 (i.e. 1st to 10th
 #' principal components)
+#' @param implementation UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
+#' works if monocle 3 alpha and above is installed.
 #' @param n_neighbors float (optional, default 15) The size of local neighborhood (in terms of number of 
 #' neighboring sample points) used for manifold approximation. Larger values result in more global views of 
 #' the manifold, while smaller values result in more local data being preserved. In general values should be 
