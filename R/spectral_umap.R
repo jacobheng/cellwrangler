@@ -165,19 +165,19 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
   umap_proj <- UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
   colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
-  rownames(umap_proj) <- rownames(matrix)
+  #rownames(umap_proj) <- rownames(matrix)
   } else {
     if(implementation=="monocle") {
       umap_proj <- monocle::UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                         min_dist = min_dist, spread = spread)
       colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
-      rownames(umap_proj) <- rownames(matrix)
+      #rownames(umap_proj) <- rownames(matrix)
     } else {
       if(implementation=="uwot") {
         umap_proj <- uwot::umap(pca_res$x[,dims], n_neighbors = n_neighbors, metric = metric,
                                    min_dist = min_dist, spread = spread)
         colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
-        rownames(umap_proj) <- rownames(matrix)
+        #rownames(umap_proj) <- rownames(matrix)
       } else { print("Must specify implementation as default, monocle or uwot!")}
     }
   }
