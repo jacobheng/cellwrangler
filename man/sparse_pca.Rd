@@ -4,10 +4,10 @@
 \alias{sparse_pca}
 \title{Perform sparse pca on a matrix}
 \usage{
-sparse_pca(matrix, n_pcs, mu = NULL, s = NULL, center_scale = TRUE)
+sparse_pca(x, n_pcs, mu = NULL, s = NULL, center_scale = TRUE)
 }
 \arguments{
-\item{matrix}{a matrix of values to perform dimensionality reduction on; by default, rows are genes
+\item{x}{a matrix of values to perform dimensionality reduction on; by default, rows are genes
 and columns are cells}
 
 \item{n_pcs}{number of prinicpal components to compute}
