@@ -10,9 +10,18 @@
 #' @param prcomp_obj a principal component analysis object produced by the prcomp or prcomp_irlba functions;
 #' if no object is supplied, sparse_pca will be run on the matrix to return 50 dimensions; defaults to NULL; 
 #' if a prcomp object is supplied, matrix is not required
+#' @param pca_version PCA implementation to use. Possible values are "default" for sparse_pca() or "monocle"
+#' for the sparse_irlba_prcomp implemented in Monocle 3 alpha.
+#' @param center a logical value indicating whether the variables should be shifted to be zero centered. 
+#' Alternately, if the "monocle" pca version is used, a centering vector of length equal the number of columns of 
+#' x can be supplied.
+#' @param scale a logical value indicating whether the variables should be scaled to have unit variance 
+#' before the analysis takes place. If the "default" pca version is used and center = TRUE, scaling will be
+#' also default to TRUE. Alternatively, if the "monocle" pca version is used, a vector of length equal the 
+#' number of columns of x can be supplied.
 #' @param dims dimensions from the prinicpal component analysis to use; defaults to 1:10 (i.e. 1st to 10th
 #' principal components)
-#' @param implementation UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
+#' @param umap_version UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
 #' works if monocle 3 alpha and above is installed.
 #' @param n_neighbors float (optional, default 15) The size of local neighborhood (in terms of number of 
 #' neighboring sample points) used for manifold approximation. Larger values result in more global views of 
@@ -39,8 +48,9 @@
 #' @examples
 #' spectral_umap(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10)
 
-spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10, implementation="default",
-                          n_neighbors = 30L, metric= "correlation", min_dist = 0.1, spread = 1) {
+spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_version="default", center=T,scale=T, 
+                          dims=1:10, umap_version="default", n_neighbors = 30L, metric= "correlation", min_dist = 0.1, 
+                          spread = 1) {
   if(is.null(prcomp_object) == FALSE) {
     pca_res <- prcomp_object
   } else {
@@ -48,7 +58,77 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
     if(log_matrix==TRUE) {
       tmp <- log10(matrix+1)
     } else { tmp <- tmp}
-    pca_res <- cellwrangler:::sparse_pca(Matrix::t(tmp), n_pcs=40, center_scale = T) 
+    if(pca_version=="default") {
+    pca_res <- cellwrangler:::sparse_pca(Matrix::t(tmp), n_pcs=max(dims), center_scale = T) 
+    } else {
+      if(pca_version=="monocle") {
+        
+        monocle_sparse_prcomp_irlba <- function (x, n = 3, retx = TRUE, center = TRUE, scale. = FALSE, 
+                                                 ...) 
+        {
+          a <- names(as.list(match.call()))
+          ans <- list(scale = scale.)
+          if ("tol" %in% a) 
+            warning("The `tol` truncation argument from `prcomp` is not supported by\n            `prcomp_irlba`. If specified, `tol` is passed to the `irlba` function to\n            control that algorithm's convergence tolerance. See `?prcomp_irlba` for help.")
+          orig_x = x
+          if (class(x) != "DelayedMatrix") 
+            x = DelayedArray(x)
+          args <- list(A = orig_x, nv = n)
+          if (is.logical(center)) {
+            if (center) 
+              args$center <- DelayedMatrixStats::colMeans2(x)
+          }
+          else args$center <- center
+          if (is.logical(scale.)) {
+            if (is.numeric(args$center)) {
+              scale. = sqrt(DelayedMatrixStats::colVars(x))
+              if (ans$scale) 
+                ans$totalvar <- ncol(x)
+              else ans$totalvar <- sum(scale.^2)
+            }
+            else {
+              if (ans$scale) {
+                scale. = sqrt(DelayedMatrixStats::colSums2(x^2)/(max(1, 
+                                                                     nrow(x) - 1L)))
+                ans$totalvar = sum(sqrt(DelayedMatrixStats::colSums2(t(t(x)/scale.)^2)/(nrow(x) - 
+                                                                                          1L)))
+              }
+              else {
+                ans$totalvar = sum(DelayedMatrixStats::colSums2(x^2)/(nrow(x) - 
+                                                                        1L))
+              }
+            }
+            if (ans$scale) 
+              args$scale <- scale.
+          }
+          else {
+            args$scale <- scale.
+            ans$totalvar = sum(sqrt(DelayedMatrixStats::colSums2(t(t(x)/scale.)^2)/(nrow(x) - 
+                                                                                      1L)))
+          }
+          if (!missing(...)) 
+            args <- c(args, list(...))
+          s <- do.call(irlba, args = args)
+          ans$sdev <- s$d/sqrt(max(1, nrow(x) - 1))
+          ans$rotation <- s$v
+          colnames(ans$rotation) <- paste("PC", seq(1, ncol(ans$rotation)), 
+                                          sep = "")
+          ans$center <- args$center
+          if (retx) {
+            ans <- c(ans, list(x = sweep(s$u, 2, s$d, FUN = `*`)))
+            colnames(ans$x) <- paste("PC", seq(1, ncol(ans$rotation)), 
+                                     sep = "")
+          }
+          class(ans) <- c("irlba_prcomp", "prcomp")
+          ans
+        }
+        
+        
+        pca_res <- monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(num_dim, min(dim(tmp)) - 1), 
+                                       center = center, scale. = scale)
+        
+      } else { print("need to specify pca version!")}
+    }
   }
   
   
@@ -161,19 +241,19 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
     }
   }
   
-  if(implementation=="default") {
+  if(umap_version=="default") {
   umap_proj <- UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
   colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
   #rownames(umap_proj) <- rownames(matrix)
   } else {
-    if(implementation=="monocle") {
+    if(umap_version=="monocle") {
       umap_proj <- monocle::UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                         min_dist = min_dist, spread = spread)
       colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
       #rownames(umap_proj) <- rownames(matrix)
     } else {
-      if(implementation=="uwot") {
+      if(umap_version=="uwot") {
         umap_proj <- uwot::umap(pca_res$x[,dims], n_neighbors = n_neighbors, metric = metric,
                                    min_dist = min_dist, spread = spread)
         colnames(umap_proj) <- c("UMAP.1", "UMAP.2")

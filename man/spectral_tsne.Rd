@@ -21,6 +21,18 @@ principal components)}
 \item{prcomp_obj}{a principal component analysis object produced by the prcomp or prcomp_irlba functions;
 if no object is supplied, sparse_pca will be run on the matrix to return 50 dimensions; defaults to NULL;
 if a prcomp object is supplied, matrix is not required}
+
+\item{pca_version}{PCA implementation to use. Possible values are "default" for sparse_pca() or "monocle"
+for the sparse_irlba_prcomp implemented in Monocle 3 alpha.}
+
+\item{center}{a logical value indicating whether the variables should be shifted to be zero centered. 
+Alternately, if the "monocle" pca version is used, a centering vector of length equal the number of columns of 
+x can be supplied.}
+
+\item{scale}{a logical value indicating whether the variables should be scaled to have unit variance 
+before the analysis takes place. If the "default" pca version is used and center = TRUE, scaling will be
+also default to TRUE. Alternatively, if the "monocle" pca version is used, a vector of length equal the 
+number of columns of x can be supplied.}
 }
 \value{
 A matrix with two columns containing coordinates of each row for two dimensions respectively

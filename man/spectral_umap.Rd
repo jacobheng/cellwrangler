@@ -5,7 +5,8 @@
 \title{Reduce dimensions of a matrix with pca and UMAP}
 \usage{
 spectral_umap(matrix, log_matrix = TRUE, prcomp_object = NULL,
-  dims = 1:10, implementation = "default", n_neighbors = 30L,
+  pca_version = "default", center = T, scale = T, dims = 1:10,
+  umap_version = "default", n_neighbors = 30L,
   metric = "correlation", min_dist = 0.1, spread = 1)
 }
 \arguments{
@@ -14,10 +15,22 @@ and columns are cells}
 
 \item{log_matrix}{if log10 transformation is to be performed on the matrix; defaults to TRUE}
 
+\item{pca_version}{PCA implementation to use. Possible values are "default" for sparse_pca() or "monocle"
+for the sparse_irlba_prcomp implemented in Monocle 3 alpha.}
+
+\item{center}{a logical value indicating whether the variables should be shifted to be zero centered. 
+Alternately, if the "monocle" pca version is used, a centering vector of length equal the number of columns of 
+x can be supplied.}
+
+\item{scale}{a logical value indicating whether the variables should be scaled to have unit variance 
+before the analysis takes place. If the "default" pca version is used and center = TRUE, scaling will be
+also default to TRUE. Alternatively, if the "monocle" pca version is used, a vector of length equal the 
+number of columns of x can be supplied.}
+
 \item{dims}{dimensions from the prinicpal component analysis to use; defaults to 1:10 (i.e. 1st to 10th
 principal components)}
 
-\item{implementation}{UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
+\item{umap_version}{UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
 works if monocle 3 alpha and above is installed.}
 
 \item{n_neighbors}{float (optional, default 15) The size of local neighborhood (in terms of number of 
