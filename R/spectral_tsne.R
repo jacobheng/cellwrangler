@@ -101,7 +101,7 @@ spectral_tsne <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
         }
         
         
-        pca_res <- monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(num_dim, min(dim(tmp)) - 1), 
+        pca_res <- monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(max(dims), min(dim(tmp)) - 1), 
                                                center = center, scale. = scale)
         
       } else { print("need to specify pca version!")}
