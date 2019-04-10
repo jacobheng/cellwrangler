@@ -36,7 +36,7 @@ spectral_tsne <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10
       tmp <- log10(matrix+1)
     } else { tmp <- tmp}
     if(pca_version=="default") {
-      pca_res <- cellwrangler:::sparse_pca(Matrix::t(tmp), n_pcs=max(dims), center_scale = T) 
+      pca_res <- cellwrangler:::sparse_pca(Matrix::t(tmp), n_pcs=max(dims), center_scale = center) 
     } else {
       if(pca_version=="monocle") {
         
