@@ -98,8 +98,8 @@ plot_mean_exprs_heatmap <- function (genes, cds, group, scale_method = NULL, clu
     colnames(tmp_melt) <- c("gene", "group", "Mean exprs per cell")
   }
 
-  tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(gene_ref$gene_short_name))
-  
+  #tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(gene_ref$gene_short_name))
+  tmp_melt$gene <- factor(tmp_melt$gene, levels = rev(genes))
   
   if (cluster_genes == T) {
    
