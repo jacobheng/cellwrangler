@@ -10,6 +10,7 @@ cellwranger was built in R version 3.5.2.
 To install cellwrangler:
 
 ```
+install.packages("devtools")
 devtools::install_github("jacobheng/cellwrangler")
 ```
 
