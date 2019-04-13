@@ -5,10 +5,12 @@ cellwrangler is a R package containing supplementary functions for analyzing sin
 
 These functions streamlines scRNAseq analysis by integrating functions from other R packages  including [**monocle**](https://github.com/cole-trapnell-lab/monocle-release), [**emptyDrops**](https://github.com/MarioniLab/EmptyDrops2017) and [**CoGAPS**](https://github.com/FertigLab/CoGAPS).
 
-cellwranger was built in R version 3.5.1.
+cellwranger was built in R version 3.5.2.
 
 To install cellwrangler:
 
-`devtools::install_github("jacobheng/cellwrangler")`
+```
+devtools::install_github("jacobheng/cellwrangler")
+```
 
 Please cite: *Heng JS, Rattner A, Vernon HJ, Winer B, Stein-O’Brien G, Jones BW, Marc RE, Goff LA, Nathans J. Hypoxia tolerance in the Norrin-deficient retina and the chronically hypoxic brain studied at single-cell resolution. PNAS 2019, in press*
