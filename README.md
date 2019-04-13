@@ -3,7 +3,7 @@ A supplementary toolkit for analyzing single-cell data implemented in R
 
 cellwrangler is a R package containing supplementary functions for analyzing single-cell RNAseq data.
 
-These functions streamlines scRNAseq analysis by integrating functions from other R packages  including **monocle**[link to monocle](https://github.com/cole-trapnell-lab/monocle-release), **emptyDrops**[link to emptyDrops](https://github.com/MarioniLab/EmptyDrops2017) and **CoGAPS**[link to CoGAPS](https://github.com/FertigLab/CoGAPS).
+These functions streamlines scRNAseq analysis by integrating functions from other R packages  including [**monocle**](https://github.com/cole-trapnell-lab/monocle-release), [**emptyDrops**](https://github.com/MarioniLab/EmptyDrops2017) and [**CoGAPS**](https://github.com/FertigLab/CoGAPS).
 
 cellwranger was built in R version 3.5.1.
 
