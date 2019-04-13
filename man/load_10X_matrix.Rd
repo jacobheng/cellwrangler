@@ -22,8 +22,8 @@ expression matrix (i.e. as cells)}
 a dgTMatrix
 }
 \description{
-load_10X_matrix() loads an expression matrix as a sparseMatrix from a directory of 10X Genomics scRNAseq 
-data created using the cellranger pipeline. Either the raw or the filtered matrix can be loaded.
+load_10X_matrix() loads an expression matrix as a sparseMatrix from a directory of 10X Genomics 
+scRNAseq data created using the cellranger pipeline. Either the raw or the filtered matrix can be loaded.
 }
 \examples{
 raw_mtx <- load_10X_matrix("/mycellranger_library/outs", which_matrix="raw")

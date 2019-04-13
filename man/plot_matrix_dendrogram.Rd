@@ -26,8 +26,8 @@ row direction or the column direction or none.}
 a ggplot2 object
 }
 \description{
-Draws a clustered heatmap using clustering methods implemented in the popular R package pheatmap. Returns
-a ggplot2 object
+Draws a clustered heatmap using clustering methods implemented in the popular R package pheatmap. 
+Returns a ggplot2 object
 }
 \examples{
 plot_matrix_heatmap(matrix)

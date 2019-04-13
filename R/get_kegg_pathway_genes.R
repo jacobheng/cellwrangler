@@ -1,6 +1,7 @@
 #'Get genes for a kegg pathway
 #'
-#' get_kegg_pathway_genes() is a wrapper function around keggGet() that retrieves gene names in a KEGG pathway.
+#' @description get_kegg_pathway_genes() is a wrapper function around keggGet() that retrieves gene names in 
+#' a KEGG pathway.
 #'
 #' @param pathway_name a KEGG pathway name
 #' @param kegg_pathway_df a kegg pathway database that is produced using the cellwrangler get_kegg_database()

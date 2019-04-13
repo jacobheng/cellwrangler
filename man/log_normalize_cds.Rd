@@ -22,9 +22,9 @@ expression matrix will be returned}
 a monocle CellDataSet object
 }
 \description{
-log_normalize_cds() globally scales and log-transforms the expression matrix of a monocle CellDataSet object. 
-The total count for each cell (represented by a column) is scaled to have the same total as all other cells 
-(columns). A monocle cds with the log-normalized expression matrix is returned.
+log_normalize_cds() globally scales and log-transforms the expression matrix of a monocle 
+CellDataSet object. The total count for each cell (represented by a column) is scaled to have the same total 
+as all other cells (columns). A monocle cds with the log-normalized expression matrix is returned.
 }
 \examples{
 dat_log <- log_normalize_cds(dat, scale_to = 10000, logbase=10)

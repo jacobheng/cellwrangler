@@ -1,7 +1,7 @@
 #'Plot diagnostic plot for testDrops results 
 #'
-#' Plots a diagnostic plot for a testDrops result. The x-axis represents the total number of UMIs per cell,
-#' while the y-axis represents the negative log probability that a droplet is a cell.
+#' @description Plots a diagnostic plot for a testDrops result. The x-axis represents the total number of UMIs 
+#' per cell, while the y-axis represents the negative log probability that a droplet is a cell.
 #'
 #' @param testDrops_res a testDrops object create by a testDrops function
 #' @keywords plot_drops_diagnostics

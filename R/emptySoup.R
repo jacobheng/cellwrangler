@@ -1,7 +1,7 @@
 #'Estimate expression profile of soup from empty droplets
 #'
-#' emptySoup() is a modified version of the estimateSoup() function in the excellent SoupX package. Instead
-#' of using all droplets within the specified soupRange to estimate the expression profile of the
+#' @description emptySoup() is a modified version of the estimateSoup() function in the excellent SoupX package. 
+#' Instead of using all droplets within the specified soupRange to estimate the expression profile of the
 #' soup as per the estimateSoup() function, emptySoup() uses only empty droplets e.g. determined using 
 #' the testDrops() function to estimate the expression profile of the soup.
 #'

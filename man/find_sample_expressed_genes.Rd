@@ -19,8 +19,8 @@ at or above this threshold will be selected.}
 A list of vectors with each vector containing dispersed genes for each sample
 }
 \description{
-find_sample_expressed_genes() splits an aggregated cds into separate samples based on the suffix at the 
-end of each barcode. The function then proceeds to extract genes above the pre-specified UMI and cell 
+find_sample_expressed_genes() splits an aggregated cds into separate samples based on the suffix 
+at the end of each barcode. The function then proceeds to extract genes above the pre-specified UMI and cell 
 expression threshold(s)
 }
 \examples{

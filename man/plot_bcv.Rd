@@ -17,7 +17,8 @@ plot_bcv(annotated_fData, genes_to_color, color_scale = c("grey50",
 \item{genes_to_annotate}{vector of Ensembl gene ids to annotate}
 }
 \description{
-plot_bcv() plots the mean - variance (bcv) relationship, as well as colors and annotates genes of interest.
+plot_bcv() plots the mean - variance (bcv) relationship, as well as colors and annotates 
+genes of interest.
 }
 \examples{
 plot_bcv(annotated_fData)

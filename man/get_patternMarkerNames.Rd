@@ -15,8 +15,8 @@ get_patternMarkerNames(CoGAPS_res, cds, threshold = "all", lp = NA)
 a CoGAPS patternMarkers object
 }
 \description{
-get_patternMarkerNames is a wrapper function around the CoGAPS::patternMarkers function for retrieving pattern 
-markers as gene names for a set of CoGAPS results derived from a monocle CellDataSet object.
+get_patternMarkerNames is a wrapper function around the CoGAPS::patternMarkers function for 
+retrieving pattern markers as gene names for a set of CoGAPS results derived from a monocle CellDataSet object.
 }
 \examples{
 patternMarkers <- get_patternMarkerNames(myCoGAPSres, cds=dat)

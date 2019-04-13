@@ -1,7 +1,7 @@
 #'Load an expression matrix from a directory of cellranger-aligned 10X Genomics scRNAseq data 
 #'
-#' load_10X_matrix() loads an expression matrix as a sparseMatrix from a directory of 10X Genomics scRNAseq 
-#' data created using the cellranger pipeline. Either the raw or the filtered matrix can be loaded.
+#' @description load_10X_matrix() loads an expression matrix as a sparseMatrix from a directory of 10X Genomics 
+#' scRNAseq data created using the cellranger pipeline. Either the raw or the filtered matrix can be loaded.
 #'
 #' @param cellranger_outs_path the path to the "outs" directory in the cellranger library folder e.g.
 #' "/mycellranger_library/outs"

@@ -1,7 +1,7 @@
 #'Get gene-level summary statistics for CellDataSet object
 #'
-#' summarize_cds_exprs() takes a monocle CellDataSet object as input and obtain summary statistics for each gene
-#' for specified groups in the dataset. 
+#' @description summarize_cds_exprs() takes a monocle CellDataSet object as input and obtain summary statistics 
+#' for each gene for specified groups in the dataset. 
 #'
 #' @param cds a CellDataSet object 
 #' @param group one or more column(s) specifying groups to obtain summary statistics for e.g. CellType

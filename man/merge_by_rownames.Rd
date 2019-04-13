@@ -21,7 +21,7 @@ Defaults to TRUE}
 A merged dataframe or matrix with the appropriate rownames
 }
 \description{
-This is a wrapper function based on the base R merge function for merging 
+This is a wrapper function based on the base R merge() function for merging 
 two dataframes or matrices by their rownames and returing a dataframe or matrix with the appropriate rownames.
 Unlike merge, this function does not create an additional column for rownames.
 }

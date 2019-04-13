@@ -1,6 +1,6 @@
 #'Find rownames of cells from coordinates of dimensionality reduction
 #'
-#' dim_coord_barcode() returns the rownames of cells based on the coordiates of a dimensionality reduction
+#' @description dim_coord_barcode() returns the rownames of cells based on the coordiates of a dimensionality reduction
 #' projection (e.g. t-SNE, UMAP).
 #' 
 #' @param dim_reduction a dataframe specifying the coordinates of a dimensionality reduction output (e.g. 

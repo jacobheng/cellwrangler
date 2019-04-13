@@ -64,8 +64,8 @@ same as cluster_groups_method().}
 a ggplot object
 }
 \description{
-plot_pattern_cor_heatmap() plots a heatmap showing the correlation of a CoGAPS pattern set with a grouping
-variable
+plot_pattern_cor_heatmap() plots a heatmap showing the correlation of a CoGAPS pattern set 
+with a grouping variable
 }
 \examples{
 plot_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 

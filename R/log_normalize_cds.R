@@ -1,8 +1,8 @@
 #'Normalize and log monocle cds
 #'
-#' log_normalize_cds() globally scales and log-transforms the expression matrix of a monocle CellDataSet object. 
-#' The total count for each cell (represented by a column) is scaled to have the same total as all other cells 
-#' (columns). A monocle cds with the log-normalized expression matrix is returned.
+#' @description log_normalize_cds() globally scales and log-transforms the expression matrix of a monocle 
+#' CellDataSet object. The total count for each cell (represented by a column) is scaled to have the same total 
+#' as all other cells (columns). A monocle cds with the log-normalized expression matrix is returned.
 #'
 #' @param cds a monocle CellDataSet object
 #' @param filter_zeros logical - if genes with zero expression should be removed; defaults to TRUE

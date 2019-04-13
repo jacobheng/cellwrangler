@@ -1,8 +1,8 @@
 #'Plot cell groups
 #'
-#' plot_groups() colors cells differently according to a grouping variable (e.g. cell clusters) on 
-#' a two-dimensional plot. A two-dimensional dimensionality reduction object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
-#' reduction) is required. 
+#' @description plot_groups() colors cells differently according to a grouping variable (e.g. cell clusters) on 
+#' a two-dimensional plot. A two-dimensional dimensionality reduction object with coordinates for each cell 
+#' (e.g. by t-SNE or UMAP dimensionality reduction) is required. 
 #' @param group_vector a vector assigning each cell to a group
 #' @param dim_reduction a dataframe specifying the coordinates of a dimensionality reduction output (e.g. 
 #' t-SNE, UMAP etc.). Each column should specify one dimension.

@@ -1,6 +1,6 @@
 #' Plot mean gene expression as bar plot
 #'
-#' gene_barplot() plots the mean expression of a given gene as a bar plot with standard error bars.
+#' @description gene_barplot() plots the mean expression of a given gene as a bar plot with standard error bars.
 #' 
 #' @param genes a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")
 #' @param cds a CellDataSet object e.g. used in the monocle package

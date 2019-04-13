@@ -1,6 +1,6 @@
 #'Determine if cells are above an expression threshold of a gene
 #'
-#' dim_coord_barcode() returns the rownames of cells based on the coordiates of a dimensionality reduction
+#' @description dim_coord_barcode() returns the rownames of cells based on the coordiates of a dimensionality reduction
 #' projection (e.g. t-SNE, UMAP).
 #' 
 #' @param cds a monocle CellDataSet object.

@@ -1,6 +1,6 @@
 #'Load a set of CoGAPS results
 #'
-#' load_CoGAPS_res() loads a set of CoGAPS results.
+#' @description load_CoGAPS_res() loads a set of CoGAPS results.
 #'
 #' @param res_dir name of directory containing CoGAPS results. Each CoGAPS result should be contained in
 #' a folder with the name "run_x" in numerical order based on the length of nFactor_range.

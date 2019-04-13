@@ -1,8 +1,8 @@
 #'Find dispersed genes in each sample in CellDataSet
 #'
-#' find_sample_dispersed_genes() splits an aggregated cds into separate samples based on the suffix at the end 
-#' of each barcode and estimates SizeFactors and Dispersions for each sample using the package monocle. The
-#' function then proceeds to extract genes above pre-specified mean expression and dispersion empirical
+#' @description find_sample_dispersed_genes() splits an aggregated cds into separate samples based on the suffix 
+#' at the end of each barcode and estimates SizeFactors and Dispersions for each sample using the package monocle. 
+#' The function then proceeds to extract genes above pre-specified mean expression and dispersion empirical
 #' thresholds
 #' @param cds a monocle CellDataSet object
 #' @param mean_exprs mean expression threshold for defining dispersed genes

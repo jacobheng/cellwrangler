@@ -1,7 +1,7 @@
 #'Plot biplot for sparse pca
 #'
-#' sparse_pca_biplot() creates a biplot for two principal components computed by sparse PCA (implemented 
-#' by cellrangerRkit. 
+#' @description sparse_pca_biplot() creates a biplot for two principal components computed by sparse PCA 
+#' (implemented by cellrangerRkit). 
 #' 
 #' @param sparse_pca_obj a sparse pca object created by the cellRangerRkit sparse_pca() function
 #' @param pcs a two-component vector of PCs to plot e.g. c(1,2)

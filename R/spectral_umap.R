@@ -1,7 +1,7 @@
 
 #'Reduce dimensions of a matrix with pca and UMAP
 #'
-#' spectral_umap() performs dimensionality reduction using the package monocle wrapper function around
+#' @description spectral_umap() performs dimensionality reduction using the package monocle wrapper function around
 #' the python implementation of UMAP (Uniform Manifold Approximation and Projection). If no prcomp_object 
 #' is supplied, principal component analysis will be performed using an irlba algorithm for sparse data.
 #' @param matrix a matrix of values to perform dimensionality reduction on; by default, rows are genes
@@ -22,7 +22,8 @@
 #' @param dims dimensions from the prinicpal component analysis to use; defaults to 1:10 (i.e. 1st to 10th
 #' principal components)
 #' @param umap_version UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
-#' works if monocle 3 alpha and above is installed.
+#' works if monocle 3 alpha and above is installed. The default option uses the UMAP function implemented
+#' in monocle 3 alpha, and works even without monocle 3 alpha installed.
 #' @param n_neighbors float (optional, default 15) The size of local neighborhood (in terms of number of 
 #' neighboring sample points) used for manifold approximation. Larger values result in more global views of 
 #' the manifold, while smaller values result in more local data being preserved. In general values should be 
@@ -63,68 +64,7 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_versi
     } else {
       if(pca_version=="monocle") {
         
-        monocle_sparse_prcomp_irlba <- function (x, n = 3, retx = TRUE, center = TRUE, scale. = FALSE, 
-                                                 ...) 
-        {
-          a <- names(as.list(match.call()))
-          ans <- list(scale = scale.)
-          if ("tol" %in% a) 
-            warning("The `tol` truncation argument from `prcomp` is not supported by\n            `prcomp_irlba`. If specified, `tol` is passed to the `irlba` function to\n            control that algorithm's convergence tolerance. See `?prcomp_irlba` for help.")
-          orig_x = x
-          if (class(x) != "DelayedMatrix") 
-            x = DelayedArray(x)
-          args <- list(A = orig_x, nv = n)
-          if (is.logical(center)) {
-            if (center) 
-              args$center <- DelayedMatrixStats::colMeans2(x)
-          }
-          else args$center <- center
-          if (is.logical(scale.)) {
-            if (is.numeric(args$center)) {
-              scale. = sqrt(DelayedMatrixStats::colVars(x))
-              if (ans$scale) 
-                ans$totalvar <- ncol(x)
-              else ans$totalvar <- sum(scale.^2)
-            }
-            else {
-              if (ans$scale) {
-                scale. = sqrt(DelayedMatrixStats::colSums2(x^2)/(max(1, 
-                                                                     nrow(x) - 1L)))
-                ans$totalvar = sum(sqrt(DelayedMatrixStats::colSums2(t(t(x)/scale.)^2)/(nrow(x) - 
-                                                                                          1L)))
-              }
-              else {
-                ans$totalvar = sum(DelayedMatrixStats::colSums2(x^2)/(nrow(x) - 
-                                                                        1L))
-              }
-            }
-            if (ans$scale) 
-              args$scale <- scale.
-          }
-          else {
-            args$scale <- scale.
-            ans$totalvar = sum(sqrt(DelayedMatrixStats::colSums2(t(t(x)/scale.)^2)/(nrow(x) - 
-                                                                                      1L)))
-          }
-          if (!missing(...)) 
-            args <- c(args, list(...))
-          s <- do.call(irlba, args = args)
-          ans$sdev <- s$d/sqrt(max(1, nrow(x) - 1))
-          ans$rotation <- s$v
-          colnames(ans$rotation) <- paste("PC", seq(1, ncol(ans$rotation)), 
-                                          sep = "")
-          ans$center <- args$center
-          if (retx) {
-            ans <- c(ans, list(x = sweep(s$u, 2, s$d, FUN = `*`)))
-            colnames(ans$x) <- paste("PC", seq(1, ncol(ans$rotation)), 
-                                     sep = "")
-          }
-          class(ans) <- c("irlba_prcomp", "prcomp")
-          ans
-        }
-        
-        
-        pca_res <- monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(max(dims), min(dim(tmp)) - 1), 
+        pca_res <- cellrwangler::monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(max(dims), min(dim(tmp)) - 1), 
                                        center = center, scale. = scale)
         
       } else { print("need to specify pca version!")}
@@ -132,117 +72,8 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_versi
   }
   
   
-  UMAP <- function(X, python_home = system('which python', intern = TRUE), 
-                   log = TRUE, 
-                   n_neighbors = 15L, 
-                   n_component = 2L, 
-                   metric = "correlation", 
-                   n_epochs = NULL, 
-                   negative_sample_rate = 5L,
-                   learning_rate = 1.0,
-                   init = 'spectral',
-                   min_dist = 0.1, 
-                   spread = 1.0,
-                   set_op_mix_ratio = 1.0,
-                   local_connectivity = 1L,
-                   # bandwidth = 1.0, 
-                   repulsion_strength = 1.0,
-                   a = NULL,
-                   b = NULL, 
-                   random_state = 0L,
-                   metric_kwds = reticulate::dict(), 
-                   angular_rp_forest = FALSE,
-                   target_n_neighbors = -1L, 
-                   target_metric = 'categorical', 
-                   target_metric_kwds = reticulate::dict(), 
-                   target_weight = 0.5, 
-                   transform_seed = 42L, 
-                   verbose = FALSE,
-                   return_all = FALSE) {
-    
-    reticulate::use_python(python_home)
-    
-    tryCatch({
-      reticulate::import("umap")
-    }, warning = function(w) {
-    }, error = function(e) {
-      print (e)
-      stop('please pass the python home directory where umap is installed with python_home argument!')
-    }, finally = {
-    })
-    
-    reticulate::source_python(paste(system.file(package="cellwrangler"), "umap.py", sep="/"))
-    # X <- Matrix::t(X)
-    if(length(grep('Matrix', class(X))) == 0){
-      X <- as(as.matrix(X), 'TsparseMatrix')
-    } else {
-      X <- as(X, 'TsparseMatrix')
-    }
-    
-    i <- as.integer(X@i)
-    j <- as.integer(X@j)
-    
-    if(log) {
-      val <- log(X@x + 1)
-    } else {
-      val <- X@x
-    }
-    dim <- as.integer(X@Dim)
-    
-    if(is.null(n_epochs) == F) {
-      n_epochs <- as.integer(n_epochs)
-    }
-    if(is.null(a) == F) {
-      a <- as.numeric(a)
-    }
-    if(is.null(b) == F) {
-      n_epochs <- as.numeric(b)
-    }
-    if(is.list(metric_kwds) == F) {
-      metric_kwds <- reticulate::dict()
-    } else {
-      metric_kwds <- reticulate::dict(metric_kwds)
-    }
-    if(is.list(target_metric_kwds) == F) {
-      target_metric_kwds <- reticulate::dict()
-    } else {
-      target_metric_kwds <- reticulate::dict(target_metric_kwds)
-    }
-    umap_res <- umap(i, j, val, dim, 
-                     as.integer(n_neighbors), 
-                     as.integer(n_component), 
-                     as.character(metric), 
-                     n_epochs,
-                     as.integer(negative_sample_rate),
-                     as.numeric(learning_rate),
-                     as.character(init),
-                     as.numeric(min_dist), 
-                     as.numeric(spread),
-                     as.numeric(set_op_mix_ratio),
-                     as.integer(local_connectivity),
-                     # as.numeric(bandwidth),
-                     as.numeric(repulsion_strength),
-                     a,
-                     b,
-                     as.integer(random_state),
-                     metric_kwds,
-                     as.logical(angular_rp_forest),
-                     as.integer(target_n_neighbors),
-                     as.character(target_metric),
-                     target_metric_kwds,
-                     as.numeric(target_weight),
-                     as.integer(transform_seed), 
-                     as.logical(verbose))
-    
-    if(return_all) {
-      return(umap_res)
-    } else {
-      umap_res$embedding_
-    }
-  }
-  
   if(umap_version=="default") {
-  umap_proj <- UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
+  umap_proj <- cellwrangler::monocle_UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
   colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
   #rownames(umap_proj) <- rownames(matrix)

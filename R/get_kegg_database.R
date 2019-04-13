@@ -1,7 +1,7 @@
 #'Get kegg database for an organism
 #'
-#' get_kegg_database() is a wrapper function around the keggList() function that retrieves a kegg database
-#' for an organism and returns a dataframe
+#' @description get_kegg_database() is a wrapper function around the keggList() function that retrieves 
+#' a kegg database for an organism and returns a dataframe
 #'
 #' @param database a KEGG database; one of options available via KEGGREST listDatabases()
 #' @param organism KEGG organism code e.g. "mmu" for "Mus musculus"

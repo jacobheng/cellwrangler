@@ -16,7 +16,8 @@ function using "pathway" as an option.}
 a list
 }
 \description{
-get_kegg_pathway_genes() is a wrapper function around keggGet() that retrieves gene names in a KEGG pathway.
+get_kegg_pathway_genes() is a wrapper function around keggGet() that retrieves gene names in 
+a KEGG pathway.
 }
 \examples{
 pathway_genes <- get_kegg_pathway_genes("Pentose phosphate pathway", mouse_kegg_pathways)

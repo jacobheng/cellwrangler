@@ -1,6 +1,6 @@
 #'Create a monocle CellDataSet object from a directory of cellranger-aligned 10X Genomics scRNAseq data 
 #'
-#' create_monocle_cds() creates a monocle CellDataSet object from a directory of 10X Genomics scRNAseq data
+#' @description create_monocle_cds() creates a monocle CellDataSet object from a directory of 10X Genomics scRNAseq data
 #' created using the cellranger pipeline. Includes options to determine which barcodes are cells vs non-cells
 #' in the original raw matrix.
 #'

@@ -1,8 +1,8 @@
 #' Plot gene expression in cells
 #'
-#' plot_gene_exprs() plots levels of expression of a specified gene or genes as a color gradient. A 
-#' two-dimensional dimensionality reduction object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
-#' reduction) is required. 
+#' @description plot_gene_exprs() plots levels of expression of a specified gene or genes as a color gradient. A 
+#' two-dimensional dimensionality reduction object with coordinates for each cell (e.g. by t-SNE or UMAP 
+#' dimensionality reduction) is required. 
 #' @param cds a CellDataSet object or equivalent
 #' @param genes a vector of gene name(s) to plot
 #' @param dim_reduction a dataframe specifying the coordinates of a dimensionality reduction output (e.g. 

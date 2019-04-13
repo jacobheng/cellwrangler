@@ -21,8 +21,8 @@ Defaults to TRUE}
 A merged dataframe or matrix with the appropriate rownames
 }
 \description{
-This is a wrapper function based on the merge_by_rownames function in cellwrangler for merging multiple
-dataframes or matries by their rownames
+This is a wrapper function based on the merge_by_rownames function in cellwrangler for merging 
+multiple dataframes or matries by their rownames
 }
 \examples{
 dataframes_list <- list(dataframe1,dataframe2,dataframe3,dataframe4)

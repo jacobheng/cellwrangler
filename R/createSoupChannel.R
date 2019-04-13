@@ -1,6 +1,6 @@
 #'Create a single Soup Channel 
 #'
-#' createSoupChannel is a modified version of the SoupChannel() function in the excellent SoupX package. Instead 
+#' @description createSoupChannel is a modified version of the SoupChannel() function in the excellent SoupX package. Instead 
 #' of using a table of droplets (tod) that include all droplets to estimate the "soup", createSoupChannel feeds 
 #' an expression matrix consisting of only empty droplets, determined by the testDrops() function, to estimate
 #' the soup in the sample.

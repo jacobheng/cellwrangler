@@ -1,6 +1,6 @@
 #'Get standard error of the mean for rows in a matrix
 #'
-#' rowSE() calculates row-wise standard error of the mean for a matrix
+#' @description rowSE() calculates row-wise standard error of the mean for a matrix
 #'
 #' @param matrix a matrix
 #' 

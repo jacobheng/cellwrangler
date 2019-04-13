@@ -1,6 +1,6 @@
 #' Calculate and annotate biological coefficent of variation
 #'
-#' annotate_bcv() calculates the biological coefficent of variation from a give cds and returns an annotated
+#' @description annotate_bcv() calculates the biological coefficent of variation from a give cds and returns an annotated
 #' fData dataframe.
 #' @param cds a monocle CellDataSet object
 #' @param scaled_matrix a scaled expression matrix derived from cds provided. Exprs(cds) should be divided by 

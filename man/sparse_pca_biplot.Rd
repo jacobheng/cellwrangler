@@ -18,8 +18,8 @@ according to group}
 A ggplot object
 }
 \description{
-sparse_pca_biplot() creates a biplot for two principal components computed by sparse PCA (implemented 
-by cellrangerRkit.
+sparse_pca_biplot() creates a biplot for two principal components computed by sparse PCA 
+(implemented by cellrangerRkit).
 }
 \examples{
 sparse_pca_biplot(sparse_pca_obj, pcs=c(1,2), group=pData(dat)$CellType)

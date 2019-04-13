@@ -1,7 +1,7 @@
 #' Fit vector generalized linear model to a CellDataSet object
 #'
-#' fit_cds_vglm() is a wrapper function around the monocle::fitModel() function that fits a vglm for each 
-#' gene in a CellDataSet object and return a dataframe with the estimate, standard error, z value and
+#' @description fit_cds_vglm() is a wrapper function around the monocle::fitModel() function that fits a vglm 
+#' for each gene in a CellDataSet object and return a dataframe with the estimate, standard error, z value and
 #' p-value for each coefficient specified in the model formula string.
 #' @param cds a monocle CellDataSet object
 #' @param modelFormulaStr model formula string specifying the model to fit for the genes

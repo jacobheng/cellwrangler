@@ -1,6 +1,6 @@
 #'Make rank lists
 #'
-#' make_rnk() makes rank lists for pre-ranked geneset enrichment analysis.
+#' @description make_rnk() makes rank lists for pre-ranked geneset enrichment analysis.
 #'
 #' @param celltype CellType to create rank lists for.
 #' @param rank_df a dataframe with the pre-requisite rank statistics

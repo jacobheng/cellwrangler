@@ -1,7 +1,7 @@
 
 #' Merge dataframes or matrices by rownames
 #'
-#' This is a wrapper function based on the base R merge function for merging 
+#' @description This is a wrapper function based on the base R merge() function for merging 
 #' two dataframes or matrices by their rownames and returing a dataframe or matrix with the appropriate rownames.
 #' Unlike merge, this function does not create an additional column for rownames.
 #' @param x,y dataframes or matrices

@@ -1,8 +1,8 @@
 #' Find genes with high biological coefficent of variation
 #'
-#' find_highbcv_genes() return genes with a high biological coefficent of variation (bcv) from a monocle 
-#' CellDataSet object, subject to a number of thresholds including expression in number of cells, expression
-#' levels and residuals.
+#' @description find_highbcv_genes() return genes with a high biological coefficent of variation (bcv) from a 
+#' monocle CellDataSet object, subject to a number of thresholds including expression in number of cells, 
+#' expression levels and residuals.
 #' @param cds a monocle CellDataSet object
 #' @param annotated_fData annotated fData object produced by the cellwrangler annotate_bcv() function; if NULL,
 #' parameters of bcv will be calculated from cds provided.

@@ -1,6 +1,6 @@
 #'Create a list of Seurat Objects
 #'
-#' CreateSeuratObjectList() creates a list of Seurat objects for use in the RunMultiCCA function in the R package
+#' @description CreateSeuratObjectList() creates a list of Seurat objects for use in the RunMultiCCA function in the R package
 #' Seurat. The function splits a single aggregated barcoded expression matrix into separate matries based on the 
 #' suffix at the end of each cellular barcode e.g. ("ACTAGGAGACAGGTGC-1").
 #'  

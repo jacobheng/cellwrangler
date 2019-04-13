@@ -1,6 +1,6 @@
 #'Plot pathway heatmap
 #'
-#'plot_pathway_heatmap() plots the results of output from the fgsea() function.
+#'@description plot_pathway_heatmap() plots the results of output from the fgsea() function.
 #' 
 #' @param path_table a dataframe of values
 #' @param path_res_df output from the fgsea() function

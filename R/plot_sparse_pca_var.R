@@ -1,6 +1,6 @@
 #'Plot variance explained by sparse PCA
 #'
-#' plot_sparse_pca_var() plots the variance explained by sparse PCA (implemented by cellrangerRkit) as a
+#' @description plot_sparse_pca_var() plots the variance explained by sparse PCA (implemented by cellrangerRkit) as a
 #' line graph. 
 #' 
 #' @param sparse_pca_obj a sparse pca object created by the cellRangerRkit sparse_pca() function

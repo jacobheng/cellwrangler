@@ -1,6 +1,6 @@
 #' Plot gene expression for all CellTypes as jitter plots
 #'
-#' CellType_genes_jitter is a wrapper function around monocle::plot_genes_jitter() that plots gene expression
+#' @description CellType_genes_jitter is a wrapper function around monocle::plot_genes_jitter() that plots gene expression
 #' as jitter plots facet_wrapped by CellType.
 #' 
 #' @param gene_to_plot official gene symbol of a gene to plot e.g. "Actb"

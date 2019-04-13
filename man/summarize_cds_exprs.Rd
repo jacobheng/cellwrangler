@@ -17,8 +17,8 @@ summarize_cds_exprs(cds, group, gene_short_name = T)
 a dataframe
 }
 \description{
-summarize_cds_exprs() takes a monocle CellDataSet object as input and obtain summary statistics for each gene
-for specified groups in the dataset.
+summarize_cds_exprs() takes a monocle CellDataSet object as input and obtain summary statistics 
+for each gene for specified groups in the dataset.
 }
 \examples{
 dat_summary <- summarize_cds_exprs(dat, c("CellType"))

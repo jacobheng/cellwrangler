@@ -1,6 +1,6 @@
 #'Find high variance genes for CCA
 #'
-#' find_CCA_genes() defines genes to use for CCA by finding high-variance genes in a list of Seurat objects
+#' @description find_CCA_genes() defines genes to use for CCA by finding high-variance genes in a list of Seurat objects
 #' that are highly variable in a minimum number of samples/objects.
 #'  
 #' @param SeuratObjectList a list of Seurat objects

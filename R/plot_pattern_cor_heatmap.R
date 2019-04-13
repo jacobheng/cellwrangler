@@ -1,7 +1,7 @@
 #'Plot pattern correlation heatmap
 #'
-#' plot_pattern_cor_heatmap() plots a heatmap showing the correlation of a CoGAPS pattern set with a grouping
-#' variable
+#' @description plot_pattern_cor_heatmap() plots a heatmap showing the correlation of a CoGAPS pattern set 
+#' with a grouping variable
 #'
 #' @param CoGAPS_res_set a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
 #' for the Pattern_set parameter.

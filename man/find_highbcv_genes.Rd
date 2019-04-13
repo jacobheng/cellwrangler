@@ -24,9 +24,9 @@ the colsums and multiplied by 10,000.}
 \item{resid_threshold}{threshold for residuals}
 }
 \description{
-find_highbcv_genes() return genes with a high biological coefficent of variation (bcv) from a monocle 
-CellDataSet object, subject to a number of thresholds including expression in number of cells, expression
-levels and residuals.
+find_highbcv_genes() return genes with a high biological coefficent of variation (bcv) from a 
+monocle CellDataSet object, subject to a number of thresholds including expression in number of cells, 
+expression levels and residuals.
 }
 \examples{
 find_highbcv_genes(dat)

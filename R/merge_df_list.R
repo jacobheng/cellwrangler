@@ -1,7 +1,7 @@
 #' Merge a list of dataframes or matrices
 #'
-#' This is a wrapper function based on the merge_by_rownames function in cellwrangler for merging multiple
-#' dataframes or matries by their rownames
+#' @description This is a wrapper function based on the merge_by_rownames function in cellwrangler for merging 
+#' multiple dataframes or matries by their rownames
 #' @param df_list a list of dataframes or matrices
 #' @param all.x logical;  if TRUE, then extra rows will be added to the output, one for each row in x that has no 
 #' matching row in y. These rows will have NAs in those columns that are usually filled with values from y. 

@@ -1,7 +1,7 @@
 #'Find expressed genes in each sample in CellDataSet
 #'
-#' find_sample_expressed_genes() splits an aggregated cds into separate samples based on the suffix at the 
-#' end of each barcode. The function then proceeds to extract genes above the pre-specified UMI and cell 
+#' @description find_sample_expressed_genes() splits an aggregated cds into separate samples based on the suffix 
+#' at the end of each barcode. The function then proceeds to extract genes above the pre-specified UMI and cell 
 #' expression threshold(s)
 #' @param cds a monocle CellDataSet object
 #' @param UMI_threshold UMI threshold for defining expressed genes. Genes with total UMIs equal to or above

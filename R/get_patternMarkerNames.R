@@ -1,7 +1,7 @@
 #'Get pattern markers as gene names for a set of CoGAPS results
 #'
-#' get_patternMarkerNames is a wrapper function around the CoGAPS::patternMarkers function for retrieving pattern 
-#' markers as gene names for a set of CoGAPS results derived from a monocle CellDataSet object.
+#' @description get_patternMarkerNames is a wrapper function around the CoGAPS::patternMarkers function for 
+#' retrieving pattern markers as gene names for a set of CoGAPS results derived from a monocle CellDataSet object.
 #'
 #' @param CoGAPS_res a CoGAPS result object.
 #' @param cds a CellDataSet object e.g. used in the monocle package

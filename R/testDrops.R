@@ -1,6 +1,6 @@
 #'Determine whether droplets are cells or blank drops in an expression matrix
 #'
-#' testDrops() is a wrapper function around the emptyDrops() function in the excellent SoupX package. Returns
+#' @description testDrops() is a wrapper function around the emptyDrops() function in the excellent SoupX package. Returns
 #' a list object consisting of a results dataframe from the emptyDrops() function, as well as barcodes 
 #' of cells and empty droplets.
 #'

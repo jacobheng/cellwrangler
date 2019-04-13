@@ -17,9 +17,9 @@ find_sample_dispersed_genes(cds, mean_exprs = 0, disp_empirical = 1)
 A list of vectors with each vector containing dispersed genes for each sample
 }
 \description{
-find_sample_dispersed_genes() splits an aggregated cds into separate samples based on the suffix at the end 
-of each barcode and estimates SizeFactors and Dispersions for each sample using the package monocle. The
-function then proceeds to extract genes above pre-specified mean expression and dispersion empirical
+find_sample_dispersed_genes() splits an aggregated cds into separate samples based on the suffix 
+at the end of each barcode and estimates SizeFactors and Dispersions for each sample using the package monocle. 
+The function then proceeds to extract genes above pre-specified mean expression and dispersion empirical
 thresholds
 }
 \examples{

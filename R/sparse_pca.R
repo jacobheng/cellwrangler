@@ -1,6 +1,6 @@
 #'Perform sparse pca on a matrix
 #'
-#' sparse_pca() performs a fast pca on a matrix while maintaing sparsity.
+#' @description sparse_pca() performs a fast pca on a matrix while maintaing sparsity.
 #' @param x a matrix of values to perform dimensionality reduction on; by default, rows are genes
 #' and columns are cells
 #' @param n_pcs number of prinicpal components to compute

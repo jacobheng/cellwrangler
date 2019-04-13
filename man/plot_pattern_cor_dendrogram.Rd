@@ -44,8 +44,8 @@ Subgroups can be specified in a string with separation by " - ". Only valid if c
 a ggplot object
 }
 \description{
-plot_pattern_cor_dendro() plots a dendrogram showing the clustering of the correlation of a CoGAPS pattern 
-set with a grouping variable
+plot_pattern_cor_dendro() plots a dendrogram showing the clustering of the correlation of a 
+CoGAPS pattern set with a grouping variable
 }
 \examples{
 plot_pattern_cor_heatmap(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 

@@ -13,8 +13,8 @@ plot_drops_diagnostics(sample, testDrops_res_list)
 a ggplot2 object
 }
 \description{
-Plots a diagnostic plot for a testDrops result. The x-axis represents the total number of UMIs per cell,
-while the y-axis represents the negative log probability that a droplet is a cell.
+Plots a diagnostic plot for a testDrops result. The x-axis represents the total number of UMIs 
+per cell, while the y-axis represents the negative log probability that a droplet is a cell.
 }
 \examples{
 plot_drops_diagnostics(testDrops_res)

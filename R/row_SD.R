@@ -1,6 +1,6 @@
 #'Get standard deviation for rows in a matrix
 #'
-#' rowSD() calculates row-wise standard deviation for a matrix
+#' @description rowSD() calculates row-wise standard deviation for a matrix
 #'
 #' @param matrix a matrix
 #' 

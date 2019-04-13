@@ -1,7 +1,7 @@
 #'Plot a clustered heatmap
 #'
-#' Draws a clustered heatmap using clustering methods implemented in the popular R package pheatmap. Returns
-#' a ggplot2 object
+#' @description Draws a clustered heatmap using clustering methods implemented in the popular R package pheatmap. 
+#' Returns a ggplot2 object
 #' @param matrix a matrix of values
 #' @param scale "rows" or "cols" or "none"; indicates whether values should be centered and scaled in the 
 #' row direction or the column direction or none.

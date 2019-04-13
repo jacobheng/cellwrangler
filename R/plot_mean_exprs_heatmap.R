@@ -1,6 +1,6 @@
 #'Plot mean expression heatmap
 #'
-#' plot_mean_exprs_heatmap() plots a heatmap showing the mean expression of a gene in a monocle
+#' @description plot_mean_exprs_heatmap() plots a heatmap showing the mean expression of a gene in a monocle
 #' CellDataSet object.
 #'
 #' @param genes a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")

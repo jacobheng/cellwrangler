@@ -1,7 +1,7 @@
 
 #'Create multiple Soup Channels from an cellranger-aggregated matrix
 #'
-#' createMultiSoupChannel() is a wrapper function around the createSoupChannel() function that creates
+#' @description createMultiSoupChannel() is a wrapper function around the createSoupChannel() function that creates
 #' a channel for each sample in a matrix aggregated from multiple samples with the cellranger pipeline.
 #' The function requires a AllBlankDrops object, which is a matrix consisting of the empty droplets from
 #' all samples derived from the original cellranger-aggregated raw matrix using the testDrops() function.

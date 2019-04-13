@@ -1,6 +1,6 @@
 #'Plots the mean ChiSq values of a set of CoGAPS results
 #'
-#' plot_CoGAPS_ChiSq() plots the mean ChiSq values of a set of CoGAPS results.
+#' @description plot_CoGAPS_ChiSq() plots the mean ChiSq values of a set of CoGAPS results.
 #' 
 #' @param CoGAPS_res_set a CoGAPS result set.
 #' @keywords plot_CoGAPS_ChiSq

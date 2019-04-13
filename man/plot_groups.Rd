@@ -26,8 +26,8 @@ A ggplot2 object
 }
 \description{
 plot_groups() colors cells differently according to a grouping variable (e.g. cell clusters) on 
-a two-dimensional plot. A two-dimensional dimensionality reduction object with coordinates for each cell (e.g. by t-SNE or UMAP dimensionality 
-reduction) is required.
+a two-dimensional plot. A two-dimensional dimensionality reduction object with coordinates for each cell 
+(e.g. by t-SNE or UMAP dimensionality reduction) is required.
 }
 \examples{
 plot_groups(group_vector=kmeans_clusters_res, dim_reduction=tsne_proj[,c("TSNE.1", "TSNE.2")])

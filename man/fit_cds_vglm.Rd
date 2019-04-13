@@ -19,8 +19,8 @@ used as test_cds.}
 test_cds object.}
 }
 \description{
-fit_cds_vglm() is a wrapper function around the monocle::fitModel() function that fits a vglm for each 
-gene in a CellDataSet object and return a dataframe with the estimate, standard error, z value and
+fit_cds_vglm() is a wrapper function around the monocle::fitModel() function that fits a vglm 
+for each gene in a CellDataSet object and return a dataframe with the estimate, standard error, z value and
 p-value for each coefficient specified in the model formula string.
 }
 \examples{

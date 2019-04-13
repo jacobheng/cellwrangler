@@ -1,6 +1,6 @@
 #' Plot pheatmap object
 #'
-#' Function for plotting a heatmap from an object created by assignment of output from the pheatmap
+#' @description Function for plotting a heatmap from an object created by assignment of output from the pheatmap
 #' function in the popular R package pheatmap
 #' @param pheatmap_object object containing output from the pheatmap function. Created by assigning output of 
 #' pheatmap function to an object (i.e. pheatmap_object <- pheatmap(matrix))

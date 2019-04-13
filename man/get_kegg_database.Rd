@@ -15,8 +15,8 @@ get_kegg_database(database, organism)
 a dataframe
 }
 \description{
-get_kegg_database() is a wrapper function around the keggList() function that retrieves a kegg database
-for an organism and returns a dataframe
+get_kegg_database() is a wrapper function around the keggList() function that retrieves 
+a kegg database for an organism and returns a dataframe
 }
 \examples{
 kegg_db <- get_kegg_database("pathway","mmu")

@@ -1,6 +1,6 @@
 #' Plot expression of cells as jitter plot
 #'
-#' gene_jitterplot() plots the expression of a given gene as a jitter plot for a CellDataSet object.
+#' @description gene_jitterplot() plots the expression of a given gene as a jitter plot for a CellDataSet object.
 #' 
 #' @param genes a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")
 #' @param cds a CellDataSet object e.g. used in the monocle package

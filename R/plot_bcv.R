@@ -1,6 +1,7 @@
 #' Plot biological coefficent of variation and annotate genes
 #'
-#' plot_bcv() plots the mean - variance (bcv) relationship, as well as colors and annotates genes of interest.
+#' @description plot_bcv() plots the mean - variance (bcv) relationship, as well as colors and annotates 
+#' genes of interest.
 #' 
 #' @param annotated_fData annotated fData object produced by the cellwrangler annotate_bcv() function.
 #' @param genes_to_color vector of Ensembl gene ids to color

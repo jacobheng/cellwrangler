@@ -1,6 +1,6 @@
 #'Split a cellranger-aggregated matrix into multiple matrices based on barcodes
 #'
-#' split_aggr_matrix() splits an expression matrix derived from a directory of 10X Genomics scRNAseq 
+#' @description split_aggr_matrix() splits an expression matrix derived from a directory of 10X Genomics scRNAseq 
 #' data aggregated from multiple samples created using the cellranger pipeline. Based on the unique numeric 
 #' value assigned to barcodes of each sample by the cellranger aggr function.
 #'
