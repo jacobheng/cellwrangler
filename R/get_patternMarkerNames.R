@@ -15,9 +15,9 @@
 
 get_patternMarkerNames <- function(CoGAPS_res, cds, threshold = "all", lp = NA) {
   tmp <- CoGAPS_res
-  sd_rownames <- findGeneName(rownames(CoGAPS_res@featureStdDev), cds, unique = F)
+  sd_rownames <- findGeneName(rownames(CoGAPS_res@featureStdDev), cds)
   rownames(tmp@featureStdDev) <- make.names(sd_rownames, unique = T)
-  loading_rownames <- findGeneName(rownames(CoGAPS_res@featureLoadings), cds, unique = F)
+  loading_rownames <- findGeneName(rownames(CoGAPS_res@featureLoadings))
   rownames(tmp@featureLoadings) <- make.names(loading_rownames, unique = T)
   pM <- patternMarkers(tmp, threshold = threshold, lp = lp)
   return(pM)

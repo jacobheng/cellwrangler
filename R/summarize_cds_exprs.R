@@ -65,7 +65,7 @@ summarize_cds_exprs <- function(cds, group, gene_short_name = T) {
     }
   }
   if(gene_short_name == T) {
-  stats_summary$gene_short_name <- findGeneName(stats_summary$gene_id, cds, unique = F) 
+  stats_summary$gene_short_name <- findGeneName(stats_summary$gene_id, cds) 
   } else { stats_summary <- stats_summary}
   
   return(stats_summary)
