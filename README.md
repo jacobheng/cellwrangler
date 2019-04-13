@@ -18,7 +18,8 @@ devtools::install_github("jacobheng/cellwrangler")
 ## Citation
 
 If cellwrangler has helped you in your work, please cite: 
-```
-*Heng JS, Rattner A, Vernon HJ, Winer B, Stein-O’Brien G, Jones BW, Marc RE, Goff LA, Nathans J. Hypoxia tolerance in the Norrin-deficient retina and the chronically hypoxic brain studied at single-cell resolution. PNAS 2019, in press*
-```
+
+***Heng JS, Rattner A, Vernon HJ, Winer B, Stein-O’Brien G, Jones BW, Marc RE, Goff LA, Nathans J. Hypoxia tolerance in the Norrin-deficient retina and the chronically hypoxic brain studied at single-cell resolution. PNAS 2019, in press***
+
+
 
