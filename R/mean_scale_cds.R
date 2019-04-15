@@ -16,8 +16,8 @@
 
 mean_scale_cds <- function(cds, sample_col, group) {
 
-group_values <- unique(pData(cds)[group])
-samples <- unique(pData(cds)[sample_col])
+group_values <- unique(pData(cds)[,group])
+samples <- unique(pData(cds)[,sample_col])
 
 get_group_mean <- function(x, cds, y = NULL) { if (is.null(y) == TRUE) { 
   tmp <- mean(Matrix::colSums(exprs(cds[,pData(cds)[group] == x]))) 
