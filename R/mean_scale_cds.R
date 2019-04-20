@@ -13,7 +13,7 @@
 #' @examples
 #' dat <- mean_scale_cds(dat0, sample_col="sample", group="CellType")
 
-mean_scale <- function (cds, sample_col, group) 
+mean_scale_cds <- function (cds, sample_col, group) 
 {
   cds <- cds
   group_values <- unique(pData(cds)[, group])
