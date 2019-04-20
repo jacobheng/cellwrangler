@@ -9,63 +9,55 @@
 #' @param group name of column in pData(cds) that annotates groups that cells are in. 
 #' @keywords mean_scale_cds
 #' @export
-#' @return A cds
+#' @return A CellDataSet object
 #' @examples
 #' dat <- mean_scale_cds(dat0, sample_col="sample", group="CellType")
 
-
-mean_scale_cds <- function(cds, sample_col, group) {
-
-group_values <- unique(pData(cds)[,group])
-samples <- unique(pData(cds)[,sample_col])
-
-get_group_mean <- function(x, cds, y = NULL) { if (is.null(y) == TRUE) { 
-  tmp <- mean(Matrix::colSums(exprs(cds[,pData(cds)[group] == x]))) 
-} else {
-  tmp <- mean(Matrix::colSums(exprs(cds[,pData(cds)[group] == x & pData(cds)[sample_col] == y]))) 
-}
-  return(tmp)
-}
-
-get_sample_means <- function(sample_names) {
-  tmp <- as.data.frame(lapply(sample_names, function(sample) {
-    tmp1 <- c(unlist(lapply(group_values, get_group_mean, cds=cds, y = sample)))
+mean_scale <- function (cds, sample_col, group) 
+{
+  cds <- cds
+  group_values <- unique(pData(cds)[, group])
+  samples <- unique(pData(cds)[, sample_col])
+  print(samples)
+  get_group_mean <- function(x, cds, y = NULL) {
+    if (is.null(y) == TRUE) {
+      tmp <- mean(Matrix::colSums(exprs(cds[, pData(cds)[,group] == 
+                                              x])))
+    }
+    else {
+      tmp <- mean(Matrix::colSums(exprs(cds[, pData(cds)[,group] == 
+                                              x & pData(cds)[,sample_col] == y])))
+    }
+    return(tmp)
   }
-  ))
-  sample_means <- as.data.frame(cbind(group_values, tmp))
-  colnames(sample_means) <- c("group", sprintf("%s_means", samples))
-  return(sample_means)
-}
-
-
-sample_means <- get_sample_means(samples)
-
-
-#Attach sample_means to pData
-pData(cds)$sample_mean <- 0
-for(i in samples) {
-  pData(cds)[pData(cds)[sample_col] == i,]$sample_mean <- as.numeric(as.character(sample_means[match(pData(cds)[pData(cds)[sample_col] == i,][group], 
-                                                                                                     sample_means$group),paste(i,"_means",sep="")]))
-}
-
-#Get overall cds_mean for cds
-sample_means$Overall_mean <- lapply(group_values, get_group_mean, cds=cds)
-
-#Attach overall mean to pData
-pData(cds)$newCDS_mean <- as.numeric(as.character(sample_means$Overall_mean[match(pData(cds)[group], 
-                                                                                  sample_means$group)]))
-
-
-#Normalize cds data
-newCDS_exprs <- t((t(exprs(cds))/pData(cds)$sample_mean)*pData(cds)$newCDS_mean)
-
-#Create dat object
-newCDS <-newCellDataSet(as(as.matrix(newCDS_exprs), "sparseMatrix"),
-                     phenoData=new("AnnotatedDataFrame",data=pData(cds)),
-                     featureData=new("AnnotatedDataFrame",data=fData(cds)),
-                     lowerDetectionLimit=1,
-                     expressionFamily=VGAM::negbinomial.size())
-
-return(newCDS_exprs)
-
+  get_sample_means <- function(sample_names) {
+    tmp <- as.data.frame(lapply(sample_names, function(sample) {
+      tmp1 <- c(unlist(lapply(group_values, get_group_mean, 
+                              cds = cds, y = sample)))
+    }))
+    sample_means <- as.data.frame(cbind(group_values, tmp))
+    colnames(sample_means) <- c("group", sprintf("%s_means", 
+                                                 samples))
+    return(sample_means)
+  }
+  
+  sample_means <- get_sample_means(samples)
+  
+  pData(cds)$sample_mean <- 0
+  for (i in samples) {
+    pData(cds)[pData(cds)[sample_col] == i, ]$sample_mean <- as.numeric(as.character(sample_means[match(pData(cds)[pData(cds)[,sample_col] == i, ][,group], sample_means$group), paste(i, "_means",  sep = "")]))
+  }
+  sample_means$Overall_mean <- lapply(group_values, get_group_mean, 
+                                      cds = cds)
+  
+  pData(cds)$newCDS_mean <- as.numeric(as.character(sample_means$Overall_mean[match(pData(cds)[,group], 
+                                                                                    sample_means$group)]))
+  
+  newCDS_exprs <- t((t(exprs(cds))/pData(cds)$sample_mean) * pData(cds)$newCDS_mean)
+  
+  newCDS <- newCellDataSet(as(as.matrix(newCDS_exprs), "sparseMatrix"), 
+                          phenoData = new("AnnotatedDataFrame", data = pData(cds)), 
+                         featureData = new("AnnotatedDataFrame", data = fData(cds)), 
+                        lowerDetectionLimit = 1, expressionFamily = VGAM::negbinomial.size())
+  return(newCDS_exprs)
 }

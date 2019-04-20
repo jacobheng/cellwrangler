@@ -30,73 +30,47 @@
 
 create_monocle_cds <- function(cellranger_outs_path, cellranger_v3 = T,  which_matrix="raw", UMI_cutoff=NULL, testDrops=F,
                                lower_UMI_threshold=100, upper_UMI_threshold=500, FDR=0.01, cell_barcodes=NULL) {
-  
-  if(cellranger_v3 == T) {
-    if(which_matrix == "filtered"){
-      #Read in filtered mtx
-      mtx <- Matrix::readMM(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/matrix.mtx.gz", sep=""))
-      #Filtered mtx genes
-      mtx_genes <- read.delim(paste(cellranger_outs_path, "/filtered_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      if(unique(mtx_genes[,3]) == "Gene Expression") {
-        colnames(mtx_genes) <- c("id","gene_short_name", "feature_type")
-        rownames(mtx_genes) <- mtx_genes$id
-        rownames(mtx) <- mtx_genes$id } else { stop("Only gene expression data are supported by cellwrangler") }
-      #Append barcodes
-      mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/filtered_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_barcodes) <- c("barcode")
-      rownames(mtx_barcodes) <- mtx_barcodes$barcode
-      colnames(mtx) <- mtx_barcodes$barcode
-    } else { if(which_matrix=="raw") {
-      #Read in raw mtx
-      mtx <- Matrix::readMM(paste(cellranger_outs_path,"/raw_feature_bc_matrix/matrix.mtx.gz", sep=""))
-      #Raw mtx genes
-      mtx_genes <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/features.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      if(unique(mtx_genes[,3]) == "Gene Expression") {
-        colnames(mtx_genes) <- c("id","gene_short_name", "feature_type")
-        rownames(mtx_genes) <- mtx_genes$id
-        rownames(mtx) <- mtx_genes$id } else { stop("Only gene expression data are supported by cellwrangler") }
-      #Append barcodes
-      mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/raw_feature_bc_matrix/barcodes.tsv.gz", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_barcodes) <- c("barcode")
-      rownames(mtx_barcodes) <- mtx_barcodes$barcode
-      colnames(mtx) <- mtx_barcodes$barcode
-    } else { message("Need to specify 'raw' or 'filtered' in which_matrix parameter") }
-    } 
     
-  } else {
+    file_names <- list.files(cellranger_outs_path, recursive = T)
+    if(which_matrix == "filtered") {
+      
+      matrix_path <- file_names[grep("filtered.*matrix.mtx" ,file_names)]
+      barcodes_path <- file_names[grep("filtered.*barcodes.tsv" ,file_names)]
+      
+      if(cellranger_v3 == T) { genes_path <- file_names[grep("filtered.*features.tsv" ,file_names)] 
+        } else { genes_path <- file_names[grep("filtered.*genes.tsv" ,file_names)] }
+      
+    } else { 
+      if(which_matrix == "raw") {
+        
+      matrix_path <- file_names[grep("raw.*matrix.mtx" ,file_names)]
+      barcodes_path <- file_names[grep("raw.*barcodes.tsv" ,file_names)]
+        
+      if(cellranger_v3 == T) { genes_path <- file_names[grep("raw.*features.tsv" ,file_names)] 
+        } else { genes_path <- file_names[grep("raw.*genes.tsv" ,file_names)] 
+        }
+        
+      } else { message("Need to specify 'raw' or 'filtered' in which_matrix parameter") }
+      }
     
-    genome <- list.files(file.path(cellranger_outs_path, "raw_gene_bc_matrices_mex"))
-    if(which_matrix == "filtered"){
-      #Read in filtered mtx
-      mtx <- Matrix::readMM(paste(cellranger_outs_path,"/filtered_gene_bc_matrices_mex/", genome,"/matrix.mtx", sep=""))
-      #Filtered mtx genes
-      mtx_genes <- read.delim(paste(cellranger_outs_path,"/filtered_gene_bc_matrices_mex/", genome,"/genes.tsv", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_genes) <- c("id","gene_short_name")
-      rownames(mtx_genes) <- mtx_genes$id
-      rownames(mtx) <- mtx_genes$id
-      #Append barcodes
-      mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/filtered_gene_bc_matrices_mex/", genome,"/barcodes.tsv", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_barcodes) <- c("barcode")
-      rownames(mtx_barcodes) <- mtx_barcodes$barcode
-      colnames(mtx) <- mtx_barcodes$barcode
-    } else { if(which_matrix=="raw") {
-      #Read in raw mtx
-      mtx <- Matrix::readMM(paste(cellranger_outs_path,"/raw_gene_bc_matrices_mex/", genome,"/matrix.mtx", sep=""))
-      #Raw mtx genes
-      mtx_genes <- read.delim(paste(cellranger_outs_path,"/raw_gene_bc_matrices_mex/", genome,"/genes.tsv", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_genes) <- c("id","gene_short_name")
-      rownames(mtx_genes) <- mtx_genes$id
-      rownames(mtx) <- mtx_genes$id
-      #Append barcodes
-      mtx_barcodes <- read.delim(paste(cellranger_outs_path,"/raw_gene_bc_matrices_mex/", genome,"/barcodes.tsv", sep=""), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
-      colnames(mtx_barcodes) <- c("barcode")
-      rownames(mtx_barcodes) <- mtx_barcodes$barcode
-      colnames(mtx) <- mtx_barcodes$barcode
-    } else { message("Need to specify 'raw' or 'filtered' in which_matrix parameter") }
-    } 
-  }
-
-  
+    #Read in matrix
+    mtx <- Matrix::readMM(paste0(cellranger_outs_path, matrix_path))
+    
+    #Append barcodes
+    mtx_barcodes <- read.delim(paste0(cellranger_outs_path, barcodes_path), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+    colnames(mtx_barcodes) <- c("barcode")
+    rownames(mtx_barcodes) <- mtx_barcodes$barcode
+    colnames(mtx) <- mtx_barcodes$barcode
+    
+    #Read in genes/features
+    mtx_genes <- read.delim(paste0(cellranger_outs_path, genes_path), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+    #Add colnames for fData
+    if(cellranger_v3 == T) {  colnames(mtx_genes) <- c("id","gene_short_name", "feature_type")
+    } else { 
+      colnames(mtx_genes) <- c("id","gene_short_name") 
+      }
+    rownames(mtx_genes) <- mtx_genes$id
+    rownames(mtx) <- mtx_genes$id
   
   #Create monocle cds
   cds <- monocle::newCellDataSet(cellData=as(mtx, "sparseMatrix"),
