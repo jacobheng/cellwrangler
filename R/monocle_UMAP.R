@@ -189,7 +189,7 @@ monocle_UMAP <- function(X, python_home = system('which python', intern = TRUE),
   }, finally = {
   })
   
-  reticulate::source_python(paste(system.file(package="monocle"), "umap.py", sep="/"))
+  reticulate::source_python(paste(system.file(package="cellwrangler"), "umap.py", sep="/"))
   # X <- Matrix::t(X)
   if(length(grep('Matrix', class(X))) == 0){
     X <- as(as.matrix(X), 'TsparseMatrix')
