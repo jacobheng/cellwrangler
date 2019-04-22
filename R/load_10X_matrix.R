@@ -41,16 +41,16 @@ load_10X_matrix <- function(cellranger_outs_path, which_matrix="raw", cellranger
   }
   
   #Read in matrix
-  mtx <- Matrix::readMM(paste0(cellranger_outs_path, matrix_path))
+  mtx <- Matrix::readMM(paste0(cellranger_outs_path, "/",matrix_path))
   
   #Append barcodes
-  mtx_barcodes <- read.delim(paste0(cellranger_outs_path, barcodes_path), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+  mtx_barcodes <- read.delim(paste0(cellranger_outs_path, "/",barcodes_path), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
   colnames(mtx_barcodes) <- c("barcode")
   rownames(mtx_barcodes) <- mtx_barcodes$barcode
   colnames(mtx) <- mtx_barcodes$barcode
   
   #Read in genes/features
-  mtx_genes <- read.delim(paste0(cellranger_outs_path, genes_path), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+  mtx_genes <- read.delim(paste0(cellranger_outs_path, "/",genes_path), stringsAsFactors = FALSE, sep = "\t", header = FALSE)
   #Add colnames for fData
   if(cellranger_v3 == T) {  colnames(mtx_genes) <- c("id","gene_short_name", "feature_type")
   } else { 

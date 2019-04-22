@@ -10,7 +10,7 @@
 #' findGeneID(c("Acta2","Cdh5","Lum"), myCDS)
 
 
-findGeneID<-function(gene_names, cds, unique = T){
+findGeneID<-function(gene_names, cds){
   
   gene_ref <- as.data.frame(as.character(gene_names))
   colnames(gene_ref) <- c("gene_short_name")

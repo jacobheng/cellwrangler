@@ -4,7 +4,7 @@
 \alias{findGeneID}
 \title{Find Ensembl gene IDs given gene names}
 \usage{
-findGeneID(gene_names, cds, unique = T)
+findGeneID(gene_names, cds)
 }
 \arguments{
 \item{gene_names}{a vector of official gene names e.g. "Acta2"}
