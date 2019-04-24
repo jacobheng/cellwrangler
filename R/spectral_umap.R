@@ -24,6 +24,7 @@
 #' @param umap_version UMAP implementations to use; options are "default", "monocle" or "uwot". "monocle" only
 #' works if monocle 3 alpha and above is installed. The default option uses the UMAP function implemented
 #' in monocle 3 alpha, and works even without monocle 3 alpha installed.
+#' @param python_home The python home directory where umap is installed
 #' @param n_neighbors float (optional, default 15) The size of local neighborhood (in terms of number of 
 #' neighboring sample points) used for manifold approximation. Larger values result in more global views of 
 #' the manifold, while smaller values result in more local data being preserved. In general values should be 
@@ -50,7 +51,7 @@
 #' spectral_umap(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10)
 
 spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_version="default", center=T,scale=T, 
-                          dims=1:10, umap_version="default", python_home = system("which python", intern = TRUE),n_neighbors = 30L, metric= "correlation", min_dist = 0.1, 
+                          dims=1:10, umap_version="default", python_home = system("which python", intern = TRUE), n_neighbors = 30L, metric= "correlation", min_dist = 0.1, 
                           spread = 1) {
   if(is.null(prcomp_object) == FALSE) {
     pca_res <- prcomp_object

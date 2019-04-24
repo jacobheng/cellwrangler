@@ -35,6 +35,8 @@ principal components)}
 works if monocle 3 alpha and above is installed. The default option uses the UMAP function implemented
 in monocle 3 alpha, and works even without monocle 3 alpha installed.}
 
+\item{python_home}{The python home directory where umap is installed}
+
 \item{n_neighbors}{float (optional, default 15) The size of local neighborhood (in terms of number of 
 neighboring sample points) used for manifold approximation. Larger values result in more global views of 
 the manifold, while smaller values result in more local data being preserved. In general values should be 
