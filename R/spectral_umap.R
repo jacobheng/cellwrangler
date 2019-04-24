@@ -50,7 +50,7 @@
 #' spectral_umap(matrix, log_matrix=TRUE, prcomp_object=NULL, dims=1:10)
 
 spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_version="default", center=T,scale=T, 
-                          dims=1:10, umap_version="default", n_neighbors = 30L, metric= "correlation", min_dist = 0.1, 
+                          dims=1:10, umap_version="default", which_python = system("which python", intern = TRUE),n_neighbors = 30L, metric= "correlation", min_dist = 0.1, 
                           spread = 1) {
   if(is.null(prcomp_object) == FALSE) {
     pca_res <- prcomp_object
@@ -73,13 +73,13 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_versi
   
   
   if(umap_version=="default") {
-  umap_proj <- cellwrangler::monocle_UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
+  umap_proj <- cellwrangler::monocle_UMAP(X=pca_res$x[,dims], which_python = which_python, log=F, n_neighbors = n_neighbors, metric = metric,
                              min_dist = min_dist, spread = spread)
   colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
   #rownames(umap_proj) <- rownames(matrix)
   } else {
     if(umap_version=="monocle") {
-      umap_proj <- monocle::UMAP(X=pca_res$x[,dims], log=F, n_neighbors = n_neighbors, metric = metric,
+      umap_proj <- monocle::UMAP(X=pca_res$x[,dims], which_python = which_python, log=F, n_neighbors = n_neighbors, metric = metric,
                         min_dist = min_dist, spread = spread)
       colnames(umap_proj) <- c("UMAP.1", "UMAP.2")
       #rownames(umap_proj) <- rownames(matrix)

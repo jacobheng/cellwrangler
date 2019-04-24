@@ -6,8 +6,9 @@
 \usage{
 spectral_umap(matrix, log_matrix = TRUE, prcomp_object = NULL,
   pca_version = "default", center = T, scale = T, dims = 1:10,
-  umap_version = "default", n_neighbors = 30L,
-  metric = "correlation", min_dist = 0.1, spread = 1)
+  umap_version = "default", which_python = system("which python",
+  intern = TRUE), n_neighbors = 30L, metric = "correlation",
+  min_dist = 0.1, spread = 1)
 }
 \arguments{
 \item{matrix}{a matrix of values to perform dimensionality reduction on; by default, rows are genes
