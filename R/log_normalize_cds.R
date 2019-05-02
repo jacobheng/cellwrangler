@@ -24,10 +24,10 @@ log_normalize_cds <- function(cds, filter_zeros = TRUE, scale_to = "median", log
   cell_totals <- Matrix::colSums(exprs(filtered_cds))
   if(scale_to == "median") {
   cell_median <- median(cell_totals)
-  norm_exprs <-  t(t(exprs(filtered_cds)) / cell_totals) * cell_median
+  norm_exprs <-  Matrix::t(Matrix::t(exprs(filtered_cds)) / cell_totals) * cell_median
   
   } else { if(is.numeric(scale_to) == T) {
-    norm_exprs <-  t(t(exprs(filtered_cds)) / cell_totals) * scale_to
+    norm_exprs <-  Matrix::t(Matrix::t(exprs(filtered_cds)) / cell_totals) * scale_to
   } else { message ("Need to specify scale factor!")}
   }
   if(is.null(logbase)==T) {
