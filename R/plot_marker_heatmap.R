@@ -1,6 +1,6 @@
 #'Plot heatmap of marker genes ordered by cell group
 #'
-#' @description plot_ordered_marker_heatmap() plots a heatmap with genes ordered by cell group.
+#' @description plot_marker_heatmap() plots a heatmap with genes ordered by cell group.
 #' 
 #' @param cds CellDataSet object
 #' @param marker_genes dataframe containing 2 columns: (1) gene symbol (2) cell group e.g. CellType
@@ -22,14 +22,14 @@
 #' @param limits limits of color scale of heatmap
 #' @param show_rownames logical; if rownames of heatmap should be displayed
 #' @param show_colnames logical; if colnames of heatmap should be displayed
-#' @keywords plot_ordered_marker_heatmap
+#' @keywords plot_marker_heatmap
 #' @export
 #' @return A pheatmap object
 #' @examples
-#' plot_ordered_marker_heatmap(dat, marker_genes = myMarkers, group_vector = "CellType")
+#' plot_marker_heatmap(dat, marker_genes = myMarkers, group_vector = "CellType")
 
 
-plot_ordered_marker_heatmap <- function(cds, marker_genes, group_vector, scale=T, cluster_rows = T, 
+plot_marker_heatmap <- function(cds, marker_genes, group_vector, scale=T, cluster_rows = T, 
                                  cluster_cols = T, clustering_distance_rows = "euclidean", 
                                  clustering_method_rows = "complete", clustering_distance_cols = "euclidean", 
                                  clustering_method_cols = "complete", column_annotation, limits=c(-2,2), 
