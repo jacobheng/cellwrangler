@@ -65,7 +65,7 @@ spectral_umap <- function(matrix, log_matrix=TRUE, prcomp_object=NULL, pca_versi
     } else {
       if(pca_version=="monocle") {
         
-        pca_res <- cellrwangler::monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(max(dims), min(dim(tmp)) - 1), 
+        pca_res <- cellwrangler::monocle_sparse_prcomp_irlba(Matrix::t(tmp), n = min(max(dims), min(dim(tmp)) - 1), 
                                        center = center, scale. = scale)
         
       } else { print("need to specify pca version!")}

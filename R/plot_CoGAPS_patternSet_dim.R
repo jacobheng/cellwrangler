@@ -1,6 +1,6 @@
-#'Plot a set of patterns on a dimensionality reduction plot
+#'Plot a set of CoGAPS patterns on a dimensionality reduction plot
 #'
-#' @description plot_patternSet_dim() plots Pmeans of a CoGAPS pattern set on a dimensonality reduction plots.
+#' @description plot_CoGAPS_patternSet_dim() plots Pmeans of a CoGAPS pattern set on a dimensonality reduction plots.
 #'
 #' @param CoGAPS_res_set a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
 #' for the Pattern_set parameter.
@@ -17,15 +17,15 @@
 #' @export
 #' @return a list of ggplot objects
 #' @examples
-#' plot_patternSet_dim(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
+#' plot_CoGAPS_patternSet_dim(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
 #' dim_reduction = UMAP_proj)
 
 
 
 
 
-#plot_patterns_dim function
-plot_patternSet_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduction, 
+#plot_CoGAPS_patterns_dim function
+plot_CoGAPS_patternSet_dim <- function(CoGAPS_res_set, Pattern_set, annotation, dim_reduction, 
                                 color_scale=c("slategray1","red"), facet_wrap_by=NULL) {
   if(is.null(CoGAPS_res_set)==F) {
     Pmeans <- CoGAPS_res_set[[Pattern_set]]@sampleFactors } else { Pmeans <- Pattern_set }

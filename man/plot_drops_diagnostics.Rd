@@ -4,10 +4,22 @@
 \alias{plot_drops_diagnostics}
 \title{Plot diagnostic plot for testDrops results}
 \usage{
-plot_drops_diagnostics(sample, testDrops_res_list)
+plot_drops_diagnostics(testDrops_res, testDrops_res_list = NULL,
+  x_range = NULL, y_range = NULL, log_x = F, log_y = F)
 }
 \arguments{
-\item{testDrops_res}{a testDrops object create by a testDrops function}
+\item{testDrops_res}{a testDrops object create by the testDrops function}
+
+\item{testDrops_res_list}{a list of testDrops objects create by the testDrops function; if a testDrops_res_list 
+is supplied,testDrops_res should be the name of the testDrops object in that list i.e. testDrops_res = testDrops_res_list[[testDrops_res]]}
+
+\item{x_range}{a vector specifying range of values to plot for x-axis}
+
+\item{y_range}{a vector specifying range of values to plot for y-axis}
+
+\item{log_x}{logical; whether x-axis should be log-transformed}
+
+\item{log_y}{logical; whether y-axis should be log-transformed}
 }
 \value{
 a ggplot2 object

@@ -1,6 +1,6 @@
-#'Plot pattern correlation heatmap
+#'Plot CoGAPS pattern correlation heatmap
 #'
-#' @description plot_pattern_cor_heatmap() plots a heatmap showing the correlation of a CoGAPS pattern set 
+#' @description plot_CoGAPS_pattern_cor_heatmap() plots a heatmap showing the correlation of a CoGAPS pattern set 
 #' with a grouping variable
 #'
 #' @param CoGAPS_res_set a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
@@ -33,18 +33,18 @@
 #' @param limits limits of the color scale for the heatmap.
 #' @param square_tiles logical; if tiles should be made square
 #' 
-#' @keywords plot_pattern_cor_heatmap
+#' @keywords plot_CoGAPS_pattern_cor_heatmap
 #' @export
 #' @return a ggplot object
 #' @examples
-#' plot_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 
+#' plot_CoGAPS_pattern_cor_heatmap(CoGAPS_res_set = my_CoGAPS_res, Pattern_set = "nP30",annotation=pData(cds), 
 #' group_column=NULL, group_vector=genotype_vector, cluster_groups=T, order_subgroups=T, 
 #' cluster_groups_distance = "correlation", cluster_groups_method = "complete", cluster_patterns= T, 
 #' cluster_patterns_distance = "correlation", cluster_patterns_method = "complete")
 
 
-#plot_pattern_cor_heatmap
-plot_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, group_column=NULL, 
+#plot_CoGAPS_pattern_cor_heatmap
+plot_CoGAPS_pattern_cor_heatmap <- function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, group_column=NULL, 
                                      group_vector, cluster_groups=F, order_subgroups=F ,cluster_groups_distance="correlation", 
                                      cluster_groups_method="complete", cluster_patterns=F, 
                                      cluster_patterns_vector=NULL, cluster_patterns_distance="correlation", 

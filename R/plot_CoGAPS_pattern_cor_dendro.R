@@ -1,6 +1,6 @@
-#'Plot pattern correlation dendrogram
+#'Plot CoGAPS pattern correlation dendrogram
 #'
-#' @description plot_pattern_cor_dendro() plots a dendrogram showing the clustering of the correlation of a 
+#' @description plot_CoGAPS_pattern_cor_dendro() plots a dendrogram showing the clustering of the correlation of a 
 #' CoGAPS pattern set with a grouping variable
 #'
 #' @param CoGAPS_res_set a CoGAPS result set. If set to NULL, a Pmeans matrix may be supplied directly as input
@@ -24,17 +24,17 @@
 #' "ward.D2", "single", "complete", "average" (=UPGMA), "mcquitty" (=WPGMA), "median" (=WPGMC) or 
 #' "centroid" (=UPGMC).
 #' 
-#' @keywords plot_pattern_cor_dendro
+#' @keywords plot_CoGAPS_pattern_cor_dendro
 #' @export
 #' @return a ggplot object
 #' @examples
-#' plot_pattern_cor_heatmap(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
+#' plot_CoGAPS_pattern_cor_heatmap(CoGAPS_res_set= my_CoGAPS_res, Pattern_set="nP30",  annotation=pData(cds), 
 #' group_column=NULL, group_vector=genotype_vector, order_subgroups=T, cluster= "groups",
 #' clustering_distance = "correlation", clustering_method = "complete")
 
 
 #plot_pattern_cor_dendro
-plot_pattern_cor_dendrogram <-  function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, 
+plot_CoGAPS_pattern_cor_dendrogram <-  function(CoGAPS_res_set=NULL, Pattern_set, pattern_subset= NULL, annotation, 
                                          group_column=NULL, group_vector, order_subgroups=F, cluster="patterns", 
                                          clustering_distance="correlation", clustering_method="complete") {
   
