@@ -27,7 +27,7 @@ A list containing
 "var_pcs" - The proportion of variance explained by each principle comoponent
 }
 \description{
-sparse_pca() performs a fast pca on a matrix while maintaing sparsity.
+sparse_pca() performs a fast pca on a matrix while maintaining sparsity.
 }
 \examples{
 sparse_pca(mtx, n_pcs=10)

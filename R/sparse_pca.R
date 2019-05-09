@@ -1,6 +1,6 @@
 #'Perform sparse pca on a matrix
 #'
-#' @description sparse_pca() performs a fast pca on a matrix while maintaing sparsity.
+#' @description sparse_pca() performs a fast pca on a matrix while maintaining sparsity.
 #' @param x a matrix of values to perform dimensionality reduction on; by default, rows are genes
 #' and columns are cells
 #' @param n_pcs number of prinicpal components to compute
@@ -21,7 +21,7 @@
 sparse_pca <- function(x, n_pcs, mu = NULL, s = NULL, center_scale = TRUE) 
 {
   if (is.null(mu) && center_scale) 
-    mu <- colMeans(x)
+    mu <- Matrix::colMeans(x)
   if (is.null(s) && center_scale) 
     s <- apply(x, 2, sd, na.rm = TRUE)
   irlba_wrapper <- function(...) {
