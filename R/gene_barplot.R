@@ -19,7 +19,7 @@ gene_barplot <- function (genes, cds, group = "genotype", color = "genotype", fa
                           plot_trend = F, color_trend = "orange") 
 {
   cds_subset <- cds[cellwrangler::findGeneID(genes, cds), ]
-  exprs_values <- t(as.matrix(exprs(cds_subset)))
+  exprs_values <- Matrix::t(as.matrix(exprs(cds_subset)))
   colnames(exprs_values) <- cellwrangler::findGeneName(colnames(exprs_values), cds)  
   tmp <- merge_by_rownames(pData(cds), exprs_values)
   

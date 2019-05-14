@@ -53,7 +53,7 @@ mean_scale_cds <- function (cds, sample_col, group)
   pData(cds)$newCDS_mean <- as.numeric(as.character(sample_means$Overall_mean[match(pData(cds)[,group], 
                                                                                     sample_means$group)]))
   
-  newCDS_exprs <- t((t(exprs(cds))/pData(cds)$sample_mean) * pData(cds)$newCDS_mean)
+  newCDS_exprs <- Matrix::t((Matrix::t(exprs(cds))/pData(cds)$sample_mean) * pData(cds)$newCDS_mean)
   
   newCDS <- newCellDataSet(as(as.matrix(newCDS_exprs), "sparseMatrix"), 
                           phenoData = new("AnnotatedDataFrame", data = pData(cds)), 
