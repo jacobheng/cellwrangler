@@ -7,13 +7,16 @@
 #' @param cds monocle CellDataSet object
 #' @param sample_col name of column in pData(cds) that annotates samples that cells are from
 #' @param group name of column in pData(cds) that annotates groups that cells are in. 
+#' @param lowerDetectionLimit the minimum expression level that consistitutes true expression
+#' @param expressionFamily the VGAM family function to be used for expression response variables
 #' @keywords mean_scale_cds
 #' @export
 #' @return A CellDataSet object
 #' @examples
 #' dat <- mean_scale_cds(dat0, sample_col="sample", group="CellType")
 
-mean_scale_cds <- function (cds, sample_col, group) 
+mean_scale_cds <- function (cds, sample_col, group, lowerDetectionLimit=0.1, 
+                            expressionFamily = VGAM::negbinomial.size()) 
 {
   cds <- cds
   group_values <- unique(pData(cds)[, group])
@@ -58,6 +61,6 @@ mean_scale_cds <- function (cds, sample_col, group)
   newCDS <- newCellDataSet(as(as.matrix(newCDS_exprs), "sparseMatrix"), 
                           phenoData = new("AnnotatedDataFrame", data = pData(cds)), 
                          featureData = new("AnnotatedDataFrame", data = fData(cds)), 
-                        lowerDetectionLimit = 1, expressionFamily = VGAM::negbinomial.size())
-  return(newCDS_exprs)
+                        lowerDetectionLimit = lowerDetectionLimit, expressionFamily = expressionFamily)
+  return(newCDS)
 }

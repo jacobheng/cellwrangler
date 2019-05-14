@@ -4,7 +4,8 @@
 \alias{mean_scale_cds}
 \title{Mean scale expression of cell groups across multiple samples to have the same mean in CellDataSet object}
 \usage{
-mean_scale_cds(cds, sample_col, group)
+mean_scale_cds(cds, sample_col, group, lowerDetectionLimit = 0.1,
+  expressionFamily = VGAM::negbinomial.size())
 }
 \arguments{
 \item{cds}{monocle CellDataSet object}
@@ -12,6 +13,10 @@ mean_scale_cds(cds, sample_col, group)
 \item{sample_col}{name of column in pData(cds) that annotates samples that cells are from}
 
 \item{group}{name of column in pData(cds) that annotates groups that cells are in.}
+
+\item{lowerDetectionLimit}{the minimum expression level that consistitutes true expression}
+
+\item{expressionFamily}{the VGAM family function to be used for expression response variables}
 }
 \value{
 A CellDataSet object
