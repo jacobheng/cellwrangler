@@ -20,13 +20,13 @@ subset_cds <- function(cell_group, cds, group, min_expr=NULL) {
   cds_subset <- estimateDispersions(cds_subset)
   
   if(is.null(min_expr)) {
-    min_expr <- tmp@lowerDetectionLimit
+    min_expr <- cds_subset@lowerDetectionLimit
   } else { min_expr <- min_expr }
   cds_subset <- detectGenes(cds_subset, min_expr=min_expr)
   
-  fData(cds_subset)$Prop_celltype_expressed <- Matrix::rowSums(exprs(tmp) > min_expr)/nrow(pData(tmp))
-  fData(cds_subset)$Total_UMIs_per_gene_celltype <- Matrix::rowSums(exprs(cds_subset))
-  fData(cds_subset)$Mean_celltype_UMIs <- Matrix::rowSums(exprs(cds_subset))/nrow(pData(cds_subset))
+  fData(cds_subset)[,paste0("Prop_", group, "_expressed")] <- Matrix::rowSums(exprs(cds_subset) > min_expr)/nrow(pData(cds_subset))
+  fData(cds_subset)[,paste0(group,"_total_UMIs_per_gene")] <- Matrix::rowSums(exprs(cds_subset))
+  fData(cds_subset)[,paste0("Mean_", group, "_UMIs")] <- Matrix::rowSums(exprs(cds_subset))/nrow(pData(cds_subset))
   fData(cds_subset)[,group] <- cell_group
   
   return(cds_subset)
