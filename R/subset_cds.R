@@ -20,7 +20,7 @@ subset_cds <- function(cell_group, cds, group, min_expr=NULL) {
   cds_subset <- estimateDispersions(cds_subset)
   
   if(is.null(min_expr)) {
-    min_expr <- cds_subset@lowerDetectionLimit
+    min_expr <- cds@lowerDetectionLimit
   } else { min_expr <- min_expr }
   cds_subset <- detectGenes(cds_subset, min_expr=min_expr)
   
