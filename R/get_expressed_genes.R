@@ -22,7 +22,7 @@ get_expressed_genes <- function(cds, cell_threshold=1, min_prop=NULL, min_condit
   cds <- cds
   if(is.null(min_prop) == F) {
     if(is.null(min_condition) == F) {
-      numCellThreshold<- min_prop*min(table(pData(cds)[,condition]))
+      numCellThreshold<- min_prop*min(table(pData(cds)[,min_condition]))
     } else {
       numCellThreshold <- min_prop*nrow(pData(cds))
     }
