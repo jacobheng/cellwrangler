@@ -4,12 +4,14 @@
 \alias{get_mean_condition_counts}
 \title{Get mean read counts for cells belonging to a condition}
 \usage{
-get_mean_condition_counts(cds, condition)
+get_mean_condition_counts(cds, condition, read_type = "UMIs")
 }
 \arguments{
 \item{cds}{a CellDataSet object used in the monocle package}
 
 \item{condition}{column name in pData(cds) that specifies the condition for classifying cells e.g. genotype}
+
+\item{read_type}{string specifying type of reads in expression matrix; defaults to "UMIs"}
 }
 \value{
 CellDataSet object

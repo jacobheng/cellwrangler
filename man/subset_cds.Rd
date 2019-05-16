@@ -4,7 +4,7 @@
 \alias{subset_cds}
 \title{Subset cds by cell group}
 \usage{
-subset_cds(cell_group, cds, group, min_expr = NULL)
+subset_cds(cell_group, cds, group, min_expr = NULL, read_type = "UMIs")
 }
 \arguments{
 \item{cell_group}{string specifying specific cell group e.g. "Rods"}
@@ -14,6 +14,8 @@ subset_cds(cell_group, cds, group, min_expr = NULL)
 \item{group}{column name in pData(cds) specifying cell group that each cell belong to e.g. "CellType"}
 
 \item{min_expr}{expression threshold to use for detectGenes() function}
+
+\item{read_type}{string specifying type of reads in expression matrix; defaults to "UMIs"}
 }
 \value{
 CellDataSet object
