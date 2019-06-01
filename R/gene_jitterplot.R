@@ -12,11 +12,15 @@
 #' @param nrow the number of rows used when laying out the panels for each gene's expression
 #' @param ncol the number of columns used when laying out the panels for each gene's expression
 #' @param panel_order the order in which genes should be layed out (left-to-right, top-to-bottom)
+#' @param gene_groups dataframe specifying groups for genes to be plotted; first column should be gene id or 
+#' gene short name (if label_by_short_name = T), and second column should be group id for gene; can be used
+#' for facet_wrap or color by using the variable "gene_group"
 #' @param plot_trend logical;whether to plot a trend line across groups in plot(s).
 #' @param color_trend color to use for trend line.
 #' @param label_by_short_name logical;label figure panels by gene_short_name (TRUE) or feature id (FALSE)
 #' @param log_expr logical; whether to log-transform expression into log10(expression + 1)
 #' @param relative_expr logical;Whether to transform expression into counts per 10,000
+#' @param scales input for facet_wrap scale; options include "free_y" or "fixed"
 #' @keywords gene_jitterplot
 #' @export
 #' @return A ggplot2 object
@@ -24,9 +28,9 @@
 #' gene_jitterplot(c("Actb", "Aldoa"), cds)
 
 gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_size = 0.75, exprs_threshold = 0,
-                             nrow = NULL, ncol = 1, panel_order = NULL, plot_trend = FALSE, 
+                             nrow = NULL, ncol = 1, panel_order = NULL, gene_groups=NULL,plot_trend = FALSE, 
                              color_trend = "orange", label_by_short_name = TRUE, 
-                             log_expr= TRUE,relative_expr = FALSE) 
+                             log_expr= TRUE,relative_expr = FALSE, scales="free_y") 
 
 {
   cds_subset <- cds[cellwrangler::findGeneID(genes, cds), ]
@@ -79,6 +83,11 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
     cds_exprs$feature_label <- factor(cds_exprs$feature_label, 
                                       levels = panel_order)
   }
+  
+  if (is.null(gene_groups) == FALSE ) {
+    cds_exprs$gene_group <- gene_groups[,2][match(cds_exprs$feature_label,gene_groups[,1])]
+  }
+  
   if(log_expr == T) {
     cds_exprs$log10_expression <- log10(cds_exprs$expression+1)
     p <- ggplot(aes_string(x = group, y = "log10_expression"), data = cds_exprs) + ylab( "Log10(Expression + 1) ")
@@ -104,7 +113,7 @@ gene_jitterplot <- function (genes, cds, group= "genotype", color = NULL, cell_s
                           fun.data = "mean_cl_boot", size = 0.35, geom = "line") 
       }
   }
-  p <- p + facet_wrap(~feature_label, nrow = nrow, ncol = ncol, scales = "free_y")
+  p <- p + facet_wrap(~feature_label, nrow = nrow, ncol = ncol, scales = scales)
   p <- p + xlab(group)
   p <- p + monocle:::monocle_theme_opts()
   p

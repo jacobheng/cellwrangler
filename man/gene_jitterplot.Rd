@@ -6,8 +6,9 @@
 \usage{
 gene_jitterplot(genes, cds, group = "genotype", color = NULL,
   cell_size = 0.75, exprs_threshold = 0, nrow = NULL, ncol = 1,
-  panel_order = NULL, plot_trend = FALSE, color_trend = "orange",
-  label_by_short_name = TRUE, log_expr = TRUE, relative_expr = FALSE)
+  panel_order = NULL, gene_groups = NULL, plot_trend = FALSE,
+  color_trend = "orange", label_by_short_name = TRUE,
+  log_expr = TRUE, relative_expr = FALSE, scales = "free_y")
 }
 \arguments{
 \item{genes}{a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")}
@@ -29,6 +30,10 @@ values less than or equal to this threshold will be converted to 0}
 
 \item{panel_order}{the order in which genes should be layed out (left-to-right, top-to-bottom)}
 
+\item{gene_groups}{dataframe specifying groups for genes to be plotted; first column should be gene id or 
+gene short name (if label_by_short_name = T), and second column should be group id for gene; can be used
+for facet_wrap or color by using the variable "gene_group"}
+
 \item{plot_trend}{logical;whether to plot a trend line across groups in plot(s).}
 
 \item{color_trend}{color to use for trend line.}
@@ -38,6 +43,8 @@ values less than or equal to this threshold will be converted to 0}
 \item{log_expr}{logical; whether to log-transform expression into log10(expression + 1)}
 
 \item{relative_expr}{logical;Whether to transform expression into counts per 10,000}
+
+\item{scales}{input for facet_wrap scale; options include "free_y" or "fixed"}
 }
 \value{
 A ggplot2 object
