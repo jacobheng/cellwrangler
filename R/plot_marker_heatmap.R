@@ -22,6 +22,8 @@
 #' @param limits limits of color scale of heatmap
 #' @param show_rownames logical; if rownames of heatmap should be displayed
 #' @param show_colnames logical; if colnames of heatmap should be displayed
+#' @param annotation_colors list for specifying annotation_row and annotation_col track colors manually as
+#' specified in pheatmap. It is possible to define the colors for only some of the features. 
 #' @keywords plot_marker_heatmap
 #' @export
 #' @return A pheatmap object
@@ -92,7 +94,7 @@ myColor <- c("blue",colorRampPalette(rev(brewer.pal(n = 7, name =
 ordered_heatmap <- pheatmap::pheatmap(tmp, scale="none", cluster_cols=F, cluster_rows=F, show_rownames=show_rownames, 
                                       labels_row=fData(cds)[rownames(tmp),]$gene_short_name,
                                       show_colnames=show_colnames,annotation_col=heatCols, color=myColor, breaks=myBreaks,
-                                      drop_levels=F)
+                                      drop_levels=F, annotation_colors = annotation_colors)
 
 return(ordered_heatmap)
 

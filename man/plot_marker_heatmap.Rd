@@ -46,6 +46,9 @@ clustering_method_rows.}
 \item{show_rownames}{logical; if rownames of heatmap should be displayed}
 
 \item{show_colnames}{logical; if colnames of heatmap should be displayed}
+
+\item{annotation_colors}{list for specifying annotation_row and annotation_col track colors manually as
+specified in pheatmap. It is possible to define the colors for only some of the features.}
 }
 \value{
 A pheatmap object
