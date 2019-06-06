@@ -10,12 +10,14 @@ plot_pathway_heatmap(path_table = NULL, path_res_df,
   sigCutoff = 0.05, clustering_distance_rows = "euclidean",
   clustering_method_rows = "complete",
   clustering_distance_cols = "euclidean",
-  clustering_method_cols = "complete")
+  clustering_method_cols = "complete", flip_axes = F,
+  square_tiles = T)
 }
 \arguments{
 \item{path_table}{a dataframe of values}
 
-\item{path_res_df}{output from the fgsea() function}
+\item{path_res_df}{dataframe should contain columns "CellType", "pathway", "NES";can be output from 
+the fgsea() function}
 
 \item{color_scale}{vector of colors to use for color scale; different options for color_scale_type requires
 different number of colors - "diverge" (3 colors), "seq" (2 colors), "rescale" (3 colors)}
@@ -38,6 +40,10 @@ clustering_distance_rows.}
 
 \item{clustering_method_cols}{clustering method used for columns. Accepts the same values as 
 clustering_method_rows.}
+
+\item{flip_axes}{logical; if x- and y-axes should be flipped}
+
+\item{square_tiles}{logical; if tiles should made into squares}
 
 \item{cluster_rows}{logical; if rows should be clustered}
 

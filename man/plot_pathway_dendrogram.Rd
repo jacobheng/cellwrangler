@@ -5,12 +5,14 @@
 \title{Plot pathway dendrogram}
 \usage{
 plot_pathway_dendrogram(path_res_df, cluster = "col",
-  clustering_distance = "euclidean", clustering_method = "complete")
+  clustering_distance = "euclidean", clustering_method = "complete",
+  flip_dendro = F)
 }
 \arguments{
-\item{path_res_df}{output from the fgsea() function}
+\item{path_res_df}{dataframe should contain columns "CellType", "pathway", "NES";can be output from 
+the fgsea() function}
 
-\item{cluster}{what to cluster; possible values are "row" or "col"}
+\item{cluster}{what to cluster; possible values are "pathway" or "CellType"}
 
 \item{clustering_distance}{distance measure used in clustering. Possible values are "correlation",
 "euclidean", "maximum", "manhattan", "canberra", "binary", or "minkowski" (defined in dist() function.)}
@@ -18,6 +20,8 @@ plot_pathway_dendrogram(path_res_df, cluster = "col",
 \item{clustering_method}{clustering method used for clustering. Accepts the same values as hclust: "ward.D", 
 "ward.D2", "single", "complete", "average" (=UPGMA), "mcquitty" (=WPGMA), "median" (=WPGMC) or 
 "centroid" (=UPGMC).}
+
+\item{flip_dendro}{logical; if dendrogram should be flipped}
 }
 \value{
 A ggplot2 object
