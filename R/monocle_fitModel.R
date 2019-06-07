@@ -22,14 +22,14 @@ monocle_fitModel <- function(cds, modelFormulaStr = "~sm.ns(Pseudotime, df=3)",
           relative_expr = TRUE, cores = 1) 
 {
   if (cores > 1) {
-    f <- monocle:::mcesApply(cds, 1, fit_model_helper, required_packages = c("BiocGenerics", 
+    f <- monocle:::mcesApply(cds, 1, monocle:::fit_model_helper, required_packages = c("BiocGenerics", 
                                                                    "Biobase", "VGAM", "plyr", "Matrix"), cores = cores, 
                    modelFormulaStr = modelFormulaStr, expressionFamily = cds@expressionFamily, 
                    relative_expr = relative_expr, disp_func = cds@dispFitInfo[["blind"]]$disp_func)
     f
   }
   else {
-    f <- monocle:::smartEsApply(cds, 1, fit_model_helper, convert_to_dense = TRUE, 
+    f <- monocle:::smartEsApply(cds, 1, monocle:::fit_model_helper, convert_to_dense = TRUE, 
                       modelFormulaStr = modelFormulaStr, expressionFamily = cds@expressionFamily, 
                       relative_expr = relative_expr, disp_func = cds@dispFitInfo[["blind"]]$disp_func)
     f
