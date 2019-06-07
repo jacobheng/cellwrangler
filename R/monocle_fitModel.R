@@ -18,7 +18,7 @@
 
 
 
-function (cds, modelFormulaStr = "~sm.ns(Pseudotime, df=3)", 
+monocle_fitModel <- function(cds, modelFormulaStr = "~sm.ns(Pseudotime, df=3)", 
           relative_expr = TRUE, cores = 1) 
 {
   if (cores > 1) {
