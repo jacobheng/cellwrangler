@@ -14,12 +14,12 @@
 #' @examples
 #' find_cds_vglm(dat)
 
-fit_cds_vglm <- function(cds, modelFormulaStr, test_cds=NULL, test_genes=c("Actb")){
+fit_cds_vglm <- function(cds, modelFormulaStr, test_cds=NULL, test_genes=c("Actb"), monocle3=F){
   if(is.null(test_cds) == T) {
     test_cds <- cds
   } else { test_cds <- test_cds }
   #Test function
-  test.VGAM <- monocle::fitModel(test_cds[findGeneID(test_genes, test_cds),], modelFormulaStr = modelFormulaStr)
+  test.VGAM <- cellwrangler::monocle_fitModel(test_cds[findGeneID(test_genes, test_cds),], modelFormulaStr = modelFormulaStr)
   test.VGAM.summary <- VGAM::summaryvglm(test.VGAM[[1]])
   #Error trapping
   robust_summaryvglm <- function(x) {tryCatch(VGAM::summaryvglm(x),warning = function(w) {print(paste(w))},  
@@ -32,7 +32,7 @@ fit_cds_vglm <- function(cds, modelFormulaStr, test_cds=NULL, test_genes=c("Actb
     return(tmp)
   }) }
   #Fit vglm
-  cds.vglm.list <- monocle::fitModel(cds, modelFormulaStr = modelFormulaStr)
+  cds.vglm.list <- cellwrangler::monocle_fitModel(cds, modelFormulaStr = modelFormulaStr)
   cds.vglm_coef <- lapply(names(cds.vglm.list),function(x){
     tmp1 <- robust_summaryvglm(cds.vglm.list[[x]])
     tmp2 <- melt(robust_coef(tmp1))

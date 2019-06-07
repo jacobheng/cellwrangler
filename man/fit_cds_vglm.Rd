@@ -5,7 +5,7 @@
 \title{Fit vector generalized linear model to a CellDataSet object}
 \usage{
 fit_cds_vglm(cds, modelFormulaStr, test_cds = NULL,
-  test_genes = c("Actb"))
+  test_genes = c("Actb"), monocle3 = F)
 }
 \arguments{
 \item{cds}{a monocle CellDataSet object}
