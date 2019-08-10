@@ -5,7 +5,8 @@
 \title{Plot mean gene expression as bar plot}
 \usage{
 gene_barplot(genes, cds, group = "genotype", color = "genotype",
-  facet_wrap = NULL, plot_trend = F, color_trend = "orange")
+  facet_wrap = NULL, facet_genes = "cols", plot_trend = F,
+  color_trend = "orange")
 }
 \arguments{
 \item{genes}{a vector of gene name(s) to plot e.g. c("Actb", "Aldoa")}
@@ -17,6 +18,9 @@ gene_barplot(genes, cds, group = "genotype", color = "genotype",
 \item{color}{column name in pData(cds) to color the bar plots with.}
 
 \item{facet_wrap}{a column in pData(cds) to facet_wrap the plots with.}
+
+\item{facet_genes}{only used if facet_wrap is NULL and there are multiple genes being plotted; if set to "cols", will
+facet genes into columns; otherwise will facet genes into rows}
 
 \item{plot_trend}{logical;whether to plot a trend line across groups in plot(s).}
 
